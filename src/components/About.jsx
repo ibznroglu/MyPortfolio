@@ -1,33 +1,55 @@
 import React from "react";
-
+import { useLanguage } from "../context/LanguageContext";
 
 const About = () => {
+  const { t } = useLanguage();
+
   return (
-    <div name="about" className="w-full h-screen bg-[#0a192f] text-gray-300">
-      <div className="flex flex-col justify-center items-center w-full h-full">
-        <div className="max-w-[1000px] w-full grid grid-cols-2 gap-8">
-          <div className="sm:text-right pb-8 pl-4">
-            <p className="text-4xl font-bold inline border-b-4 border-pink-600">
-              About
-            </p>
-          </div>
-          <div></div>
+    <div className="w-full min-h-[calc(100vh-80px)] bg-[#0a192f] text-gray-300 py-16">
+      <div className="max-w-6xl mx-auto px-8">
+        <div className="text-center mb-12">
+          <h2 className="text-5xl font-bold inline border-b-4 border-pink-600 pb-2">
+            {t.about.title}
+          </h2>
         </div>
-        <div className="max-w-[1000px] w-full grid sm:grid-cols-2 gap-8 px-4">
-          <div className="sm:text-right text-4xl font-bold">
-          
-            <p>
-              Hi, nice to meet you. Please take a look
-              around.
+        <div className="grid md:grid-cols-2 gap-8">
+          <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
+            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
+              {t.about.experience}
+            </h3>
+            <p className="text-gray-300 leading-relaxed">
+              {t.about.experienceText}
             </p>
           </div>
-          <div>
-            <p>
-              I am passionate about building excellent software that improves
-              the lives of those around me. I am excited in creating software
-              for clients ranging from individuals and small-businesses all the
-              way to large enterprise corporations. I want to constantly improve
-              myself.
+          <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
+            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
+              {t.about.approach}
+            </h3>
+            <p className="text-gray-300 leading-relaxed">
+              {t.about.approachText}
+            </p>
+          </div>
+          <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
+            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
+              {t.about.tech}
+            </h3>
+            <p className="text-gray-300 leading-relaxed">
+              {t.about.techText}
+            </p>
+            <p className="text-gray-300 leading-relaxed mt-4">
+              {t.about.toolsText}
+            </p>
+          </div>
+          <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
+            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+              <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
+              {t.about.goals}
+            </h3>
+            <p className="text-gray-300 leading-relaxed">
+              {t.about.goalsText}
             </p>
           </div>
         </div>

@@ -1,33 +1,51 @@
 import React from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
+import { useLanguage } from "../context/LanguageContext";
 import IsaImg from "../assets/isa.png";
 
-const Home = () => {
+const Home = ({ setActiveSection }) => {
+  const { t } = useLanguage();
+
   return (
-    <div name="home" className="w-full h-screen bg-[#0a192f]">
-      {/* Container */}
-      <div className="max-w-[1000px] mx-auto px-8 flex flex-col justify-center h-full">
-      <img src={IsaImg} alt="Isa Image" style={{ width: "200px" }} />
-        <p className="text-pink-600">Hi, my name is</p>
-        <h1 className="text-4xl sm:text-4xl font-bold text-[#ccd6f6]">
-          İSA BEZENİROĞLU
-        </h1>
-        <h2 className="text-4xl sm:text-7xl font-bold text-[#8892b0]">
-          I'm a Front-End Developer.
-        </h2>
-        <p className="text-[#8892b0] py-4 max-w-[700px]">
-          At the same time, I'm a Computer Education and
-          Instructional Technology (CEIT) Teacher. I enthusiastic about in
-          building (and occasionally designing) digital experiences. Currently,
-          I’m focused on building responsive web applications.
-        </p>
-        <div>
-          <button className="text-white group border-2 px-6 py-3 my-2 flex items-center hover:bg-pink-600 hover:border-pink-600">
-            View Work
-            <span className="group-hover:rotate-90 duration-300">
-              <HiArrowNarrowRight className="ml-3 " />
-            </span>
-          </button>
+    <div className="w-full min-h-[calc(100vh-80px)] flex items-center justify-center bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
+      <div className="max-w-6xl mx-auto px-8 py-16">
+        <div className="flex flex-col lg:flex-row items-center gap-12">
+          <div className="flex-shrink-0">
+            <div className="relative">
+              <div className="absolute inset-0 bg-pink-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
+              <img 
+                src={IsaImg} 
+                alt="İsa Bezeniroğlu" 
+                className="relative w-64 h-64 rounded-full object-cover border-4 border-pink-600 shadow-2xl shadow-pink-600/50" 
+              />
+              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-[#0a192f] animate-pulse shadow-lg"></div>
+            </div>
+          </div>
+          <div className="flex-1 text-center lg:text-left space-y-6">
+            <div>
+              <p className="text-pink-600 text-xl font-semibold mb-3">{t.home.title}</p>
+              <h1 className="text-6xl lg:text-7xl font-bold text-[#ccd6f6] mb-4 leading-tight">
+                {t.home.name}
+              </h1>
+              <h2 className="text-3xl lg:text-4xl font-bold text-[#8892b0] mb-6">
+                {t.home.subtitle}
+              </h2>
+            </div>
+            <p className="text-[#8892b0] text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+              {t.home.description}
+            </p>
+            <div className="flex gap-4 justify-center lg:justify-start">
+              <button 
+                onClick={() => setActiveSection('projects')}
+                className="text-white border-2 border-pink-600 bg-pink-600/10 px-8 py-4 flex items-center gap-2 hover:bg-pink-600 hover:shadow-xl hover:shadow-pink-600/50 transition-all duration-300 transform hover:scale-105 rounded-lg group"
+              >
+                {t.home.viewProjects}
+                <span className="group-hover:translate-x-1 transition-transform">
+                  <HiArrowNarrowRight className="text-xl" />
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
