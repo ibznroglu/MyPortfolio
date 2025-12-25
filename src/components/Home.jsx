@@ -1,10 +1,13 @@
 import React from "react";
 import { HiArrowNarrowRight } from "react-icons/hi";
 import { useLanguage } from "../context/LanguageContext";
+import { useVisitorTracking } from "../hooks/useVisitorTracking";
+import { HiUsers, HiUserGroup } from "react-icons/hi";
 import IsaImg from "../assets/isa.png";
 
 const Home = ({ setActiveSection }) => {
   const { t } = useLanguage();
+  const { totalVisitors, activeUsers } = useVisitorTracking();
 
   return (
     <div className="w-full min-h-[calc(100vh-80px)] flex items-center justify-center bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
@@ -31,6 +34,32 @@ const Home = ({ setActiveSection }) => {
             <p className="text-[#8892b0] text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {t.home.description}
             </p>
+            
+            {/* Ziyaretçi İstatistikleri */}
+            <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
+              <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-pink-600/30 shadow-lg">
+                <div className="bg-pink-600/20 p-2 rounded-lg">
+                  <HiUsers className="text-pink-600 text-xl" />
+                </div>
+                <div>
+                  <p className="text-[#8892b0] text-sm">Toplam Ziyaretçi</p>
+                  <p className="text-[#ccd6f6] text-xl font-bold">{totalVisitors.toLocaleString()}</p>
+                </div>
+              </div>
+              
+              <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-green-500/30 shadow-lg">
+                <div className="bg-green-500/20 p-2 rounded-lg">
+                  <HiUserGroup className="text-green-500 text-xl" />
+                </div>
+                <div>
+                  <p className="text-[#8892b0] text-sm">Aktif Kullanıcı</p>
+                  <p className="text-[#ccd6f6] text-xl font-bold flex items-center gap-2">
+                    {activeUsers}
+                    <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
+                  </p>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
