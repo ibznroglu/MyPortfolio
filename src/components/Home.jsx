@@ -34,17 +34,6 @@ const Home = ({ setActiveSection }) => {
             <p className="text-[#8892b0] text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {t.home.description}
             </p>
-            <div className="flex gap-4 justify-center lg:justify-start">
-              <button 
-                onClick={() => setActiveSection('projects')}
-                className="text-white border-2 border-pink-600 bg-pink-600/10 px-8 py-4 flex items-center gap-2 hover:bg-pink-600 hover:shadow-xl hover:shadow-pink-600/50 transition-all duration-300 transform hover:scale-105 rounded-lg group"
-              >
-                {t.home.viewProjects}
-                <span className="group-hover:translate-x-1 transition-transform">
-                  <HiArrowNarrowRight className="text-xl" />
-                </span>
-              </button>
-            </div>
           </div>
         </div>
       </div>
