@@ -73,7 +73,7 @@ export const LanguageProvider = ({ children }) => {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
         subtitle: 'React & TypeScript Developer',
-        description: 'React ve TypeScript odaklı Front-End Developer. Bankacılık ve finans sektöründe enterprise seviyesinde uygulamalar geliştirme deneyimine sahip. Modern front-end mimarileri ve best practices konusunda uzman.',
+        description: "React, JavaScript (ES6+) ve TypeScript odaklı Front-End Developer. Bankacılık ve finans sektörlerinde kurumsal düzeyde uygulama deneyimine sahip; Halkbank dahil büyük bankalar için gayrimenkul değerleme platformları geliştiriyorum. Modern front-end mimarileri, Agile/Scrum metodolojileri, CI/CD pipeline'ları ve RESTful API entegrasyonu konularında yetkinim. Temiz kod, SOLID prensipleri, performans optimizasyonu ve sürdürülebilir component tabanlı tasarıma odaklanıyorum.",
         viewProjects: 'Projeleri İncele'
       },
       about: {
