@@ -27,9 +27,6 @@ const Home = ({ setActiveSection }) => {
               <h1 className="text-6xl lg:text-7xl font-bold text-[#ccd6f6] mb-4 leading-tight">
                 {t.home.name}
               </h1>
-              <h2 className="text-3xl lg:text-4xl font-bold text-[#8892b0] mb-6">
-                {t.home.subtitle}
-              </h2>
             </div>
             <p className="text-[#8892b0] text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
               {t.home.description}
