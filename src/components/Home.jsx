@@ -43,7 +43,7 @@ const Home = ({ setActiveSection }) => {
                   <HiUsers className="text-pink-600 text-xl" />
                 </div>
                 <div>
-                  <p className="text-[#8892b0] text-sm">Toplam Ziyaretçi</p>
+                  <p className="text-[#8892b0] text-sm">{t.visitor.total}</p>
                   <p className="text-[#ccd6f6] text-xl font-bold">{totalVisitors.toLocaleString()}</p>
                 </div>
               </div>
@@ -53,7 +53,7 @@ const Home = ({ setActiveSection }) => {
                   <HiUserGroup className="text-green-500 text-xl" />
                 </div>
                 <div>
-                  <p className="text-[#8892b0] text-sm">Aktif Kullanıcı</p>
+                  <p className="text-[#8892b0] text-sm">{t.visitor.active}</p>
                   <p className="text-[#ccd6f6] text-xl font-bold flex items-center gap-2">
                     {activeUsers}
                     <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
