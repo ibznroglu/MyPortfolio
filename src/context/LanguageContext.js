@@ -25,7 +25,7 @@ export const LanguageProvider = ({ children }) => {
       home: {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
-        description: 'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Experienced in enterprise-level applications for banking and finance sectors, developing real estate valuation platforms for major banks including Halkbank. Skilled in modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integration. Focused on clean code, SOLID principles, performance optimization, and maintainable component-based design.',
+        description: 'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Experienced in enterprise-level applications for banking and finance sectors, developing real estate valuation platforms for major banks including Halkbank. Skilled in modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integration. Focused on clean code, SOLID principles, performance optimization, and maintainable component-based cccc.',
         viewProjects: 'View Projects'
       },
       about: {
