@@ -25,7 +25,7 @@ export const LanguageProvider = ({ children }) => {
       home: {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
-        description: 'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Experienced in enterprise-level applications for banking and finance sectors, developing real estate valuation platforms for major banks including Halkbank. Skilled in modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integration. Focused on clean code, SOLID principles, performance optimization, and maintainable component-based design.',
+        description: 'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Over the past few years, I’ve worked on enterprise-scale web applications in the banking and finance domain, contributing to real estate valuation platforms and the digitization of related business processes for major banks in Türkiye. I have experience with modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integrations. I focus on clean code, SOLID principles, and maintainable component-based architecture. In addition, I develop mobile applications using React Native as personal projects.',
         viewProjects: 'View Projects'
       },
       visitor: {
@@ -75,7 +75,7 @@ export const LanguageProvider = ({ children }) => {
       home: {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
-        description: "React, JavaScript (ES6+) ve TypeScript odaklı Front-End Developer. Bankacılık ve finans sektörlerinde kurumsal düzeyde uygulama deneyimine sahip; Halkbank dahil büyük bankalar için gayrimenkul değerleme platformları geliştiriyorum. Modern front-end mimarileri, Agile/Scrum metodolojileri, CI/CD pipeline'ları ve RESTful API entegrasyonu konularında yetkinim. Temiz kod, SOLID prensipleri, performans optimizasyonu ve sürdürülebilir component tabanlı tasarıma odaklanıyorum.",
+        description: "React, JavaScript (ES6+) ve TypeScript odaklı Front-End Developer. Son yıllarda bankacılık ve finans sektöründe kurumsal ölçekte web uygulamaları geliştirerek; Türkiye’deki majör bankalara yönelik gayrimenkul değerleme platformları ve ilgili iş süreçlerinin dijitalleştirilmesinde görev aldım. Modern front-end mimarileri, Agile/Scrum metodolojileri, CI/CD pipeline’ları ve RESTful API entegrasyonları konularında deneyimliyim. Temiz kod, SOLID prensipleri ve sürdürülebilir component tabanlı mimariyi merkeze alıyorum. Ayrıca React Native kullanarak kişisel projeler kapsamında mobil uygulamalar geliştiriyorum.",
         viewProjects: 'Projeleri İncele'
       },
       visitor: {
