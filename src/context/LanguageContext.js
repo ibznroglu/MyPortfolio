@@ -39,9 +39,9 @@ export const LanguageProvider = ({ children }) => {
         approach: 'Approach',
         approachText: 'Working with Agile/Scrum methodologies. Deploying to production via CI/CD pipelines (GitHub Actions, Jenkins). Focused on clean code, SOLID principles, and performance optimization. Effective collaboration with cross-functional teams.',
         tech: 'Tech Stack',
-        techText: 'React, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
+        techText: 'React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
         tools: 'Tools',
-        toolsText: 'RESTful API integrations, Git/GitHub, Docker, Webpack, Jira, CI/CD pipelines',
+        toolsText: 'RESTful API integrations, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum',
         goals: 'Goals',
         goalsText: 'Continuously learning and improving. Following modern front-end technologies and applying best practices. Writing quality, maintainable code with focus on user experience.'
       },
@@ -89,9 +89,9 @@ export const LanguageProvider = ({ children }) => {
         approach: 'Yaklaşım',
         approachText: 'Agile/Scrum metodolojileri ile çalışıyorum. CI/CD pipeline\'ları (GitHub Actions, Jenkins) kullanarak production\'a deploy ediyorum. Clean code, SOLID prensipleri ve performans optimizasyonu konularına odaklanıyorum. Cross-functional takımlarla etkili iş birliği yapıyorum.',
         tech: 'Teknoloji Stack',
-        techText: 'React, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
+        techText: 'React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
         tools: 'Araçlar',
-        toolsText: 'RESTful API entegrasyonları, Git/GitHub, Docker, Webpack, Jira, CI/CD pipeline\'ları',
+        toolsText: 'RESTful API entegrasyonları, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum',
         goals: 'Hedefler',
         goalsText: 'Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Modern front-end teknolojilerini takip ediyor, best practices uyguluyorum. Kullanıcı deneyimini ön planda tutarak, kaliteli ve sürdürülebilir kod yazıyorum.'
       },
