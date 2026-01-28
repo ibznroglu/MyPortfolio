@@ -35,7 +35,7 @@ export const LanguageProvider = ({ children }) => {
       about: {
         title: 'About Me',
         experience: 'Experience',
-        experienceText: 'Working as a Front-End Developer at KEY YAZILIM. Developing real estate valuation platforms (Invex, Hypotex, Propex) for Halkbank and other major banks. Building scalable, responsive, and cross-browser compatible interfaces using React and TypeScript.',
+        experienceText: 'Worked as a Front-End Developer at KEY Yazılım. Contributed to the development of real estate valuation platforms (Invex, Hypotex, Propex) for major banks in Türkiye within the banking and finance domain. Built scalable, responsive, and cross-browser compatible enterprise web interfaces using React and TypeScript. Alongside my professional work, I develop personal mobile applications with React Native, applying shared architectural and engineering principles across web and mobile platforms.',
         approach: 'Approach',
         approachText: 'Working with Agile/Scrum methodologies. Deploying to production via CI/CD pipelines (GitHub Actions, Jenkins). Focused on clean code, SOLID principles, and performance optimization. Effective collaboration with cross-functional teams.',
         tech: 'Tech Stack',
@@ -85,7 +85,7 @@ export const LanguageProvider = ({ children }) => {
       about: {
         title: 'Hakkımda',
         experience: 'Deneyim',
-        experienceText: 'KEY YAZILIM\'da Front-End Developer olarak çalışıyorum. Halkbank ve diğer büyük bankalar için gayrimenkul değerleme platformları (Invex, Hypotex, Propex) geliştiriyorum. React ve TypeScript kullanarak ölçeklenebilir, responsive ve cross-browser uyumlu arayüzler tasarlıyorum.',
+        experienceText: 'KEY Yazılım bünyesinde Front-End Developer olarak görev aldım. Bankacılık ve finans sektöründe, Türkiye\'deki majör bankalara yönelik gayrimenkul değerleme platformları (Invex, Hypotex, Propex) geliştirilmesinde aktif rol üstlendim. React ve TypeScript kullanarak ölçeklenebilir, responsive ve cross-browser uyumlu kurumsal web arayüzleri tasarladım. Kurumsal projelerimin yanı sıra, React Native ile kişisel mobil uygulamalar geliştirerek web ve mobil mimariler arasında ortak tasarım ve mühendislik prensipleri uyguluyorum.',
         approach: 'Yaklaşım',
         approachText: 'Agile/Scrum metodolojileri ile çalışıyorum. CI/CD pipeline\'ları (GitHub Actions, Jenkins) kullanarak production\'a deploy ediyorum. Clean code, SOLID prensipleri ve performans optimizasyonu konularına odaklanıyorum. Cross-functional takımlarla etkili iş birliği yapıyorum.',
         tech: 'Teknoloji Stack',
