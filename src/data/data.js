@@ -1,13 +1,13 @@
-import GamingProImg from '../assets/projects/gamingpro.png'
+import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.png'
 import RentalCarImg from '../assets/projects/rentalcar.png'
 
 export const data = [
-    {
+     {
         id: 1,
-        name: "Gaming Pro Market",
-        image: GamingProImg,
+        name: "Vargeloglu Insaat",
+        image: VargelogluInsaatImg,
         github: "",
-        live: "https://gamingpromarket.com/",
+        live: "https://www.vargelogluinsaat.com/",
     },
     {
         id: 2,
