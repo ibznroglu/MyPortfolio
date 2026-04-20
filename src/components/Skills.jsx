@@ -27,7 +27,7 @@ const Skills = () => {
     { name: "TYPESCRIPT", icon: TypeScriptImg },
     { name: "JAVASCRIPT", icon: JavaScript },
     { name: "NEXT.JS", icon: NextJsImg },
-    { name: "VUE", icon: VueImg },
+    { name: "VUE.JS", icon: VueImg },
     { name: "REDUX", icon: ReactReduxImg },
     { name: "HTML", icon: HTML },
     { name: "CSS", icon: CSS },
