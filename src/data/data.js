@@ -4,7 +4,7 @@ import RentalCarImg from '../assets/projects/rentalcar.png'
 export const data = [
      {
         id: 1,
-        name: "Vargeloglu Insaat",
+        name: "Vargeloglu İnşaat",
         image: VargelogluInsaatImg,
         github: "",
         live: "https://www.vargelogluinsaat.com/",
