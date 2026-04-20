@@ -11,26 +11,34 @@ import JiraImg from "../assets/jira.png";
 import DockerImg from "../assets/docker.png";
 import WebPackImg from "../assets/webpack.png";
 import SassImg from "../assets/sass.png";
+import TypeScriptImg from "../assets/typescript.png";
+import ReactNativeImg from "../assets/reactnative.png";
+import MaterialUIImg from "../assets/materialui.png";
+import AntDesignImg from "../assets/antdesign.png";
+import NextJsImg from "../assets/nextjs.png";
+import VueImg from "../assets/vue.png";
 
 const Skills = () => {
   const { t } = useLanguage();
 
   const skills = [
-    { name: "REACT", icon: ReactImg, type: "image" },
-    { name: "REACT NATIVE", icon: null, type: "text", bg: "#61dafb", text: "RN", textColor: "#0a192f" },
-    { name: "TYPESCRIPT", icon: null, type: "text", bg: "#3178c6", text: "TS", textColor: "white" },
-    { name: "JAVASCRIPT", icon: JavaScript, type: "image" },
-    { name: "REDUX", icon: ReactReduxImg, type: "image" },
-    { name: "HTML", icon: HTML, type: "image" },
-    { name: "CSS", icon: CSS, type: "image" },
-    { name: "SCSS", icon: SassImg, type: "image" },
-    { name: "TAILWIND", icon: Tailwind, type: "image" },
-    { name: "MATERIAL UI", icon: null, type: "text", bg: "#007fff", text: "MUI", textColor: "white" },
-    { name: "ANT DESIGN", icon: null, type: "text", bg: "#0170fe", text: "ANT", textColor: "white" },
-    { name: "GITHUB", icon: GitHub, type: "image" },
-    { name: "JIRA", icon: JiraImg, type: "image" },
-    { name: "DOCKER", icon: DockerImg, type: "image" },
-    { name: "WEBPACK", icon: WebPackImg, type: "image" },
+    { name: "REACT", icon: ReactImg },
+    { name: "REACT NATIVE", icon: ReactNativeImg },
+    { name: "TYPESCRIPT", icon: TypeScriptImg },
+    { name: "JAVASCRIPT", icon: JavaScript },
+    { name: "NEXT.JS", icon: NextJsImg },
+    { name: "VUE", icon: VueImg },
+    { name: "REDUX", icon: ReactReduxImg },
+    { name: "HTML", icon: HTML },
+    { name: "CSS", icon: CSS },
+    { name: "SCSS", icon: SassImg },
+    { name: "TAILWIND", icon: Tailwind },
+    { name: "MATERIAL UI", icon: MaterialUIImg },
+    { name: "ANT DESIGN", icon: AntDesignImg },
+    { name: "GITHUB", icon: GitHub },
+    { name: "JIRA", icon: JiraImg },
+    { name: "DOCKER", icon: DockerImg },
+    { name: "WEBPACK", icon: WebPackImg },
   ];
 
   return (
@@ -48,18 +56,11 @@ const Skills = () => {
               key={index}
               className="bg-[#112240] p-6 rounded-xl border border-pink-600/20 hover:border-pink-600 hover:shadow-xl hover:shadow-pink-600/30 transition-all duration-300 transform hover:scale-105 text-center group"
             >
-              {skill.type === "image" ? (
-                <img className="w-16 h-16 mx-auto mb-3 group-hover:scale-110 transition-transform" src={skill.icon} alt={skill.name} />
-              ) : (
-                <div
-                  className="w-16 h-16 mx-auto mb-3 flex items-center justify-center rounded-lg"
-                  style={{ backgroundColor: skill.bg }}
-                >
-                  <span className="font-bold text-xs" style={{ color: skill.textColor }}>
-                    {skill.text}
-                  </span>
-                </div>
-              )}
+              <img
+                className="w-16 h-16 mx-auto mb-3 group-hover:scale-110 transition-transform"
+                src={skill.icon}
+                alt={skill.name}
+              />
               <p className="text-sm font-semibold">{skill.name}</p>
             </div>
           ))}
