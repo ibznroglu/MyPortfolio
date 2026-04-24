@@ -28,7 +28,7 @@ Modern, responsive portfolio website built with React and Tailwind CSS. Features
 
 1. Clone the repository:
 ```bash
-git clone https://github.com/yourusername/MyPortfolio.git
+git clone https://github.com/ibznroglu/MyPortfolio.git
 cd MyPortfolio
 ```
 
@@ -122,8 +122,9 @@ This project is licensed under the MIT License.
 **İsa Bezeniroğlu**
 
 - Email: ibznroglu@gmail.com
-- LinkedIn: [Your LinkedIn](https://linkedin.com/in/yourprofile)
-- GitHub: [Your GitHub](https://github.com/yourusername)
+- LinkedIn: [İsa Bezeniroğlu](https://linkedin.com/in/isabezeniroglu)
+- GitHub: [ibznroglu](https://github.com/ibznroglu)
+- Live Demo: [isabezeniroglu.vercel.app](https://isabezeniroglu.vercel.app/)
 
 ## 🙏 Acknowledgments
 
