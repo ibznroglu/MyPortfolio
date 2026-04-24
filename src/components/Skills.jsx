@@ -50,14 +50,14 @@ const Skills = () => {
           </h2>
           <p className="py-4 text-gray-400">{t.skills.subtitle}</p>
         </div>
-        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6 gap-4">
           {skills.map((skill, index) => (
             <div
               key={index}
-              className="bg-[#112240] p-6 rounded-xl border border-pink-600/20 hover:border-pink-600 hover:shadow-xl hover:shadow-pink-600/30 transition-all duration-300 transform hover:scale-105 text-center group"
+              className="bg-[#112240] p-4 rounded-xl border border-pink-600/20 hover:border-pink-600 hover:shadow-xl hover:shadow-pink-600/30 transition-all duration-300 transform hover:scale-105 text-center group"
             >
               <img
-                className="w-16 h-16 mx-auto mb-3 group-hover:scale-110 transition-transform"
+                className="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform"
                 src={skill.icon}
                 alt={skill.name}
               />
