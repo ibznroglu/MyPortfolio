@@ -57,7 +57,7 @@ const Skills = () => {
               className="bg-[#112240] p-4 rounded-xl border border-pink-600/20 hover:border-pink-600 hover:shadow-xl hover:shadow-pink-600/30 transition-all duration-300 transform hover:scale-105 text-center group"
             >
               <img
-                className="w-12 h-12 mx-auto mb-3 group-hover:scale-110 transition-transform"
+                className="w-11 h-11 mx-auto mb-3 group-hover:scale-110 transition-transform"
                 src={skill.icon}
                 alt={skill.name}
               />
