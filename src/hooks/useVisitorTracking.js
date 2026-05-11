@@ -5,6 +5,7 @@ import { database } from '../config/firebase';
 export const useVisitorTracking = () => {
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [activeUsers, setActiveUsers] = useState(0);
+  const [loading, setLoading] = useState(true);
   const visitorIdRef = useRef(null);
 
   useEffect(() => {
@@ -24,7 +25,6 @@ export const useVisitorTracking = () => {
     const visitorRef = ref(database, `activeUsers/${visitorId}`);
     const totalVisitorsRef = ref(database, 'totalVisitors');
 
-    // Listener'ları ÖNCE kur
     const unsubscribeActiveUsers = onValue(activeUsersRef, (snapshot) => {
       if (snapshot.exists()) {
         const activeUsersData = snapshot.val();
@@ -46,17 +46,14 @@ export const useVisitorTracking = () => {
       }
     });
 
-    // SONRA yazma işlemlerini yap
     const init = async () => {
       try {
-        // Aktif kullanıcı ekle
         await set(visitorRef, {
           timestamp: serverTimestamp(),
           lastSeen: Date.now()
         });
         onDisconnect(visitorRef).remove();
 
-        // Toplam ziyaretçi güncelle
         const snapshot = await get(totalVisitorsRef);
         if (!snapshot.exists()) {
           await set(totalVisitorsRef, 1);
@@ -71,6 +68,8 @@ export const useVisitorTracking = () => {
         }
       } catch (error) {
         console.error('Visitor tracking error:', error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -93,7 +92,7 @@ export const useVisitorTracking = () => {
         set(ref(database, `activeUsers/${visitorIdRef.current}`), null).catch(() => {});
       }
     };
-  }, []); // isInitializedRef kaldırıldı
+  }, []);
 
-  return { totalVisitors, activeUsers };
+  return { totalVisitors, activeUsers, loading };
 };
