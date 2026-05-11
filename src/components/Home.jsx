@@ -1,5 +1,4 @@
 import React from "react";
-import { HiArrowNarrowRight } from "react-icons/hi";
 import { useLanguage } from "../context/LanguageContext";
 import { useVisitorTracking } from "../hooks/useVisitorTracking";
 import { HiUsers, HiUserGroup } from "react-icons/hi";

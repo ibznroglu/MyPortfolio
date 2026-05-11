@@ -6,10 +6,8 @@ export const useVisitorTracking = () => {
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [activeUsers, setActiveUsers] = useState(0);
   const visitorIdRef = useRef(null);
-  const isInitializedRef = useRef(false);
 
   useEffect(() => {
-    // Her ziyaretçi için benzersiz ID oluştur
     const getOrCreateVisitorId = () => {
       let visitorId = localStorage.getItem('visitorId');
       if (!visitorId) {
@@ -22,89 +20,62 @@ export const useVisitorTracking = () => {
     const visitorId = getOrCreateVisitorId();
     visitorIdRef.current = visitorId;
 
-    // Aktif kullanıcılar referansı
     const activeUsersRef = ref(database, 'activeUsers');
     const visitorRef = ref(database, `activeUsers/${visitorId}`);
+    const totalVisitorsRef = ref(database, 'totalVisitors');
 
-    // Ziyaretçiyi aktif kullanıcılar listesine ekle
-    const addActiveUser = async () => {
-      try {
-        await set(visitorRef, {
-          timestamp: serverTimestamp(),
-          lastSeen: Date.now()
-        });
-
-        // Kullanıcı sayfadan ayrıldığında listeden çıkar
-        onDisconnect(visitorRef).remove();
-      } catch (error) {
-        console.error('Aktif kullanıcı eklenirken hata:', error);
-      }
-    };
-
-    // Toplam ziyaretçi sayısını kontrol et ve artır
-    const updateTotalVisitors = async () => {
-      try {
-        const totalVisitorsRef = ref(database, 'totalVisitors');
-        const snapshot = await get(totalVisitorsRef);
-        
-        if (!snapshot.exists()) {
-          // İlk ziyaretçi
-          await set(totalVisitorsRef, 1);
-        } else {
-          // Yeni ziyaretçi kontrolü (localStorage ile)
-          const lastVisitDate = localStorage.getItem('lastVisitDate');
-          const today = new Date().toDateString();
-          
-          if (lastVisitDate !== today) {
-            // Bugün ilk ziyareti
-            const currentTotal = snapshot.val();
-            await set(totalVisitorsRef, currentTotal + 1);
-            localStorage.setItem('lastVisitDate', today);
-          }
-        }
-      } catch (error) {
-        console.error('Toplam ziyaretçi güncellenirken hata:', error);
-      }
-    };
-
-    // Aktif kullanıcıları dinle
+    // Listener'ları ÖNCE kur
     const unsubscribeActiveUsers = onValue(activeUsersRef, (snapshot) => {
       if (snapshot.exists()) {
         const activeUsersData = snapshot.val();
-        const activeUsersList = Object.keys(activeUsersData);
-        
-        // 30 saniyeden eski kullanıcıları temizle
         const now = Date.now();
-        const validActiveUsers = activeUsersList.filter(userId => {
-          const userData = activeUsersData[userId];
-          // lastSeen değerini kontrol et (timestamp server-side olduğu için lastSeen kullanıyoruz)
-          const lastSeen = userData?.lastSeen;
+        const validActiveUsers = Object.keys(activeUsersData).filter(userId => {
+          const lastSeen = activeUsersData[userId]?.lastSeen;
           if (!lastSeen) return false;
-          return (now - lastSeen) < 30000; // 30 saniye
+          return (now - lastSeen) < 30000;
         });
-        
         setActiveUsers(validActiveUsers.length);
       } else {
         setActiveUsers(0);
       }
     });
 
-    // Toplam ziyaretçi sayısını dinle
-    const totalVisitorsRef = ref(database, 'totalVisitors');
     const unsubscribeTotalVisitors = onValue(totalVisitorsRef, (snapshot) => {
       if (snapshot.exists()) {
         setTotalVisitors(snapshot.val());
       }
     });
 
-    // İlk yüklemede aktif kullanıcı ekle ve toplam ziyaretçiyi güncelle
-    if (!isInitializedRef.current) {
-      addActiveUser();
-      updateTotalVisitors();
-      isInitializedRef.current = true;
-    }
+    // SONRA yazma işlemlerini yap
+    const init = async () => {
+      try {
+        // Aktif kullanıcı ekle
+        await set(visitorRef, {
+          timestamp: serverTimestamp(),
+          lastSeen: Date.now()
+        });
+        onDisconnect(visitorRef).remove();
 
-    // Her 10 saniyede bir aktif kullanıcı durumunu güncelle
+        // Toplam ziyaretçi güncelle
+        const snapshot = await get(totalVisitorsRef);
+        if (!snapshot.exists()) {
+          await set(totalVisitorsRef, 1);
+          localStorage.setItem('lastVisitDate', new Date().toDateString());
+        } else {
+          const lastVisitDate = localStorage.getItem('lastVisitDate');
+          const today = new Date().toDateString();
+          if (lastVisitDate !== today) {
+            await set(totalVisitorsRef, snapshot.val() + 1);
+            localStorage.setItem('lastVisitDate', today);
+          }
+        }
+      } catch (error) {
+        console.error('Visitor tracking error:', error);
+      }
+    };
+
+    init();
+
     const heartbeatInterval = setInterval(() => {
       if (visitorIdRef.current) {
         set(ref(database, `activeUsers/${visitorIdRef.current}`), {
@@ -114,19 +85,15 @@ export const useVisitorTracking = () => {
       }
     }, 10000);
 
-    // Cleanup
     return () => {
       unsubscribeActiveUsers();
       unsubscribeTotalVisitors();
       clearInterval(heartbeatInterval);
-      
-      // Sayfadan ayrılırken aktif kullanıcı listesinden çıkar
       if (visitorIdRef.current) {
         set(ref(database, `activeUsers/${visitorIdRef.current}`), null).catch(() => {});
       }
     };
-  }, []);
+  }, []); // isInitializedRef kaldırıldı
 
   return { totalVisitors, activeUsers };
 };
-
