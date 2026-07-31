@@ -1,133 +1,212 @@
-# Portfolio Website
+# Portfolio — İsa Bezeniroğlu
 
-Modern, responsive portfolio website built with React and Tailwind CSS. Features real-time visitor tracking, multilingual support (TR/EN), and a sleek dark theme design.
+Personal portfolio site built with React and Tailwind CSS, featuring bilingual
+content (TR/EN), real-time visitor analytics backed by Firebase, and a
+build-time generated sitemap.
 
-## 🚀 Features
+**Live:** [isabezeniroglu.vercel.app](https://isabezeniroglu.vercel.app/)
 
-- **Modern UI/UX**: Dark theme with gradient backgrounds and smooth animations
-- **Responsive Design**: Fully responsive across all devices and screen sizes
-- **Multilingual Support**: Turkish and English language switching
-- **Real-time Analytics**: Firebase Realtime Database integration for visitor tracking
-  - Total unique visitors counter
-  - Active users counter (last 30 seconds)
-- **Interactive Navigation**: Smooth section transitions with active state indicators
-- **Project Showcase**: Display of personal projects with live demos and code links
-- **Contact Form**: Integrated contact section for easy communication
-- **Skills Display**: Visual representation of technical skills and tools
+---
 
-## 🛠️ Tech Stack
+## Features
 
-- **Frontend Framework**: React 18.2.0
-- **Styling**: Tailwind CSS 3.3.2
-- **Icons**: React Icons
-- **Database**: Firebase Realtime Database
-- **Build Tool**: Create React App
-- **Language**: JavaScript (ES6+)
+- **Bilingual content** — Turkish and English, switched at runtime through a
+  React context provider. No page reload, no route change.
+- **Real-time visitor analytics** — Firebase Realtime Database tracks total
+  unique visitors and concurrent active users. Presence is maintained with a
+  10-second heartbeat and cleaned up via `onDisconnect`, so a closed tab drops
+  out of the active count without a server-side job.
+- **Responsive dark theme** — Gradient backgrounds and section transitions,
+  laid out mobile-first with Tailwind.
+- **Section navigation** — Smooth scrolling with active-state indicators via
+  `react-scroll`.
+- **Project showcase** — Personal projects with live demo and source links.
+- **Contact form** — Posts to a [Getform](https://getform.io) endpoint; no
+  backend required.
+- **SEO metadata** — Canonical URL, Open Graph tags, and `Person` + `WebSite`
+  JSON-LD structured data. See [SEO](#seo) below.
 
-## 📦 Installation
+## Tech stack
 
-1. Clone the repository:
+| Layer      | Choice                                   |
+| ---------- | ---------------------------------------- |
+| Framework  | React 18.2                               |
+| Styling    | Tailwind CSS 3.3                         |
+| Icons      | React Icons                              |
+| Scrolling  | react-scroll                             |
+| Data       | Firebase Realtime Database 12.x          |
+| Forms      | Getform                                  |
+| Build      | Create React App (`react-scripts` 5.0.1) |
+| Hosting    | Vercel                                   |
+| Runtime    | Node.js 24.x                             |
+
+> **Note on the build tool:** Create React App is no longer maintained — the
+> last `react-scripts` release was April 2022. It still builds correctly, but a
+> migration to Vite is planned. See [Roadmap](#roadmap).
+
+## Getting started
+
+**Prerequisites:** Node.js 24.x (pinned via the `engines` field) and npm.
+
 ```bash
 git clone https://github.com/ibznroglu/MyPortfolio.git
 cd MyPortfolio
-```
-
-2. Install dependencies:
-```bash
 npm install
-```
-
-3. Configure Firebase:
-   - Create a Firebase project at [Firebase Console](https://console.firebase.google.com/)
-   - Enable Realtime Database
-   - Copy your Firebase configuration
-   - Update `src/config/firebase.js` with your Firebase credentials
-
-4. Start the development server:
-```bash
 npm start
 ```
 
-The app will open at [http://localhost:3000](http://localhost:3000)
+The dev server runs at `http://localhost:3000`.
 
-## 🔧 Available Scripts
+To run against your own Firebase project, replace the config object in
+`src/config/firebase.js`. This object is **not a secret** — a Firebase web
+config is a public identifier, not a credential, and ships inside the client
+bundle regardless. Access is controlled by database rules, not by hiding the
+config. See [Firebase setup](#firebase-setup).
 
-- `npm start` - Runs the app in development mode
-- `npm test` - Launches the test runner
-- `npm run build` - Builds the app for production
-- `npm run eject` - Ejects from Create React App (one-way operation)
+## Scripts
 
-## 📁 Project Structure
+| Command         | Description                                                     |
+| --------------- | --------------------------------------------------------------- |
+| `npm start`     | Development server with hot reload                              |
+| `npm run build` | Production build into `build/`                                  |
+| `postbuild`     | Runs automatically after `build`; regenerates `build/sitemap.xml` |
+
+## Project structure
 
 ```
-src/
-├── components/          # React components
-│   ├── Home.jsx        # Home section with visitor stats
-│   ├── About.jsx       # About section
-│   ├── Skills.jsx      # Skills showcase
-│   ├── Work.jsx        # Projects portfolio
-│   ├── Contact.jsx     # Contact form
-│   └── navbar.jsx      # Navigation bar
-├── context/            # React Context providers
-│   └── LanguageContext.js  # Language switching context
-├── hooks/              # Custom React hooks
-│   └── useVisitorTracking.js  # Visitor analytics hook
-├── config/             # Configuration files
-│   └── firebase.js     # Firebase configuration
-├── assets/             # Static assets (images, etc.)
-├── data/               # Data files
-└── App.js              # Main app component
+.
+├── public/                     # Static assets copied verbatim into build/
+│   ├── favicon.ico             # 48–256px multi-resolution icon set
+│   ├── apple-touch-icon.png
+│   ├── robots.txt
+│   └── sitemap.xml             # Fallback; overwritten at build time
+├── scripts/
+│   └── generate-sitemap.js     # Emits sitemap.xml with a derived lastmod
+├── src/
+│   ├── assets/                 # Images and logos
+│   ├── components/             # Home, About, Skills, Work, Contact, navbar
+│   ├── config/
+│   │   └── firebase.js         # Firebase app initialisation
+│   ├── context/
+│   │   └── LanguageContext.js  # TR/EN provider and translation lookup
+│   ├── data/                   # Project and content data
+│   ├── helpers/
+│   ├── hooks/
+│   │   └── useVisitorTracking.js
+│   ├── App.js
+│   └── index.js
+├── vercel.json
+└── tailwind.config.js
 ```
 
-## 🔥 Firebase Setup
+## SEO
 
-1. Create a Firebase project
-2. Enable Realtime Database
-3. Set up database rules (for development):
+The site is a single-route SPA, so all metadata lives in `public/index.html`
+and is served statically — crawlers do not need to execute JavaScript to read
+it.
+
+- **Canonical URL** pins the site to one address, preventing duplicate
+  indexing across Vercel preview and legacy deployment domains.
+- **`WebSite` JSON-LD** with `name` and `alternateName` signals the preferred
+  site name to Google.
+- **`Person` JSON-LD** links the profile to LinkedIn and GitHub via `sameAs`.
+- **Open Graph and Twitter Card** tags control link previews.
+- **Favicon set** is provided at 48px and above in line with Google's
+  guidance, so search results show the brand mark rather than a default icon.
+
+### Sitemap generation
+
+`sitemap.xml` is not maintained by hand. The `postbuild` hook derives
+`<lastmod>` from the most recent commit that touched `src/` or `public/`:
+
+```bash
+git log -1 --format=%cs -- src public
+```
+
+Using the commit date rather than the build date matters: a `lastmod` that
+always reads "today" is inaccurate, and Google learns to ignore the field for
+sites that report it that way. When git history is unavailable — for example
+under a shallow CI clone — the script falls back to the build date and logs a
+warning so the degradation is visible in build output rather than silent.
+
+## Firebase setup
+
+1. Create a project in the [Firebase Console](https://console.firebase.google.com/).
+2. Enable Realtime Database.
+3. Apply the rules below.
+4. Copy the web config into `src/config/firebase.js`.
+
+### Database rules
+
 ```json
 {
   "rules": {
+    ".read": false,
+    ".write": false,
+
     "totalVisitors": {
       ".read": true,
-      ".write": true
+      ".write": "newData.isNumber() && ((!data.exists() && newData.val() === 1) || (data.exists() && newData.val() === data.val() + 1))"
     },
+
     "activeUsers": {
       ".read": true,
-      ".write": true
+
+      "$visitorId": {
+        ".write": true,
+        ".validate": "$visitorId.length <= 64 && newData.hasChildren(['timestamp', 'lastSeen'])",
+
+        "timestamp": { ".validate": "newData.isNumber()" },
+        "lastSeen":  { ".validate": "newData.isNumber()" },
+        "$other":    { ".validate": false }
+      }
     }
   }
 }
 ```
-4. Add your Firebase config to `src/config/firebase.js`
 
-## 🌐 Deployment
+Because the client is unauthenticated, these rules constrain writes by shape
+rather than by identity:
 
-Build the production bundle:
-```bash
-npm run build
-```
+- `totalVisitors` accepts only a monotonic increment of exactly one. It cannot
+  be reset, decremented, or set to a non-numeric value.
+- Write access on `activeUsers` is granted per key, not on the node itself. A
+  client can only write its own presence entry, so no single request can
+  overwrite or inflate the whole collection — which matters because every
+  visitor subscribes to that node and would download whatever it contains.
+- Presence entries must be exactly `{ timestamp, lastSeen }` with numeric
+  values. Extra fields are rejected.
 
-The `build` folder contains the optimized production build ready for deployment to platforms like:
-- Vercel
-- Netlify
-- GitHub Pages
-- Firebase Hosting
+## Deployment
 
-## 📝 License
+Deployed on Vercel. Pushes to `master` trigger a production deployment; every
+other branch produces a preview deployment.
 
-This project is licensed under the MIT License.
+| Setting          | Value           |
+| ---------------- | --------------- |
+| Build command    | `npm run build` |
+| Output directory | `build`         |
+| Node.js version  | 24.x            |
 
-## 👤 Author
+## Roadmap
 
-**İsa Bezeniroğlu**
+- Migrate from Create React App to Vite, and upgrade to React 19 and
+  Tailwind CSS 4. This removes an unmaintained toolchain and the transitive
+  deprecation warnings it emits on modern Node.
+- Replace the read-then-write visitor counter with `runTransaction` to
+  eliminate the lost-update race under concurrent visits.
+- Move to a custom domain. A `*.vercel.app` subdomain shares reputation and
+  crawl budget with the wider platform, which measurably suppresses recrawl
+  frequency and Search Console indexing quota.
 
-- Email: ibznroglu@gmail.com
-- LinkedIn: [İsa Bezeniroğlu](https://linkedin.com/in/isabezeniroglu)
+## License
+
+MIT — see [LICENSE](LICENSE).
+
+## Author
+
+**İsa Bezeniroğlu** — Frontend Developer
+
+- Email: <ibznroglu@gmail.com>
+- LinkedIn: [isabezeniroglu](https://www.linkedin.com/in/isabezeniroglu/)
 - GitHub: [ibznroglu](https://github.com/ibznroglu)
-- Live Demo: [isabezeniroglu.vercel.app](https://isabezeniroglu.vercel.app/)
-
-## 🙏 Acknowledgments
-
-- Built with [Create React App](https://github.com/facebook/create-react-app)
-- Icons by [React Icons](https://react-icons.github.io/react-icons/)
-- Styled with [Tailwind CSS](https://tailwindcss.com/)
