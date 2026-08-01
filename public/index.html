@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,32 +10,46 @@
       name="description"
       content="İsa Bezeniroğlu — Frontend Developer. I develop web and mobile applications using modern frontend technologies. My projects, experience, and contact information."
     />
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <link rel="canonical" href="https://isabezeniroglu.com/" />
 
-    <!-- Tek doğru adres: kopya vercel domainleri indekslenmesin -->
-    <link rel="canonical" href="https://isabezeniroglu.vercel.app/" />
+    <!-- Google Fonts baglantisini erkenden ac (Raleway index.css'ten yukleniyor) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Favicon: 48px ve katları, kendi logom -->
+    <!-- Favicon: 48px ve katlari -->
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
     <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/favicon-96x96.png" />
     <link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/favicon-192x192.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 
-    <!-- Open Graph / Twitter -->
+    <!-- Open Graph -->
     <meta property="og:site_name" content="İsa Bezeniroğlu" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="https://isabezeniroglu.vercel.app/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale:alternate" content="tr_TR" />
+    <meta property="og:url" content="https://isabezeniroglu.com/" />
     <meta property="og:title" content="İsa Bezeniroğlu | Frontend Developer" />
     <meta
       property="og:description"
       content="İsa Bezeniroğlu — Frontend Developer. React, TypeScript ve React Native ile web ve mobil uygulamalar geliştiriyorum."
     />
-    <meta property="og:image" content="https://isabezeniroglu.vercel.app/logo512.png" />
+    <meta property="og:image" content="https://isabezeniroglu.com/logo512.png" />
+    <meta property="og:image:width" content="512" />
+    <meta property="og:image:height" content="512" />
+    <meta property="og:image:alt" content="İsa Bezeniroğlu logo" />
+
+    <!-- Twitter -->
     <meta name="twitter:card" content="summary" />
     <meta name="twitter:title" content="İsa Bezeniroğlu | Frontend Developer" />
-    <meta name="twitter:image" content="https://isabezeniroglu.vercel.app/logo512.png" />
+    <meta
+      name="twitter:description"
+      content="İsa Bezeniroğlu — Frontend Developer. React, TypeScript ve React Native ile web ve mobil uygulamalar geliştiriyorum."
+    />
+    <meta name="twitter:image" content="https://isabezeniroglu.com/logo512.png" />
 
-    <!-- Site adı: Google "Vercel" yerine bunu kullansın -->
+    <!-- Google'a tercih edilen site adini bildirir -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
@@ -43,10 +57,9 @@
         "name": "İsa Bezeniroğlu",
         "alternateName": [
           "İsa Bezeniroğlu | Frontend Developer",
-          "Isa Bezeniroglu",
-          "isabezeniroglu.vercel.app"
+          "Isa Bezeniroglu"
         ],
-        "url": "https://isabezeniroglu.vercel.app/"
+        "url": "https://isabezeniroglu.com/"
       }
     </script>
 
@@ -56,9 +69,10 @@
         "@type": "Person",
         "name": "İsa Bezeniroğlu",
         "alternateName": ["Isa Bezeniroglu", "İSA BEZENİROĞLU"],
-        "url": "https://isabezeniroglu.vercel.app/",
-        "image": "https://isabezeniroglu.vercel.app/logo512.png",
+        "url": "https://isabezeniroglu.com/",
+        "image": "https://isabezeniroglu.com/logo512.png",
         "jobTitle": "Frontend Developer",
+        "knowsLanguage": ["tr", "en"],
         "sameAs": [
           "https://www.linkedin.com/in/isabezeniroglu/",
           "https://github.com/ibznroglu"

@@ -2,7 +2,7 @@ const { writeFileSync, mkdirSync, existsSync } = require('node:fs');
 const { execSync } = require('node:child_process');
 const path = require('node:path');
 
-const BASE_URL = 'https://isabezeniroglu.vercel.app';
+const BASE_URL = 'https://isabezeniroglu.com';
 const OUT_DIR = path.join(__dirname, '..', 'build');
 const OUT_FILE = path.join(OUT_DIR, 'sitemap.xml');
 

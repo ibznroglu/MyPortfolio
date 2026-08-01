@@ -4,7 +4,7 @@ Personal portfolio site built with React and Tailwind CSS, featuring bilingual
 content (TR/EN), real-time visitor analytics backed by Firebase, and a
 build-time generated sitemap.
 
-**Live:** [isabezeniroglu.vercel.app](https://isabezeniroglu.vercel.app/)
+**Live:** [isabezeniroglu.com](https://isabezeniroglu.com/)
 
 ---
 
@@ -195,9 +195,6 @@ other branch produces a preview deployment.
   deprecation warnings it emits on modern Node.
 - Replace the read-then-write visitor counter with `runTransaction` to
   eliminate the lost-update race under concurrent visits.
-- Move to a custom domain. A `*.vercel.app` subdomain shares reputation and
-  crawl budget with the wider platform, which measurably suppresses recrawl
-  frequency and Search Console indexing quota.
 
 ## License
 
