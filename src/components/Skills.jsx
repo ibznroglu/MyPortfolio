@@ -1,44 +1,44 @@
-import React from "react";
-import { useLanguage } from "../context/LanguageContext";
-import HTML from "../assets/html.png";
-import CSS from "../assets/css.png";
-import JavaScript from "../assets/javascript.png";
-import ReactImg from "../assets/react.png";
-import GitHub from "../assets/github.png";
-import Tailwind from "../assets/tailwind.png";
-import ReactReduxImg from "../assets/redux.png";
-import JiraImg from "../assets/jira.png";
-import DockerImg from "../assets/docker.png";
-import WebPackImg from "../assets/webpack.png";
-import SassImg from "../assets/sass.png";
-import TypeScriptImg from "../assets/typescript.png";
-import ReactNativeImg from "../assets/reactnative.png";
-import MaterialUIImg from "../assets/materialui.png";
-import AntDesignImg from "../assets/antdesign.png";
-import NextJsImg from "../assets/nextjs.png";
-import VueImg from "../assets/vue.png";
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import HTML from '../assets/html.png';
+import CSS from '../assets/css.png';
+import JavaScript from '../assets/javascript.png';
+import ReactImg from '../assets/react.png';
+import GitHub from '../assets/github.png';
+import Tailwind from '../assets/tailwind.png';
+import ReactReduxImg from '../assets/redux.png';
+import JiraImg from '../assets/jira.png';
+import DockerImg from '../assets/docker.png';
+import WebPackImg from '../assets/webpack.png';
+import SassImg from '../assets/sass.png';
+import TypeScriptImg from '../assets/typescript.png';
+import ReactNativeImg from '../assets/reactnative.png';
+import MaterialUIImg from '../assets/materialui.png';
+import AntDesignImg from '../assets/antdesign.png';
+import NextJsImg from '../assets/nextjs.png';
+import VueImg from '../assets/vue.png';
 
 const Skills = () => {
   const { t } = useLanguage();
 
   const skills = [
-    { name: "REACT", icon: ReactImg },
-    { name: "REACT NATIVE", icon: ReactNativeImg },
-    { name: "TYPESCRIPT", icon: TypeScriptImg },
-    { name: "JAVASCRIPT", icon: JavaScript },
-    { name: "NEXT.JS", icon: NextJsImg },
-    { name: "VUE.JS", icon: VueImg },
-    { name: "REDUX", icon: ReactReduxImg },
-    { name: "HTML", icon: HTML },
-    { name: "CSS", icon: CSS },
-    { name: "SCSS", icon: SassImg },
-    { name: "TAILWIND", icon: Tailwind },
-    { name: "MATERIAL UI", icon: MaterialUIImg },
-    { name: "ANT DESIGN", icon: AntDesignImg },
-    { name: "GITHUB", icon: GitHub },
-    { name: "JIRA", icon: JiraImg },
-    { name: "DOCKER", icon: DockerImg },
-    { name: "WEBPACK", icon: WebPackImg },
+    { name: 'REACT', icon: ReactImg },
+    { name: 'REACT NATIVE', icon: ReactNativeImg },
+    { name: 'TYPESCRIPT', icon: TypeScriptImg },
+    { name: 'JAVASCRIPT', icon: JavaScript },
+    { name: 'NEXT.JS', icon: NextJsImg },
+    { name: 'VUE.JS', icon: VueImg },
+    { name: 'REDUX', icon: ReactReduxImg },
+    { name: 'HTML', icon: HTML },
+    { name: 'CSS', icon: CSS },
+    { name: 'SCSS', icon: SassImg },
+    { name: 'TAILWIND', icon: Tailwind },
+    { name: 'MATERIAL UI', icon: MaterialUIImg },
+    { name: 'ANT DESIGN', icon: AntDesignImg },
+    { name: 'GITHUB', icon: GitHub },
+    { name: 'JIRA', icon: JiraImg },
+    { name: 'DOCKER', icon: DockerImg },
+    { name: 'WEBPACK', icon: WebPackImg },
   ];
 
   return (
@@ -46,9 +46,7 @@ const Skills = () => {
       <div className="max-w-6xl mx-auto px-8">
         <div className="text-center mb-12">
           <div className="inline-block border-b-4 border-pink-600 pb-2">
-            <h2 className="text-5xl font-bold">
-              {t.skills.title}
-            </h2>
+            <h2 className="text-5xl font-bold">{t.skills.title}</h2>
           </div>
           <p className="py-4 text-gray-400">{t.skills.subtitle}</p>
         </div>

@@ -6,12 +6,10 @@ const renderApp = () =>
   render(
     <LanguageProvider>
       <App />
-    </LanguageProvider>
+    </LanguageProvider>,
   );
 
 test('ana sayfada isim basligi render ediliyor', () => {
   renderApp();
-  expect(
-    screen.getByRole('heading', { name: /İSA BEZENİROĞLU/i })
-  ).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: /İSA BEZENİROĞLU/i })).toBeInTheDocument();
 });

@@ -1,8 +1,8 @@
-import React from "react";
-import { useLanguage } from "../context/LanguageContext";
-import { useVisitorTracking } from "../hooks/useVisitorTracking";
-import { HiUsers, HiUserGroup } from "react-icons/hi";
-import IsaImg from "../assets/isa.png";
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
+import { useVisitorTracking } from '../hooks/useVisitorTracking';
+import { HiUsers, HiUserGroup } from 'react-icons/hi';
+import IsaImg from '../assets/isa.png';
 
 const Home = ({ setActiveSection }) => {
   const { t } = useLanguage();
@@ -19,7 +19,7 @@ const Home = ({ setActiveSection }) => {
                 src={IsaImg}
                 alt="İsa Bezeniroğlu"
                 className="relative w-64 h-64 rounded-full object-cover border-4 border-pink-600 shadow-2xl shadow-pink-600/50"
-                style={{ objectPosition: "50% calc(50% + 2rem)" }}
+                style={{ objectPosition: '50% calc(50% + 2rem)' }}
               />
               <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-[#0a192f] animate-pulse shadow-lg"></div>
             </div>
@@ -45,7 +45,9 @@ const Home = ({ setActiveSection }) => {
                   {loading ? (
                     <div className="w-5 h-5 border-2 border-pink-600/30 border-t-pink-600 rounded-full animate-spin mt-1" />
                   ) : (
-                    <p className="text-[#ccd6f6] text-xl font-bold">{totalVisitors.toLocaleString()}</p>
+                    <p className="text-[#ccd6f6] text-xl font-bold">
+                      {totalVisitors.toLocaleString()}
+                    </p>
                   )}
                 </div>
               </div>

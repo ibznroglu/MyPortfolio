@@ -1,5 +1,5 @@
-import React from "react";
-import { useLanguage } from "../context/LanguageContext";
+import React from 'react';
+import { useLanguage } from '../context/LanguageContext';
 
 const About = () => {
   const { t } = useLanguage();
@@ -18,39 +18,29 @@ const About = () => {
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.experience}
             </h3>
-            <p className="text-gray-300 leading-relaxed">
-              {t.about.experienceText}
-            </p>
+            <p className="text-gray-300 leading-relaxed">{t.about.experienceText}</p>
           </div>
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
             <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.approach}
             </h3>
-            <p className="text-gray-300 leading-relaxed">
-              {t.about.approachText}
-            </p>
+            <p className="text-gray-300 leading-relaxed">{t.about.approachText}</p>
           </div>
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
             <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.tech}
             </h3>
-            <p className="text-gray-300 leading-relaxed">
-              {t.about.techText}
-            </p>
-            <p className="text-gray-300 leading-relaxed mt-4">
-              {t.about.toolsText}
-            </p>
+            <p className="text-gray-300 leading-relaxed">{t.about.techText}</p>
+            <p className="text-gray-300 leading-relaxed mt-4">{t.about.toolsText}</p>
           </div>
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
             <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.goals}
             </h3>
-            <p className="text-gray-300 leading-relaxed">
-              {t.about.goalsText}
-            </p>
+            <p className="text-gray-300 leading-relaxed">{t.about.goalsText}</p>
           </div>
         </div>
       </div>

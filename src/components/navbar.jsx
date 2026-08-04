@@ -1,10 +1,10 @@
-import React, { useState } from "react";
-import { FaBars, FaTimes, FaGithub, FaLinkedin } from "react-icons/fa";
-import { HiOutlineMail } from "react-icons/hi";
-import { BsFillPersonLinesFill } from "react-icons/bs";
-import { useLanguage } from "../context/LanguageContext";
-import Logo from "../assets/logo.png";
-import { settings } from "../helpers/functions/settings";
+import React, { useState } from 'react';
+import { FaBars, FaTimes, FaGithub, FaLinkedin } from 'react-icons/fa';
+import { HiOutlineMail } from 'react-icons/hi';
+import { BsFillPersonLinesFill } from 'react-icons/bs';
+import { useLanguage } from '../context/LanguageContext';
+import Logo from '../assets/logo.png';
+import { settings } from '../helpers/functions/settings';
 
 const Navbar = ({ activeSection, setActiveSection }) => {
   const [nav, setNav] = useState(false);
@@ -16,14 +16,18 @@ const Navbar = ({ activeSection, setActiveSection }) => {
     { key: 'about', label: t.nav.about },
     { key: 'skills', label: t.nav.skills },
     { key: 'projects', label: t.nav.projects },
-    { key: 'contact', label: t.nav.contact }
+    { key: 'contact', label: t.nav.contact },
   ];
 
   return (
     <>
       <div className="fixed w-full h-[80px] flex justify-between items-center px-6 bg-[#0a192f]/95 backdrop-blur-sm text-gray-300 z-50 border-b border-pink-600/20">
         <div className="flex items-center">
-          <img src={Logo} alt="Logo" className="w-12 h-12 hover:scale-110 transition-transform duration-300" />
+          <img
+            src={Logo}
+            alt="Logo"
+            className="w-12 h-12 hover:scale-110 transition-transform duration-300"
+          />
         </div>
 
         <ul className="hidden md:flex gap-1">
@@ -51,8 +55,8 @@ const Navbar = ({ activeSection, setActiveSection }) => {
             <button
               onClick={() => setLanguage('en')}
               className={`px-3 py-1 rounded text-sm font-semibold transition-all ${
-                language === 'en' 
-                  ? 'bg-pink-600 text-white' 
+                language === 'en'
+                  ? 'bg-pink-600 text-white'
                   : 'bg-[#112240] text-gray-400 hover:text-white'
               }`}
             >
@@ -61,15 +65,18 @@ const Navbar = ({ activeSection, setActiveSection }) => {
             <button
               onClick={() => setLanguage('tr')}
               className={`px-3 py-1 rounded text-sm font-semibold transition-all ${
-                language === 'tr' 
-                  ? 'bg-pink-600 text-white' 
+                language === 'tr'
+                  ? 'bg-pink-600 text-white'
                   : 'bg-[#112240] text-gray-400 hover:text-white'
               }`}
             >
               TR
             </button>
           </div>
-          <div onClick={handleClick} className="md:hidden z-10 text-2xl hover:text-pink-500 transition-colors cursor-pointer">
+          <div
+            onClick={handleClick}
+            className="md:hidden z-10 text-2xl hover:text-pink-500 transition-colors cursor-pointer"
+          >
             {!nav ? <FaBars /> : <FaTimes />}
           </div>
         </div>
@@ -78,8 +85,8 @@ const Navbar = ({ activeSection, setActiveSection }) => {
       <ul
         className={
           !nav
-            ? "hidden"
-            : "fixed top-0 left-0 w-full h-screen bg-[#0a192f]/98 backdrop-blur-sm flex flex-col justify-center items-center z-40"
+            ? 'hidden'
+            : 'fixed top-0 left-0 w-full h-screen bg-[#0a192f]/98 backdrop-blur-sm flex flex-col justify-center items-center z-40'
         }
       >
         {menuItems.map((item) => (
@@ -90,9 +97,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
                 setNav(false);
               }}
               className={`text-3xl transition-colors ${
-                activeSection === item.key
-                  ? 'text-pink-500'
-                  : 'text-gray-300 hover:text-pink-500'
+                activeSection === item.key ? 'text-pink-500' : 'text-gray-300 hover:text-pink-500'
               }`}
             >
               {item.label}
