@@ -4,7 +4,7 @@ import { HiOutlineMail } from "react-icons/hi";
 import { BsFillPersonLinesFill } from "react-icons/bs";
 import { useLanguage } from "../context/LanguageContext";
 import Logo from "../assets/logo.png";
-import { settings } from "../helpers/functions/setting";
+import { settings } from "../helpers/functions/settings";
 
 const Navbar = ({ activeSection, setActiveSection }) => {
   const [nav, setNav] = useState(false);
@@ -37,7 +37,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
                 className={`px-4 py-2 rounded-lg transition-all duration-300 ${
                   activeSection === item.key
                     ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/50'
-                    : 'text-gray-300 hover:text-pink-600 hover:bg-[#112240]'
+                    : 'text-gray-300 hover:text-pink-500 hover:bg-[#112240]'
                 }`}
               >
                 {item.label}
@@ -69,7 +69,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               TR
             </button>
           </div>
-          <div onClick={handleClick} className="md:hidden z-10 text-2xl hover:text-pink-600 transition-colors cursor-pointer">
+          <div onClick={handleClick} className="md:hidden z-10 text-2xl hover:text-pink-500 transition-colors cursor-pointer">
             {!nav ? <FaBars /> : <FaTimes />}
           </div>
         </div>
@@ -91,8 +91,8 @@ const Navbar = ({ activeSection, setActiveSection }) => {
               }}
               className={`text-3xl transition-colors ${
                 activeSection === item.key
-                  ? 'text-pink-600'
-                  : 'text-gray-300 hover:text-pink-600'
+                  ? 'text-pink-500'
+                  : 'text-gray-300 hover:text-pink-500'
               }`}
             >
               {item.label}

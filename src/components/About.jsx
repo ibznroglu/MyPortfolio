@@ -14,7 +14,7 @@ const About = () => {
         </div>
         <div className="grid md:grid-cols-2 gap-8">
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
-            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+            <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.experience}
             </h3>
@@ -23,7 +23,7 @@ const About = () => {
             </p>
           </div>
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
-            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+            <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.approach}
             </h3>
@@ -32,7 +32,7 @@ const About = () => {
             </p>
           </div>
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
-            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+            <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.tech}
             </h3>
@@ -44,7 +44,7 @@ const About = () => {
             </p>
           </div>
           <div className="bg-[#112240] p-8 rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300 hover:shadow-xl hover:shadow-pink-600/20">
-            <h3 className="text-2xl font-bold text-pink-600 mb-4 flex items-center gap-2">
+            <h3 className="text-2xl font-bold text-pink-500 mb-4 flex items-center gap-2">
               <span className="w-2 h-2 bg-pink-600 rounded-full"></span>
               {t.about.goals}
             </h3>

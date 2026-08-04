@@ -26,7 +26,7 @@ const Home = ({ setActiveSection }) => {
           </div>
           <div className="flex-1 text-center lg:text-left space-y-6">
             <div>
-              <p className="text-pink-600 text-xl font-semibold mb-3">{t.home.title}</p>
+              <p className="text-pink-500 text-xl font-semibold mb-3">{t.home.title}</p>
               <h1 className="text-6xl lg:text-7xl font-bold text-[#ccd6f6] mb-4 leading-tight">
                 {t.home.name}
               </h1>
@@ -38,7 +38,7 @@ const Home = ({ setActiveSection }) => {
             <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
               <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-pink-600/30 shadow-lg min-w-[140px]">
                 <div className="bg-pink-600/20 p-2 rounded-lg">
-                  <HiUsers className="text-pink-600 text-xl" />
+                  <HiUsers className="text-pink-500 text-xl" />
                 </div>
                 <div>
                   <p className="text-[#8892b0] text-sm">{t.visitor.total}</p>
