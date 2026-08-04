@@ -16,10 +16,12 @@ const SRC_DIR = path.join(__dirname, '..', 'assets-source');
 const OUT_DIR = path.join(__dirname, '..', 'src', 'assets');
 
 // Project cards render at ~528px wide, so 1100px covers retina.
+// Screenshots are cropped to a shared 2:1 ratio from the top, so every card
+// gets an identical box and the CSS never has to letterbox or crop again.
 // The profile photo renders at w-64 (256px), so 512px is enough.
 const TARGETS = [
-  { file: 'projects/vargelogluinsaat.png', width: 1100, quality: 82 },
-  { file: 'projects/rentalcar.png', width: 1100, quality: 82 },
+  { file: 'projects/vargelogluinsaat.png', width: 1100, height: 550, position: 'top', quality: 82 },
+  { file: 'projects/rentalcar.png', width: 1100, height: 550, position: 'top', quality: 82 },
   { file: 'isa.png', width: 512, quality: 82 },
 ];
 
@@ -29,19 +31,24 @@ const ICON_QUALITY = 88;
 
 const kb = (bytes) => (bytes / 1024).toFixed(0);
 
-async function convert(relPath, width, quality) {
+async function convert(relPath, { width, height, position, quality }) {
   const src = path.join(SRC_DIR, relPath);
   const out = path.join(OUT_DIR, relPath).replace(/\.png$/i, '.webp');
 
+  // Without an explicit height the image keeps its own ratio and is only scaled.
+  const resize = height
+    ? { width, height, fit: 'cover', position: position || 'centre' }
+    : { width, withoutEnlargement: true };
+
   fs.mkdirSync(path.dirname(out), { recursive: true });
-  await sharp(src).resize({ width, withoutEnlargement: true }).webp({ quality }).toFile(out);
+  await sharp(src).resize(resize).webp({ quality }).toFile(out);
 
   const before = fs.statSync(src).size;
   const after = fs.statSync(out).size;
   const meta = await sharp(out).metadata();
 
   console.log(
-    `${relPath.padEnd(34)} ${kb(before).padStart(5)} KB -> ${kb(after).padStart(4)} KB  (${meta.width}x${meta.height})`
+    `${relPath.padEnd(34)} ${kb(before).padStart(5)} KB -> ${kb(after).padStart(4)} KB  (${meta.width}x${meta.height})`,
   );
 
   return { before, after };
@@ -60,7 +67,7 @@ async function main() {
   const explicit = new Set(TARGETS.map((target) => target.file));
 
   for (const target of TARGETS) {
-    const { before, after } = await convert(target.file, target.width, target.quality);
+    const { before, after } = await convert(target.file, target);
     totalBefore += before;
     totalAfter += after;
   }
@@ -71,14 +78,14 @@ async function main() {
     .filter((file) => !explicit.has(file));
 
   for (const icon of icons) {
-    const { before, after } = await convert(icon, ICON_WIDTH, ICON_QUALITY);
+    const { before, after } = await convert(icon, { width: ICON_WIDTH, quality: ICON_QUALITY });
     totalBefore += before;
     totalAfter += after;
   }
 
   const saved = (1 - totalAfter / totalBefore) * 100;
   console.log(
-    `\nTOTAL: ${(totalBefore / 1024 / 1024).toFixed(2)} MB -> ${kb(totalAfter)} KB  (${saved.toFixed(0)}% smaller)`
+    `\nTOTAL: ${(totalBefore / 1024 / 1024).toFixed(2)} MB -> ${kb(totalAfter)} KB  (${saved.toFixed(0)}% smaller)`,
   );
 }
 

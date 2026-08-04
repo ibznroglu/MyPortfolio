@@ -1,7 +1,8 @@
 import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { data } from '../data/data.js';
-
+const FOCUS_RING =
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
 const Work = () => {
   const { t } = useLanguage();
 
@@ -19,29 +20,34 @@ const Work = () => {
           {data.map((item) => (
             <li
               key={item.id}
-              className="group flex flex-col overflow-hidden rounded-xl bg-[#112240] border border-pink-600/20 hover:border-pink-600/50 focus-within:border-pink-600/50 transition-colors duration-300"
+              className="group flex flex-col overflow-hidden rounded-xl bg-[#112240] border border-white/5 hover:border-pink-500/40 focus-within:border-pink-500/40 transition-colors duration-300"
             >
-              <div className="relative aspect-[16/10] overflow-hidden bg-[#0a192f]">
+              <div className="aspect-[2/1] overflow-hidden bg-[#0a192f]">
                 <img
                   src={item.image}
                   alt={item.name}
                   loading="lazy"
                   decoding="async"
-                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                  width="1100"
+                  height="550"
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
                 />
               </div>
 
-              <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
-                <h3 className="text-xl sm:text-2xl font-bold text-[#ccd6f6]">{item.name}</h3>
+              <div className="flex flex-1 flex-col gap-3 p-5">
+                <h3 className="text-lg font-bold text-[#ccd6f6]">{item.name}</h3>
 
-                <div className="mt-auto flex flex-wrap gap-3">
+                <div className="mt-auto flex flex-wrap gap-2 pt-1">
                   {item.live && (
                     <a
                       href={item.live}
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.name + ' - ' + t.projects.live}
-                      className="flex-1 min-w-[120px] rounded-lg px-5 py-3 text-center font-bold bg-pink-600 text-white hover:bg-pink-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 transition-colors duration-300"
+                      className={
+                        'rounded-md px-4 py-2 text-sm font-semibold bg-pink-600 text-white hover:bg-pink-500 transition-colors ' +
+                        FOCUS_RING
+                      }
                     >
                       {t.projects.live}
                     </a>
@@ -53,7 +59,10 @@ const Work = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       aria-label={item.name + ' - ' + t.projects.code}
-                      className="flex-1 min-w-[120px] rounded-lg px-5 py-3 text-center font-bold border border-gray-500 text-gray-200 hover:border-pink-500 hover:text-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 transition-colors duration-300"
+                      className={
+                        'rounded-md px-4 py-2 text-sm font-semibold border border-gray-600 text-gray-300 hover:border-pink-500 hover:text-pink-500 transition-colors ' +
+                        FOCUS_RING
+                      }
                     >
                       {t.projects.code}
                     </a>

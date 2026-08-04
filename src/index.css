@@ -2,30 +2,22 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap');
-
 @layer base {
-  body {
-    @apply font-[Raleway];
-  }
-  li {
-    @apply px-4;
-    @apply cursor-pointer;
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-.content-div {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 300px;
-  border-radius: 0.5rem;
-}
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
 
-.content-div:hover {
-  background-image: linear-gradient(
-    to right,
-    rgba(219, 39, 119, 0.9),
-    rgba(219, 39, 119, 0.7)
-  ) !important;
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
