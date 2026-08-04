@@ -4,63 +4,67 @@ import { data } from '../data/data.js';
 
 const Work = () => {
   const { t } = useLanguage();
-  const project = data;
 
   return (
-    <div className="w-full min-h-[calc(100vh-80px)] text-gray-300 bg-[#0a192f] py-16">
-      <div className="max-w-6xl mx-auto px-8">
-        <div className="text-center mb-12">
-          <h2 className="text-5xl font-bold inline border-b-4 border-pink-600 pb-2">
+    <section className="w-full min-h-[calc(100vh-80px)] text-gray-300 bg-[#0a192f] py-16">
+      <div className="max-w-6xl mx-auto px-6 sm:px-8">
+        <header className="text-center mb-12">
+          <h2 className="text-4xl sm:text-5xl font-bold inline-block border-b-4 border-pink-600 pb-2">
             {t.projects.title}
           </h2>
           <p className="py-4 text-gray-400">{t.projects.subtitle}</p>
-        </div>
-        <div className="grid md:grid-cols-2 gap-8">
-          {project.map((item, index) => (
-            <div
-              key={item.id || index}
-              className="group relative overflow-hidden rounded-xl border border-pink-600/20 hover:border-pink-600/50 transition-all duration-300"
+        </header>
+
+        <ul className="grid gap-8 sm:grid-cols-2 list-none p-0">
+          {data.map((item) => (
+            <li
+              key={item.id}
+              className="group flex flex-col overflow-hidden rounded-xl bg-[#112240] border border-pink-600/20 hover:border-pink-600/50 focus-within:border-pink-600/50 transition-colors duration-300"
             >
-              <div
-                style={{ backgroundImage: `url(${item.image})` }}
-                className="h-64 bg-cover bg-center transition-transform duration-500 group-hover:scale-110"
-              >
-                <div className="absolute inset-0 bg-gradient-to-t from-[#0a192f] via-[#0a192f]/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              <div className="relative aspect-[16/10] overflow-hidden bg-[#0a192f]">
+                <img
+                  src={item.image}
+                  alt={item.name}
+                  loading="lazy"
+                  decoding="async"
+                  className="h-full w-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                />
               </div>
-              <div className="absolute inset-0 flex flex-col justify-end p-6 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                <h3 className="text-2xl font-bold text-white mb-4">{item.name}</h3>
-                <div className="flex gap-4">
+
+              <div className="flex flex-1 flex-col gap-4 p-5 sm:p-6">
+                <h3 className="text-xl sm:text-2xl font-bold text-[#ccd6f6]">{item.name}</h3>
+
+                <div className="mt-auto flex flex-wrap gap-3">
                   {item.live && (
                     <a
                       href={item.live}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1"
+                      aria-label={item.name + ' - ' + t.projects.live}
+                      className="flex-1 min-w-[120px] rounded-lg px-5 py-3 text-center font-bold bg-pink-600 text-white hover:bg-pink-700 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 transition-colors duration-300"
                     >
-                      <button className="w-full rounded-lg px-6 py-3 bg-white text-gray-700 font-bold hover:bg-pink-600 hover:text-white transition-all duration-300 transform hover:scale-105">
-                        {t.projects.live}
-                      </button>
+                      {t.projects.live}
                     </a>
                   )}
+
                   {item.github && (
                     <a
                       href={item.github}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="flex-1"
+                      aria-label={item.name + ' - ' + t.projects.code}
+                      className="flex-1 min-w-[120px] rounded-lg px-5 py-3 text-center font-bold border border-gray-500 text-gray-200 hover:border-pink-500 hover:text-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 transition-colors duration-300"
                     >
-                      <button className="w-full rounded-lg px-6 py-3 bg-gray-800 text-white font-bold hover:bg-pink-600 transition-all duration-300 transform hover:scale-105">
-                        {t.projects.code}
-                      </button>
+                      {t.projects.code}
                     </a>
                   )}
                 </div>
               </div>
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
       </div>
-    </div>
+    </section>
   );
 };
 
