@@ -3,7 +3,7 @@ import { FaBars, FaTimes, FaGithub, FaLinkedin } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
 import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { useLanguage } from '../context/LanguageContext';
-import Logo from '../assets/logo.png';
+import Logo from '../assets/logo.webp';
 import { settings } from '../helpers/functions/settings';
 
 const Navbar = ({ activeSection, setActiveSection }) => {

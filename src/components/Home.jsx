@@ -2,7 +2,7 @@ import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { useVisitorTracking } from '../hooks/useVisitorTracking';
 import { HiUsers, HiUserGroup } from 'react-icons/hi';
-import IsaImg from '../assets/isa.png';
+import IsaImg from '../assets/isa.webp';
 
 const Home = ({ setActiveSection }) => {
   const { t } = useLanguage();
