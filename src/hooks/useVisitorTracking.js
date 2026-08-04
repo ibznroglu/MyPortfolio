@@ -29,10 +29,10 @@ export const useVisitorTracking = () => {
       if (snapshot.exists()) {
         const activeUsersData = snapshot.val();
         const now = Date.now();
-        const validActiveUsers = Object.keys(activeUsersData).filter(userId => {
+        const validActiveUsers = Object.keys(activeUsersData).filter((userId) => {
           const lastSeen = activeUsersData[userId]?.lastSeen;
           if (!lastSeen) return false;
-          return (now - lastSeen) < 30000;
+          return now - lastSeen < 30000;
         });
         setActiveUsers(validActiveUsers.length);
       } else {
@@ -50,7 +50,7 @@ export const useVisitorTracking = () => {
       try {
         await set(visitorRef, {
           timestamp: serverTimestamp(),
-          lastSeen: Date.now()
+          lastSeen: Date.now(),
         });
         onDisconnect(visitorRef).remove();
 
@@ -79,7 +79,7 @@ export const useVisitorTracking = () => {
       if (visitorIdRef.current) {
         set(ref(database, `activeUsers/${visitorIdRef.current}`), {
           timestamp: serverTimestamp(),
-          lastSeen: Date.now()
+          lastSeen: Date.now(),
         });
       }
     }, 10000);

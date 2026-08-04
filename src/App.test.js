@@ -1,8 +1,15 @@
 import { render, screen } from '@testing-library/react';
+import { LanguageProvider } from './context/LanguageContext';
 import App from './App';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+const renderApp = () =>
+  render(
+    <LanguageProvider>
+      <App />
+    </LanguageProvider>,
+  );
+
+test('ana sayfada isim basligi render ediliyor', () => {
+  renderApp();
+  expect(screen.getByRole('heading', { name: /İSA BEZENİROĞLU/i })).toBeInTheDocument();
 });

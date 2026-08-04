@@ -1,19 +1,19 @@
-import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.png'
-import RentalCarImg from '../assets/projects/rentalcar.png'
+import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.png';
+import RentalCarImg from '../assets/projects/rentalcar.png';
 
 export const data = [
-     {
-        id: 1,
-        name: "Vargeloğlu İnşaat",
-        image: VargelogluInsaatImg,
-        github: "",
-        live: "https://www.vargelogluinsaat.com/",
-    },
-    {
-        id: 2,
-        name: "Rental Car",
-        image: RentalCarImg,
-        github: "",
-        live: "https://www.letsrentalcar.com/",
-    },
-]
+  {
+    id: 1,
+    name: 'Vargeloğlu İnşaat',
+    image: VargelogluInsaatImg,
+    github: '',
+    live: 'https://www.vargelogluinsaat.com/',
+  },
+  {
+    id: 2,
+    name: 'Rental Car',
+    image: RentalCarImg,
+    github: '',
+    live: 'https://www.letsrentalcar.com/',
+  },
+];

@@ -20,13 +20,14 @@ export const LanguageProvider = ({ children }) => {
         about: 'About',
         skills: 'Skills',
         projects: 'Personal Projects',
-        contact: 'Contact'
+        contact: 'Contact',
       },
       home: {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
-        description: 'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Over the past few years, I’ve worked on enterprise-scale web applications in the banking and finance domain, contributing to real estate valuation platforms and the digitization of related business processes for major banks in Türkiye. I have experience with modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integrations. I focus on clean code, SOLID principles, and maintainable component-based architecture. In addition, I develop mobile applications using React Native as personal projects.',
-        viewProjects: 'View Projects'
+        description:
+          'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Over the past few years, I’ve worked on enterprise-scale web applications in the banking and finance domain, contributing to real estate valuation platforms and the digitization of related business processes for major banks in Türkiye. I have experience with modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integrations. I focus on clean code, SOLID principles, and maintainable component-based architecture. In addition, I develop mobile applications using React Native as personal projects.',
+        viewProjects: 'View Projects',
       },
       visitor: {
         total: 'Total Visitors',
@@ -35,25 +36,30 @@ export const LanguageProvider = ({ children }) => {
       about: {
         title: 'About Me',
         experience: 'Experience',
-        experienceText: 'Worked as a Front-End Developer at KEY Yazılım. Contributed to the development of real estate valuation platforms (Invex, Hypotex, Propex) for major banks in Türkiye within the banking and finance domain. Built scalable, responsive, and cross-browser compatible enterprise web interfaces using React and TypeScript. Alongside my professional work, I develop personal mobile applications with React Native, applying shared architectural and engineering principles across web and mobile platforms.',
+        experienceText:
+          'Worked as a Front-End Developer at KEY Yazılım. Contributed to the development of real estate valuation platforms (Invex, Hypotex, Propex) for major banks in Türkiye within the banking and finance domain. Built scalable, responsive, and cross-browser compatible enterprise web interfaces using React and TypeScript. Alongside my professional work, I develop personal mobile applications with React Native, applying shared architectural and engineering principles across web and mobile platforms.',
         approach: 'Approach',
-        approachText: 'Working with Agile/Scrum methodologies. Deploying to production via CI/CD pipelines (GitHub Actions, Jenkins). Focused on clean code, SOLID principles, and performance optimization. Effective collaboration with cross-functional teams.',
+        approachText:
+          'Working with Agile/Scrum methodologies. Deploying to production via CI/CD pipelines (GitHub Actions, Jenkins). Focused on clean code, SOLID principles, and performance optimization. Effective collaboration with cross-functional teams.',
         tech: 'Tech Stack',
-        techText: 'React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
+        techText:
+          'React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
         tools: 'Tools',
-        toolsText: 'RESTful API integrations, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum',
+        toolsText:
+          'RESTful API integrations, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum',
         goals: 'Goals',
-        goalsText: 'Continuously learning and improving. Following modern front-end technologies and applying best practices. Writing quality, maintainable code with focus on user experience.'
+        goalsText:
+          'Continuously learning and improving. Following modern front-end technologies and applying best practices. Writing quality, maintainable code with focus on user experience.',
       },
       skills: {
         title: 'Technical Skills',
-        subtitle: 'Technologies and tools I work with'
+        subtitle: 'Technologies and tools I work with',
       },
       projects: {
         title: 'Projects',
         subtitle: 'Some of my recent work',
         live: 'Live',
-        code: 'Code'
+        code: 'Code',
       },
       contact: {
         title: 'Get In Touch',
@@ -61,8 +67,8 @@ export const LanguageProvider = ({ children }) => {
         name: 'Name',
         email: 'Email',
         message: 'Message',
-        send: 'Send Message'
-      }
+        send: 'Send Message',
+      },
     },
     tr: {
       nav: {
@@ -70,13 +76,14 @@ export const LanguageProvider = ({ children }) => {
         about: 'Hakkımda',
         skills: 'Yetenekler',
         projects: 'Kişisel Projeler',
-        contact: 'İletişim'
+        contact: 'İletişim',
       },
       home: {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
-        description: "React, JavaScript (ES6+) ve TypeScript odaklı Front-End Developer. Son yıllarda bankacılık ve finans sektöründe kurumsal ölçekte web uygulamaları geliştirerek; Türkiye’deki majör bankalara yönelik gayrimenkul değerleme platformları ve ilgili iş süreçlerinin dijitalleştirilmesinde görev aldım. Modern front-end mimarileri, Agile/Scrum metodolojileri, CI/CD pipeline’ları ve RESTful API entegrasyonları konularında deneyimliyim. Temiz kod, SOLID prensipleri ve sürdürülebilir component tabanlı mimariyi merkeze alıyorum. Ayrıca React Native kullanarak kişisel projeler kapsamında mobil uygulamalar geliştiriyorum.",
-        viewProjects: 'Projeleri İncele'
+        description:
+          'React, JavaScript (ES6+) ve TypeScript odaklı Front-End Developer. Son yıllarda bankacılık ve finans sektöründe kurumsal ölçekte web uygulamaları geliştirerek; Türkiye’deki majör bankalara yönelik gayrimenkul değerleme platformları ve ilgili iş süreçlerinin dijitalleştirilmesinde görev aldım. Modern front-end mimarileri, Agile/Scrum metodolojileri, CI/CD pipeline’ları ve RESTful API entegrasyonları konularında deneyimliyim. Temiz kod, SOLID prensipleri ve sürdürülebilir component tabanlı mimariyi merkeze alıyorum. Ayrıca React Native kullanarak kişisel projeler kapsamında mobil uygulamalar geliştiriyorum.',
+        viewProjects: 'Projeleri İncele',
       },
       visitor: {
         total: 'Toplam Ziyaretçi',
@@ -85,25 +92,30 @@ export const LanguageProvider = ({ children }) => {
       about: {
         title: 'Hakkımda',
         experience: 'Deneyim',
-        experienceText: 'KEY Yazılım bünyesinde Front-End Developer olarak görev aldım. Bankacılık ve finans sektöründe, Türkiye\'deki majör bankalara yönelik gayrimenkul değerleme platformları (Invex, Hypotex, Propex) geliştirilmesinde aktif rol üstlendim. React ve TypeScript kullanarak ölçeklenebilir, responsive ve cross-browser uyumlu kurumsal web arayüzleri tasarladım. Kurumsal projelerimin yanı sıra, React Native ile kişisel mobil uygulamalar geliştirerek web ve mobil mimariler arasında ortak tasarım ve mühendislik prensipleri uyguluyorum.',
+        experienceText:
+          "KEY Yazılım bünyesinde Front-End Developer olarak görev aldım. Bankacılık ve finans sektöründe, Türkiye'deki majör bankalara yönelik gayrimenkul değerleme platformları (Invex, Hypotex, Propex) geliştirilmesinde aktif rol üstlendim. React ve TypeScript kullanarak ölçeklenebilir, responsive ve cross-browser uyumlu kurumsal web arayüzleri tasarladım. Kurumsal projelerimin yanı sıra, React Native ile kişisel mobil uygulamalar geliştirerek web ve mobil mimariler arasında ortak tasarım ve mühendislik prensipleri uyguluyorum.",
         approach: 'Yaklaşım',
-        approachText: 'Agile/Scrum metodolojileri ile çalışıyorum. CI/CD pipeline\'ları (GitHub Actions, Jenkins) kullanarak production\'a deploy ediyorum. Clean code, SOLID prensipleri ve performans optimizasyonu konularına odaklanıyorum. Cross-functional takımlarla etkili iş birliği yapıyorum.',
+        approachText:
+          "Agile/Scrum metodolojileri ile çalışıyorum. CI/CD pipeline'ları (GitHub Actions, Jenkins) kullanarak production'a deploy ediyorum. Clean code, SOLID prensipleri ve performans optimizasyonu konularına odaklanıyorum. Cross-functional takımlarla etkili iş birliği yapıyorum.",
         tech: 'Teknoloji Stack',
-        techText: 'React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
+        techText:
+          'React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS',
         tools: 'Araçlar',
-        toolsText: 'RESTful API entegrasyonları, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum',
+        toolsText:
+          'RESTful API entegrasyonları, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum',
         goals: 'Hedefler',
-        goalsText: 'Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Modern front-end teknolojilerini takip ediyor, best practices uyguluyorum. Kullanıcı deneyimini ön planda tutarak, kaliteli ve sürdürülebilir kod yazıyorum.'
+        goalsText:
+          'Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Modern front-end teknolojilerini takip ediyor, best practices uyguluyorum. Kullanıcı deneyimini ön planda tutarak, kaliteli ve sürdürülebilir kod yazıyorum.',
       },
       skills: {
         title: 'Teknik Yetenekler',
-        subtitle: 'Kullandığım teknolojiler ve araçlar'
+        subtitle: 'Kullandığım teknolojiler ve araçlar',
       },
       projects: {
         title: 'Projeler',
         subtitle: 'Yakın zamanda üzerinde çalıştığım projeler',
         live: 'Canlı',
-        code: 'Kod'
+        code: 'Kod',
       },
       contact: {
         title: 'İletişim',
@@ -111,9 +123,9 @@ export const LanguageProvider = ({ children }) => {
         name: 'Adınız',
         email: 'E-posta',
         message: 'Mesajınız',
-        send: 'Mesaj Gönder'
-      }
-    }
+        send: 'Mesaj Gönder',
+      },
+    },
   };
 
   const t = translations[language];
@@ -124,4 +136,3 @@ export const LanguageProvider = ({ children }) => {
     </LanguageContext.Provider>
   );
 };
-
