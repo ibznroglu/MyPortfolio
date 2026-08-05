@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Ana Sayfa",
+    "about": "Hakkımda",
+    "skills": "Yetenekler",
+    "projects": "Kişisel Projeler",
+    "contact": "İletişim"
+  },
+  "home": {
+    "title": "Front-End Developer",
+    "name": "İSA BEZENİROĞLU",
+    "description": "React ve TypeScript ile kurumsal ölçekte web uygulamaları geliştiriyorum — son olarak Türkiye'nin önde gelen bankalarının kullandığı gayrimenkul değerleme platformlarında çalıştım. Vue ve React Native tarafında ürünleri ilk commit'ten canlıya kadar uçtan uca geliştiriyorum.",
+    "viewProjects": "Projeleri İncele"
+  },
+  "notFound": {
+    "title": "Sayfa bulunamadı",
+    "message": "Aradığınız sayfa mevcut değil veya taşınmış olabilir.",
+    "back": "Ana sayfaya dön"
+  },
+  "visitor": {
+    "total": "Toplam Ziyaretçi",
+    "active": "Anlık Kullanıcılar"
+  },
+  "about": {
+    "title": "Hakkımda",
+    "experience": "Deneyim",
+    "experienceText": "KEY Yazılım bünyesinde Front-End Developer olarak görev aldım. Bankacılık ve finans sektöründe, Türkiye'deki majör bankalara yönelik gayrimenkul değerleme platformları (Invex, Hypotex, Propex) geliştirilmesinde aktif rol üstlendim. React ve TypeScript kullanarak ölçeklenebilir, responsive ve cross-browser uyumlu kurumsal web arayüzleri tasarladım. Kurumsal projelerimin yanı sıra, React Native ile kişisel mobil uygulamalar geliştirerek web ve mobil mimariler arasında ortak tasarım ve mühendislik prensipleri uyguluyorum.",
+    "approach": "Yaklaşım",
+    "approachText": "Agile/Scrum metodolojileri ile çalışıyorum. CI/CD pipeline'ları (GitHub Actions, Jenkins) kullanarak production'a deploy ediyorum. Clean code, SOLID prensipleri ve performans optimizasyonu konularına odaklanıyorum. Cross-functional takımlarla etkili iş birliği yapıyorum.",
+    "tech": "Teknoloji Stack",
+    "techText": "React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS",
+    "tools": "Araçlar",
+    "toolsText": "RESTful API entegrasyonları, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum",
+    "goals": "Hedefler",
+    "goalsText": "Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Modern front-end teknolojilerini takip ediyor, best practices uyguluyorum. Kullanıcı deneyimini ön planda tutarak, kaliteli ve sürdürülebilir kod yazıyorum."
+  },
+  "skills": {
+    "title": "Teknik Yetenekler",
+    "subtitle": "Kullandığım teknolojiler ve araçlar"
+  },
+  "projects": {
+    "title": "Projeler",
+    "subtitle": "Yakın zamanda üzerinde çalıştığım projeler",
+    "live": "Canlı",
+    "code": "Kod"
+  },
+  "contact": {
+    "title": "İletişim",
+    "subtitle": "Formu doldurun veya ibznroglu@gmail.com adresine e-posta gönderin",
+    "name": "Adınız",
+    "email": "E-posta",
+    "message": "Mesajınız",
+    "send": "Mesaj Gönder"
+  }
+}

@@ -1,5 +1,4 @@
-import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import HTML from '../assets/html.webp';
 import CSS from '../assets/css.webp';
 import JavaScript from '../assets/javascript.webp';

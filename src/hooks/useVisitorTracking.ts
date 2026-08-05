@@ -6,7 +6,7 @@ export const useVisitorTracking = () => {
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [activeUsers, setActiveUsers] = useState(0);
   const [loading, setLoading] = useState(true);
-  const visitorIdRef = useRef(null);
+  const visitorIdRef = useRef<string | null>(null);
 
   useEffect(() => {
     const getOrCreateVisitorId = () => {

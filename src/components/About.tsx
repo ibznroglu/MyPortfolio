@@ -1,7 +1,12 @@
-import React from 'react';
-import { useLanguage } from '../context/LanguageContext';
+import type { ReactNode } from 'react';
+import { useLanguage } from '../hooks/useLanguage';
 
-const Card = ({ title, children }) => (
+interface CardProps {
+  title: string;
+  children: ReactNode;
+}
+
+const Card = ({ title, children }: CardProps) => (
   <div className="break-inside-avoid mb-5 bg-[#112240] p-6 rounded-xl border border-white/5 hover:border-pink-600/50 transition-colors duration-300">
     <h3 className="text-xl font-bold text-pink-500 mb-3 flex items-center gap-2">
       <span className="w-2 h-2 bg-pink-600 rounded-full" aria-hidden="true"></span>
