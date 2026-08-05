@@ -1,19 +1,16 @@
+import routes from './routes.json';
 import type { Language } from './translations';
+
+export const SITE_URL = 'https://isabezeniroglu.com';
 
 export interface NavItem {
   key: 'home' | 'about' | 'skills' | 'projects' | 'contact';
   slug: string;
 }
 
-// Route slugs are shared between the router and the navbar so the two can
-// never drift apart. English lives at the root, Turkish under /tr.
-export const NAV_ITEMS: readonly NavItem[] = [
-  { key: 'home', slug: '' },
-  { key: 'about', slug: 'about' },
-  { key: 'skills', slug: 'skills' },
-  { key: 'projects', slug: 'projects' },
-  { key: 'contact', slug: 'contact' },
-];
+// English lives at the root, Turkish under /tr. Slugs live in routes.json so
+// the router, the navbar and the sitemap generator all read one source.
+export const NAV_ITEMS = routes as readonly NavItem[];
 
 export const TR_PREFIX = '/tr';
 
