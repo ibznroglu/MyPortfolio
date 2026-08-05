@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -13,7 +13,7 @@
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <link rel="canonical" href="https://isabezeniroglu.com/" />
 
-  <!-- Fonts: preconnect first, then a non-blocking stylesheet request -->
+    <!-- Fonts: preconnect first, then a non-blocking stylesheet request -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -21,12 +21,12 @@
       href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap"
     />
 
-    <!-- Favicon: 48px ve katlari -->
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" sizes="any" />
-    <link rel="icon" type="image/png" sizes="96x96" href="%PUBLIC_URL%/favicon-96x96.png" />
-    <link rel="icon" type="image/png" sizes="192x192" href="%PUBLIC_URL%/favicon-192x192.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="%PUBLIC_URL%/apple-touch-icon.png" />
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <!-- Favicon: 48px and multiples -->
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/manifest.json" />
 
     <!-- Open Graph -->
     <meta property="og:site_name" content="İsa Bezeniroğlu" />
@@ -53,16 +53,13 @@
     />
     <meta name="twitter:image" content="https://isabezeniroglu.com/logo512.png" />
 
-    <!-- Google'a tercih edilen site adini bildirir -->
+    <!-- Tells Google the preferred site name -->
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "İsa Bezeniroğlu",
-        "alternateName": [
-          "İsa Bezeniroğlu | Frontend Developer",
-          "Isa Bezeniroglu"
-        ],
+        "alternateName": ["İsa Bezeniroğlu | Frontend Developer", "Isa Bezeniroglu"],
         "url": "https://isabezeniroglu.com/"
       }
     </script>
@@ -77,10 +74,7 @@
         "image": "https://isabezeniroglu.com/logo512.png",
         "jobTitle": "Frontend Developer",
         "knowsLanguage": ["tr", "en"],
-        "sameAs": [
-          "https://www.linkedin.com/in/isabezeniroglu/",
-          "https://github.com/ibznroglu"
-        ]
+        "sameAs": ["https://www.linkedin.com/in/isabezeniroglu/", "https://github.com/ibznroglu"]
       }
     </script>
   </head>
@@ -88,5 +82,6 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>

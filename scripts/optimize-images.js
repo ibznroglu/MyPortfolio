@@ -8,9 +8,12 @@
  * Usage: npm run optimize:images
  */
 
-const fs = require('node:fs');
-const path = require('node:path');
-const sharp = require('sharp');
+import fs from 'node:fs';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+import sharp from 'sharp';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const SRC_DIR = path.join(__dirname, '..', 'assets-source');
 const OUT_DIR = path.join(__dirname, '..', 'src', 'assets');

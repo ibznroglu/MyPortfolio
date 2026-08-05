@@ -6,9 +6,12 @@
  * Falls back to the build date when git history is unavailable.
  */
 
-const { writeFileSync, mkdirSync, existsSync } = require('node:fs');
-const { execSync } = require('node:child_process');
-const path = require('node:path');
+import { writeFileSync, mkdirSync, existsSync } from 'node:fs';
+import { execSync } from 'node:child_process';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const BASE_URL = 'https://isabezeniroglu.com';
 const OUT_DIR = path.join(__dirname, '..', 'build');
