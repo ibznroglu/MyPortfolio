@@ -1,0 +1,7 @@
+[
+  { "key": "home", "slug": "" },
+  { "key": "about", "slug": "about" },
+  { "key": "skills", "slug": "skills" },
+  { "key": "projects", "slug": "projects" },
+  { "key": "contact", "slug": "contact" }
+]

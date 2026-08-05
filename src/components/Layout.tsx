@@ -6,6 +6,8 @@ import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
 import RouteFallback from './RouteFallback';
 import type { Language } from '../lib/translations';
+import { useDocumentMeta, slugFromPathname } from '../hooks/useDocumentMeta';
+import { getBundle } from '../lib/translations';
 
 /**
  * Shared shell for one language. The URL is the single source of truth for
@@ -13,6 +15,13 @@ import type { Language } from '../lib/translations';
  */
 const Layout = ({ language }: { language: Language }) => {
   const { pathname } = useLocation();
+  const slug = slugFromPathname(pathname);
+  const t = getBundle(language);
+  const pageTitle = slug
+    ? `${t.nav[slug as keyof typeof t.nav]} | ${t.home.name} — ${t.home.title}`
+    : `${t.home.name} | ${t.home.title}`;
+
+  useDocumentMeta(slug, language, pageTitle);
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
