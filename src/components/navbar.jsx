@@ -1,30 +1,20 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useLanguage } from '../context/LanguageContext';
 import Logo from '../assets/logo.webp';
 import { socialLinks } from '../data/socialLinks';
+import { NAV_ITEMS, localizedPath, swapLanguage } from '../lib/navigation';
 
 const FOCUS_RING =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
 
-const Navbar = ({ activeSection, setActiveSection }) => {
+const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+  const { language, t } = useLanguage();
+  const { pathname } = useLocation();
   const toggleRef = useRef(null);
   const panelRef = useRef(null);
-
-  const menuItems = [
-    { key: 'home', label: t.nav.home },
-    { key: 'about', label: t.nav.about },
-    { key: 'skills', label: t.nav.skills },
-    { key: 'projects', label: t.nav.projects },
-    { key: 'contact', label: t.nav.contact },
-  ];
-
-  const goTo = (key) => {
-    setActiveSection(key);
-    setIsMenuOpen(false);
-  };
 
   // Close on Escape and lock background scroll while the overlay is open.
   useEffect(() => {
@@ -40,7 +30,7 @@ const Navbar = ({ activeSection, setActiveSection }) => {
 
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKeyDown);
-    panelRef.current?.querySelector('button')?.focus();
+    panelRef.current?.querySelector('a')?.focus();
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -49,14 +39,21 @@ const Navbar = ({ activeSection, setActiveSection }) => {
     };
   }, [isMenuOpen]);
 
-  const navButtonClass = (key) =>
+  const closeMenu = () => setIsMenuOpen(false);
+
+  const navLinkClass = ({ isActive }) =>
     `px-4 py-2 rounded-lg transition-colors duration-300 ${FOCUS_RING} ${
-      activeSection === key
+      isActive
         ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/50'
         : 'text-gray-300 hover:text-pink-500 hover:bg-[#112240]'
     }`;
 
-  const langButtonClass = (code) =>
+  const mobileLinkClass = ({ isActive }) =>
+    `text-3xl px-4 py-2 rounded-lg transition-colors ${FOCUS_RING} ${
+      isActive ? 'text-pink-500' : 'text-gray-300 hover:text-pink-500'
+    }`;
+
+  const langLinkClass = (code) =>
     `px-3 py-1 rounded text-sm font-semibold transition-colors ${FOCUS_RING} ${
       language === code ? 'bg-pink-600 text-white' : 'bg-[#112240] text-gray-400 hover:text-white'
     }`;
@@ -64,9 +61,8 @@ const Navbar = ({ activeSection, setActiveSection }) => {
   return (
     <>
       <header className="fixed top-0 w-full h-[80px] flex justify-between items-center px-4 sm:px-6 bg-[#0a192f]/95 backdrop-blur-sm text-gray-300 z-50 border-b border-pink-600/20">
-        <button
-          type="button"
-          onClick={() => goTo('home')}
+        <Link
+          to={localizedPath('', language)}
           aria-label={t.nav.home}
           className={`rounded-lg ${FOCUS_RING}`}
         >
@@ -77,20 +73,15 @@ const Navbar = ({ activeSection, setActiveSection }) => {
             height="48"
             className="w-12 h-12 hover:scale-110 transition-transform duration-300"
           />
-        </button>
+        </Link>
 
         <nav aria-label="Main" className="hidden md:block">
           <ul className="flex gap-1 list-none p-0">
-            {menuItems.map((item) => (
-              <li key={item.key}>
-                <button
-                  type="button"
-                  onClick={() => goTo(item.key)}
-                  aria-current={activeSection === item.key ? 'page' : undefined}
-                  className={navButtonClass(item.key)}
-                >
-                  {item.label}
-                </button>
+            {NAV_ITEMS.map(({ key, slug }) => (
+              <li key={key}>
+                <NavLink to={localizedPath(slug, language)} end={!slug} className={navLinkClass}>
+                  {t.nav[key]}
+                </NavLink>
               </li>
             ))}
           </ul>
@@ -98,22 +89,24 @@ const Navbar = ({ activeSection, setActiveSection }) => {
 
         <div className="flex items-center gap-3 sm:gap-4">
           <div className="flex gap-2" role="group" aria-label="Language">
-            <button
-              type="button"
-              onClick={() => setLanguage('en')}
-              aria-pressed={language === 'en'}
-              className={langButtonClass('en')}
+            <Link
+              to={swapLanguage(pathname, 'en')}
+              onClick={closeMenu}
+              hrefLang="en"
+              aria-current={language === 'en' ? 'true' : undefined}
+              className={langLinkClass('en')}
             >
               EN
-            </button>
-            <button
-              type="button"
-              onClick={() => setLanguage('tr')}
-              aria-pressed={language === 'tr'}
-              className={langButtonClass('tr')}
+            </Link>
+            <Link
+              to={swapLanguage(pathname, 'tr')}
+              onClick={closeMenu}
+              hrefLang="tr"
+              aria-current={language === 'tr' ? 'true' : undefined}
+              className={langLinkClass('tr')}
             >
               TR
-            </button>
+            </Link>
           </div>
 
           <button
@@ -138,16 +131,16 @@ const Navbar = ({ activeSection, setActiveSection }) => {
         className="md:hidden fixed inset-0 bg-[#0a192f]/98 backdrop-blur-sm z-40 flex flex-col justify-center items-center"
       >
         <ul className="list-none p-0 text-center">
-          {menuItems.map((item) => (
-            <li key={item.key} className="py-4">
-              <button
-                type="button"
-                onClick={() => goTo(item.key)}
-                aria-current={activeSection === item.key ? 'page' : undefined}
-                className={`text-3xl px-4 py-2 rounded-lg transition-colors ${FOCUS_RING} ${activeSection === item.key ? 'text-pink-500' : 'text-gray-300 hover:text-pink-500'}`}
+          {NAV_ITEMS.map(({ key, slug }) => (
+            <li key={key} className="py-4">
+              <NavLink
+                to={localizedPath(slug, language)}
+                end={!slug}
+                onClick={closeMenu}
+                className={mobileLinkClass}
               >
-                {item.label}
-              </button>
+                {t.nav[key]}
+              </NavLink>
             </li>
           ))}
         </ul>

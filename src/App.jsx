@@ -1,13 +1,14 @@
-import { useState } from 'react';
-import Navbar from './components/navbar';
+import { Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
 import Home from './components/Home';
 import About from './components/About';
 import Skills from './components/Skills';
 import Work from './components/Work';
 import Contact from './components/Contact';
-import Footer from './components/Footer';
+import NotFound from './components/NotFound';
+import { NAV_ITEMS, TR_PREFIX } from './lib/navigation';
 
-const SECTIONS = {
+const PAGES = {
   home: Home,
   about: About,
   skills: Skills,
@@ -15,26 +16,28 @@ const SECTIONS = {
   contact: Contact,
 };
 
+const pageRoutes = NAV_ITEMS.map(({ key, slug }) => {
+  const Page = PAGES[key];
+  return slug ? (
+    <Route key={key} path={slug} element={<Page />} />
+  ) : (
+    <Route key={key} index element={<Page />} />
+  );
+});
+
 function App() {
-  const [activeSection, setActiveSection] = useState('home');
-  const ActiveSection = SECTIONS[activeSection] || Home;
-
   return (
-    <div className="min-h-screen bg-[#0a192f]">
-      <a
-        href="#main-content"
-        className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[60] focus:rounded-lg focus:bg-pink-600 focus:px-4 focus:py-2 focus:font-semibold focus:text-white"
-      >
-        Skip to content
-      </a>
+    <Routes>
+      <Route path="/" element={<Layout language="en" />}>
+        {pageRoutes}
+        <Route path="*" element={<NotFound />} />
+      </Route>
 
-      <Navbar activeSection={activeSection} setActiveSection={setActiveSection} />
-
-      <main id="main-content" tabIndex={-1} className="pt-20 focus:outline-none">
-        <ActiveSection setActiveSection={setActiveSection} />
-      </main>
-      <Footer />
-    </div>
+      <Route path={TR_PREFIX} element={<Layout language="tr" />}>
+        {pageRoutes}
+        <Route path="*" element={<NotFound />} />
+      </Route>
+    </Routes>
   );
 }
 

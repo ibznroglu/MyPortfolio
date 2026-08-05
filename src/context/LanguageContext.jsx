@@ -1,4 +1,4 @@
-import { createContext, useState, useContext } from 'react';
+import { createContext, useContext, useMemo } from 'react';
 
 const LanguageContext = createContext();
 
@@ -10,9 +10,9 @@ export const useLanguage = () => {
   return context;
 };
 
-export const LanguageProvider = ({ children }) => {
-  const [language, setLanguage] = useState('en');
-
+// The active language comes from the URL, so this provider only maps it to
+// the matching translation bundle.
+export const LanguageProvider = ({ language, children }) => {
   const translations = {
     en: {
       nav: {
@@ -28,6 +28,11 @@ export const LanguageProvider = ({ children }) => {
         description:
           'I build enterprise-scale web applications with React and TypeScript — most recently real estate valuation platforms used by major banks in Türkiye. I also take Vue and React Native products end to end, from first commit to production.',
         viewProjects: 'View Projects',
+      },
+      notFound: {
+        title: 'Page not found',
+        message: 'The page you are looking for does not exist or has been moved.',
+        back: 'Back to home',
       },
       visitor: {
         total: 'Total Visitors',
@@ -85,6 +90,11 @@ export const LanguageProvider = ({ children }) => {
           "React ve TypeScript ile kurumsal ölçekte web uygulamaları geliştiriyorum — son olarak Türkiye'nin önde gelen bankalarının kullandığı gayrimenkul değerleme platformlarında çalıştım. Vue ve React Native tarafında ürünleri ilk commit'ten canlıya kadar uçtan uca geliştiriyorum.",
         viewProjects: 'Projeleri İncele',
       },
+      notFound: {
+        title: 'Sayfa bulunamadı',
+        message: 'Aradığınız sayfa mevcut değil veya taşınmış olabilir.',
+        back: 'Ana sayfaya dön',
+      },
       visitor: {
         total: 'Toplam Ziyaretçi',
         active: 'Anlık Kullanıcılar',
@@ -128,11 +138,11 @@ export const LanguageProvider = ({ children }) => {
     },
   };
 
-  const t = translations[language];
-
-  return (
-    <LanguageContext.Provider value={{ language, setLanguage, t }}>
-      {children}
-    </LanguageContext.Provider>
+  const value = useMemo(
+    () => ({ language, t: translations[language] || translations.en }),
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [language],
   );
+
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };
