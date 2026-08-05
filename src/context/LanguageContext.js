@@ -26,7 +26,7 @@ export const LanguageProvider = ({ children }) => {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
         description:
-          'Front-End Developer specializing in React with JavaScript (ES6+) and TypeScript. Over the past few years, I’ve worked on enterprise-scale web applications in the banking and finance domain, contributing to real estate valuation platforms and the digitization of related business processes for major banks in Türkiye. I have experience with modern front-end architectures, Agile/Scrum methodologies, CI/CD pipelines, and RESTful API integrations. I focus on clean code, SOLID principles, and maintainable component-based architecture. In addition, I develop mobile applications using React Native as personal projects.',
+          'I build enterprise-scale web applications with React and TypeScript — most recently real estate valuation platforms used by major banks in Türkiye. I also take Vue and React Native products end to end, from first commit to production.',
         viewProjects: 'View Projects',
       },
       visitor: {
@@ -82,7 +82,7 @@ export const LanguageProvider = ({ children }) => {
         title: 'Front-End Developer',
         name: 'İSA BEZENİROĞLU',
         description:
-          'React, JavaScript (ES6+) ve TypeScript odaklı Front-End Developer. Son yıllarda bankacılık ve finans sektöründe kurumsal ölçekte web uygulamaları geliştirerek; Türkiye’deki majör bankalara yönelik gayrimenkul değerleme platformları ve ilgili iş süreçlerinin dijitalleştirilmesinde görev aldım. Modern front-end mimarileri, Agile/Scrum metodolojileri, CI/CD pipeline’ları ve RESTful API entegrasyonları konularında deneyimliyim. Temiz kod, SOLID prensipleri ve sürdürülebilir component tabanlı mimariyi merkeze alıyorum. Ayrıca React Native kullanarak kişisel projeler kapsamında mobil uygulamalar geliştiriyorum.',
+          "React ve TypeScript ile kurumsal ölçekte web uygulamaları geliştiriyorum — son olarak Türkiye'nin önde gelen bankalarının kullandığı gayrimenkul değerleme platformlarında çalıştım. Vue ve React Native tarafında ürünleri ilk commit'ten canlıya kadar uçtan uca geliştiriyorum.",
         viewProjects: 'Projeleri İncele',
       },
       visitor: {
