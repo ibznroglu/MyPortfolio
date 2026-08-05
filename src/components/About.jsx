@@ -22,7 +22,7 @@ const About = () => {
     .filter(Boolean);
 
   return (
-    <div className="w-full min-h-[calc(100dvh-80px)] bg-[#0a192f] text-gray-300 py-10">
+    <div className="w-full section-shell bg-[#0a192f] text-gray-300 py-10">
       <div className="max-w-7xl mx-auto px-6 sm:px-8">
         <div className="text-center mb-6">
           <h2 className="text-4xl font-bold inline border-b-4 border-pink-600 pb-2">

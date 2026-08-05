@@ -5,7 +5,7 @@ const Contact = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="w-full min-h-[calc(100dvh-80px)] bg-gradient-to-b from-[#112240] to-[#0a192f] flex items-center justify-center py-12">
+    <div className="w-full section-shell bg-gradient-to-b from-[#112240] to-[#0a192f] flex items-center justify-center py-12">
       <div className="max-w-2xl mx-auto px-8 w-full">
         <div className="text-center mb-8">
           <h2 className="text-4xl font-bold inline border-b-4 border-pink-600 text-gray-300 pb-2">

@@ -5,6 +5,7 @@ import About from './components/About';
 import Skills from './components/Skills';
 import Work from './components/Work';
 import Contact from './components/Contact';
+import Footer from './components/Footer';
 
 const SECTIONS = {
   home: Home,
@@ -32,6 +33,7 @@ function App() {
       <main id="main-content" tabIndex={-1} className="pt-20 focus:outline-none">
         <ActiveSection setActiveSection={setActiveSection} />
       </main>
+      <Footer />
     </div>
   );
 }

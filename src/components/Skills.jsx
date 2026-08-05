@@ -42,7 +42,7 @@ const Skills = () => {
   ];
 
   return (
-    <div className="w-full min-h-[calc(100dvh-80px)] bg-gradient-to-b from-[#112240] to-[#0a192f] text-gray-300 py-12">
+    <div className="w-full section-shell bg-gradient-to-b from-[#112240] to-[#0a192f] text-gray-300 py-12">
       <div className="max-w-6xl mx-auto px-8">
         <div className="text-center mb-12">
           <div className="inline-block border-b-4 border-pink-600 pb-2">

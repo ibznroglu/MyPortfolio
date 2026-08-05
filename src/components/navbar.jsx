@@ -1,10 +1,8 @@
 import React, { useEffect, useRef, useState } from 'react';
-import { FaBars, FaTimes, FaGithub, FaLinkedin } from 'react-icons/fa';
-import { HiOutlineMail } from 'react-icons/hi';
-import { BsFillPersonLinesFill } from 'react-icons/bs';
+import { FaBars, FaTimes } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import Logo from '../assets/logo.webp';
-import { settings } from '../helpers/functions/settings';
+import { socialLinks } from '../data/socialLinks';
 
 const FOCUS_RING =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
@@ -157,44 +155,21 @@ const Navbar = ({ activeSection, setActiveSection }) => {
 
       <nav aria-label="Social links" className="hidden lg:block fixed top-[120px] left-0 z-40">
         <ul className="list-none p-0">
-          <li className="w-[160px] h-[60px] ml-[-100px] hover:ml-[-10px] focus-within:ml-[-10px] duration-300 bg-blue-600 rounded-r-lg hover:shadow-lg hover:shadow-blue-600/50">
-            <a
-              href={settings.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex justify-between items-center w-full h-full text-gray-100 px-4 ${FOCUS_RING}`}
+          {socialLinks.map(({ id, label, href, Icon, external, railClass }) => (
+            <li
+              key={id}
+              className={`w-[160px] h-[60px] ml-[-100px] hover:ml-[-10px] focus-within:ml-[-10px] duration-300 rounded-r-lg hover:shadow-lg ${railClass}`}
             >
-              LinkedIn <FaLinkedin size={30} aria-hidden="true" />
-            </a>
-          </li>
-          <li className="w-[160px] h-[60px] ml-[-100px] hover:ml-[-10px] focus-within:ml-[-10px] duration-300 bg-[#333333] rounded-r-lg hover:shadow-lg hover:shadow-gray-800/50">
-            <a
-              href={settings.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex justify-between items-center w-full h-full text-gray-100 px-4 ${FOCUS_RING}`}
-            >
-              GitHub <FaGithub size={30} aria-hidden="true" />
-            </a>
-          </li>
-          <li className="w-[160px] h-[60px] ml-[-100px] hover:ml-[-10px] focus-within:ml-[-10px] duration-300 bg-pink-600 rounded-r-lg hover:shadow-lg hover:shadow-pink-600/50">
-            <a
-              href={`mailto:${settings.email}`}
-              className={`flex justify-between items-center w-full h-full text-gray-100 px-4 ${FOCUS_RING}`}
-            >
-              Email <HiOutlineMail size={30} aria-hidden="true" />
-            </a>
-          </li>
-          <li className="w-[160px] h-[60px] ml-[-100px] hover:ml-[-10px] focus-within:ml-[-10px] duration-300 bg-[#565f69] rounded-r-lg hover:shadow-lg hover:shadow-gray-600/50">
-            <a
-              href="/isa_bezeniroglu_resume.pdf"
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`flex justify-between items-center w-full h-full text-gray-100 px-4 ${FOCUS_RING}`}
-            >
-              Resume <BsFillPersonLinesFill size={30} aria-hidden="true" />
-            </a>
-          </li>
+              <a
+                href={href}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                className={`flex justify-between items-center w-full h-full text-gray-100 px-4 ${FOCUS_RING}`}
+              >
+                {label} <Icon size={30} aria-hidden="true" />
+              </a>
+            </li>
+          ))}
         </ul>
       </nav>
     </>
