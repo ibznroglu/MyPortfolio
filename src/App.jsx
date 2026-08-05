@@ -1,12 +1,16 @@
+import { lazy } from 'react';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
-import Home from './components/Home';
-import About from './components/About';
-import Skills from './components/Skills';
-import Work from './components/Work';
-import Contact from './components/Contact';
-import NotFound from './components/NotFound';
 import { NAV_ITEMS, TR_PREFIX } from './lib/navigation';
+
+// Each page ships as its own chunk, so the first paint only downloads the
+// route the visitor actually asked for.
+const Home = lazy(() => import('./components/Home'));
+const About = lazy(() => import('./components/About'));
+const Skills = lazy(() => import('./components/Skills'));
+const Work = lazy(() => import('./components/Work'));
+const Contact = lazy(() => import('./components/Contact'));
+const NotFound = lazy(() => import('./components/NotFound'));
 
 const PAGES = {
   home: Home,

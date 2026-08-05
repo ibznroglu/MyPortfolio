@@ -2,6 +2,7 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
+// Pages are lazily loaded, so every assertion has to await the chunk.
 const renderAt = (route) =>
   render(
     <MemoryRouter initialEntries={[route]}>
@@ -9,22 +10,22 @@ const renderAt = (route) =>
     </MemoryRouter>,
   );
 
-test('renders the hero heading on the english home page', () => {
+test('renders the hero heading on the english home page', async () => {
   renderAt('/');
-  expect(screen.getByRole('heading', { name: /İSA BEZENİROĞLU/i })).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /İSA BEZENİROĞLU/i })).toBeInTheDocument();
 });
 
-test('serves the turkish home page under /tr', () => {
+test('serves the turkish home page under /tr', async () => {
   renderAt('/tr');
-  expect(screen.getByRole('link', { name: 'Hakkımda' })).toBeInTheDocument();
+  expect(await screen.findByRole('link', { name: 'Hakkımda' })).toBeInTheDocument();
 });
 
-test('renders the 404 page for an unknown route', () => {
+test('renders the 404 page for an unknown route', async () => {
   renderAt('/definitely-not-a-page');
-  expect(screen.getByRole('heading', { name: /page not found/i })).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();
 });
 
-test('renders the localized 404 page for an unknown turkish route', () => {
+test('renders the localized 404 page for an unknown turkish route', async () => {
   renderAt('/tr/olmayan-sayfa');
-  expect(screen.getByRole('heading', { name: /sayfa bulunamadı/i })).toBeInTheDocument();
+  expect(await screen.findByRole('heading', { name: /sayfa bulunamadı/i })).toBeInTheDocument();
 });

@@ -1,8 +1,10 @@
-import { useEffect } from 'react';
+import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
 import { LanguageProvider } from '../context/LanguageContext';
 import Navbar from './navbar';
 import Footer from './Footer';
+import ErrorBoundary from './ErrorBoundary';
+import RouteFallback from './RouteFallback';
 
 /**
  * Shared shell for one language. The URL is the single source of truth for
@@ -26,7 +28,11 @@ const Layout = ({ language }) => {
         <Navbar />
 
         <main id="main-content" tabIndex={-1} className="pt-20 focus:outline-none">
-          <Outlet />
+          <ErrorBoundary>
+            <Suspense fallback={<RouteFallback />}>
+              <Outlet />
+            </Suspense>
+          </ErrorBoundary>
         </main>
 
         <Footer />
