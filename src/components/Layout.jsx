@@ -1,5 +1,5 @@
 import { Suspense, useEffect } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import LanguageProvider from '../context/LanguageProvider';
 import Navbar from './navbar';
 import Footer from './Footer';
@@ -11,6 +11,7 @@ import RouteFallback from './RouteFallback';
  * the active language, so the <html lang> attribute is derived from it.
  */
 const Layout = ({ language }) => {
+  const { pathname } = useLocation();
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);
@@ -28,7 +29,7 @@ const Layout = ({ language }) => {
         <Navbar />
 
         <main id="main-content" tabIndex={-1} className="pt-20 focus:outline-none">
-          <ErrorBoundary>
+          <ErrorBoundary key={pathname} language={language}>
             <Suspense fallback={<RouteFallback />}>
               <Outlet />
             </Suspense>
