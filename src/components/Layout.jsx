@@ -1,6 +1,6 @@
 import { Suspense, useEffect } from 'react';
 import { Outlet } from 'react-router-dom';
-import { LanguageProvider } from '../context/LanguageContext';
+import LanguageProvider from '../context/LanguageProvider';
 import Navbar from './navbar';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';

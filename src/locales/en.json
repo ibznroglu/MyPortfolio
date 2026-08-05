@@ -1,0 +1,55 @@
+{
+  "nav": {
+    "home": "Home",
+    "about": "About",
+    "skills": "Skills",
+    "projects": "Personal Projects",
+    "contact": "Contact"
+  },
+  "home": {
+    "title": "Front-End Developer",
+    "name": "İSA BEZENİROĞLU",
+    "description": "I build enterprise-scale web applications with React and TypeScript — most recently real estate valuation platforms used by major banks in Türkiye. I also take Vue and React Native products end to end, from first commit to production.",
+    "viewProjects": "View Projects"
+  },
+  "notFound": {
+    "title": "Page not found",
+    "message": "The page you are looking for does not exist or has been moved.",
+    "back": "Back to home"
+  },
+  "visitor": {
+    "total": "Total Visitors",
+    "active": "Active Users"
+  },
+  "about": {
+    "title": "About Me",
+    "experience": "Experience",
+    "experienceText": "Worked as a Front-End Developer at KEY Yazılım. Contributed to the development of real estate valuation platforms (Invex, Hypotex, Propex) for major banks in Türkiye within the banking and finance domain. Built scalable, responsive, and cross-browser compatible enterprise web interfaces using React and TypeScript. Alongside my professional work, I develop personal mobile applications with React Native, applying shared architectural and engineering principles across web and mobile platforms.",
+    "approach": "Approach",
+    "approachText": "Working with Agile/Scrum methodologies. Deploying to production via CI/CD pipelines (GitHub Actions, Jenkins). Focused on clean code, SOLID principles, and performance optimization. Effective collaboration with cross-functional teams.",
+    "tech": "Tech Stack",
+    "techText": "React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS",
+    "tools": "Tools",
+    "toolsText": "RESTful API integrations, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum",
+    "goals": "Goals",
+    "goalsText": "Continuously learning and improving. Following modern front-end technologies and applying best practices. Writing quality, maintainable code with focus on user experience."
+  },
+  "skills": {
+    "title": "Technical Skills",
+    "subtitle": "Technologies and tools I work with"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Some of my recent work",
+    "live": "Live",
+    "code": "Code"
+  },
+  "contact": {
+    "title": "Get In Touch",
+    "subtitle": "Fill out the form below or send me an email at ibznroglu@gmail.com",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send Message"
+  }
+}

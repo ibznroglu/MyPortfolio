@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import Logo from '../assets/logo.webp';
 import { socialLinks } from '../data/socialLinks';
 import { NAV_ITEMS, localizedPath, swapLanguage } from '../lib/navigation';

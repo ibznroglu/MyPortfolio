@@ -1,4 +1,4 @@
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 import { useVisitorTracking } from '../hooks/useVisitorTracking';
 import { HiUsers, HiUserGroup } from 'react-icons/hi';
 import IsaImg from '../assets/isa.webp';

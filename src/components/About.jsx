@@ -1,4 +1,4 @@
-import { useLanguage } from '../context/LanguageContext';
+import { useLanguage } from '../hooks/useLanguage';
 
 const Card = ({ title, children }) => (
   <div className="break-inside-avoid mb-5 bg-[#112240] p-6 rounded-xl border border-white/5 hover:border-pink-600/50 transition-colors duration-300">
