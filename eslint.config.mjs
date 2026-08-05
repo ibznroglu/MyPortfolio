@@ -5,13 +5,14 @@ import reactHooks from 'eslint-plugin-react-hooks';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import prettier from 'eslint-config-prettier';
+import tseslint from 'typescript-eslint';
 
 export default [
   { ignores: ['build/**', 'node_modules/**', 'assets-source/**'] },
-
+  ...tseslint.configs.recommended,
   // Application code runs in the browser.
   {
-    files: ['src/**/*.{js,jsx}'],
+    files: ['src/**/*.{ts,tsx}'],
     ...js.configs.recommended,
     languageOptions: {
       ecmaVersion: 2023,
@@ -40,7 +41,7 @@ export default [
 
   // Build scripts run in Node.
   {
-    files: ['scripts/**/*.js', '*.config.js'],
+    files: ['scripts/**/*.js', '*.config.{js,ts}'],
     ...js.configs.recommended,
     languageOptions: {
       ecmaVersion: 2023,
@@ -51,7 +52,7 @@ export default [
 
   // Tests get both browser globals and the Vitest globals.
   {
-    files: ['src/**/*.test.{js,jsx}'],
+    files: ['src/**/*.test.{ts,tsx}'],
     languageOptions: { globals: { ...globals.browser, ...globals.vitest } },
   },
 

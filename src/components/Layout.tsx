@@ -5,12 +5,13 @@ import Navbar from './navbar';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
 import RouteFallback from './RouteFallback';
+import type { Language } from '../lib/translations';
 
 /**
  * Shared shell for one language. The URL is the single source of truth for
  * the active language, so the <html lang> attribute is derived from it.
  */
-const Layout = ({ language }) => {
+const Layout = ({ language }: { language: Language }) => {
   const { pathname } = useLocation();
   useEffect(() => {
     document.documentElement.lang = language;

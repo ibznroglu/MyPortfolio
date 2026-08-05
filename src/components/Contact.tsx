@@ -34,7 +34,7 @@ const Contact = () => {
           <textarea
             className="w-full bg-[#0a192f] border border-pink-600/30 text-gray-300 p-3 rounded-lg focus:outline-none focus:border-pink-600 focus:ring-2 focus:ring-pink-600/50 transition-all resize-none"
             name="message"
-            rows="5"
+            rows={5}
             placeholder={t.contact.message}
             required
           ></textarea>

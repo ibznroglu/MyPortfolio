@@ -1,4 +1,5 @@
-import { Component } from 'react';
+import { Component, type ErrorInfo, type ReactNode } from 'react';
+import type { Language } from '../lib/translations';
 
 /**
  * Catches render-time errors so a single broken section cannot blank the page.
@@ -7,7 +8,7 @@ import { Component } from 'react';
  * The copy is kept local on purpose. Reading it through the translation layer
  * would make the fallback depend on the very system that might have failed.
  */
-const MESSAGES = {
+const MESSAGES: Record<Language, { title: string; body: string; action: string }> = {
   en: {
     title: 'Something went wrong',
     body: 'This section failed to load. Reloading the page usually fixes it.',
@@ -20,14 +21,23 @@ const MESSAGES = {
   },
 };
 
-class ErrorBoundary extends Component {
-  state = { hasError: false };
+interface Props {
+  language: Language;
+  children: ReactNode;
+}
 
-  static getDerivedStateFromError() {
+interface State {
+  hasError: boolean;
+}
+
+class ErrorBoundary extends Component<Props, State> {
+  state: State = { hasError: false };
+
+  static getDerivedStateFromError(): State {
     return { hasError: true };
   }
 
-  componentDidCatch(error, info) {
+  componentDidCatch(error: Error, info: ErrorInfo) {
     console.error('Unhandled render error:', error, info.componentStack);
   }
 

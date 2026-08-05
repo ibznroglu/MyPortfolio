@@ -5,6 +5,7 @@ import { useLanguage } from '../hooks/useLanguage';
 import Logo from '../assets/logo.webp';
 import { socialLinks } from '../data/socialLinks';
 import { NAV_ITEMS, localizedPath, swapLanguage } from '../lib/navigation';
+import type { Language } from '../lib/translations';
 
 const FOCUS_RING =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
@@ -13,14 +14,14 @@ const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { language, t } = useLanguage();
   const { pathname } = useLocation();
-  const toggleRef = useRef(null);
-  const panelRef = useRef(null);
+  const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLElement>(null);
 
   // Close on Escape and lock background scroll while the overlay is open.
   useEffect(() => {
     if (!isMenuOpen) return undefined;
 
-    const onKeyDown = (event) => {
+    const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') setIsMenuOpen(false);
     };
 
@@ -41,19 +42,19 @@ const Navbar = () => {
 
   const closeMenu = () => setIsMenuOpen(false);
 
-  const navLinkClass = ({ isActive }) =>
+  const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `px-4 py-2 rounded-lg transition-colors duration-300 ${FOCUS_RING} ${
       isActive
         ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/50'
         : 'text-gray-300 hover:text-pink-500 hover:bg-[#112240]'
     }`;
 
-  const mobileLinkClass = ({ isActive }) =>
+  const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
     `text-3xl px-4 py-2 rounded-lg transition-colors ${FOCUS_RING} ${
       isActive ? 'text-pink-500' : 'text-gray-300 hover:text-pink-500'
     }`;
 
-  const langLinkClass = (code) =>
+  const langLinkClass = (code: Language) =>
     `px-3 py-1 rounded text-sm font-semibold transition-colors ${FOCUS_RING} ${
       language === code ? 'bg-pink-600 text-white' : 'bg-[#112240] text-gray-400 hover:text-white'
     }`;

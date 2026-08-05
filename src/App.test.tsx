@@ -3,7 +3,7 @@ import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
 // Pages are lazily loaded, so every assertion has to await the chunk.
-const renderAt = (route) =>
+const renderAt = (route: string) =>
   render(
     <MemoryRouter initialEntries={[route]}>
       <App />
