@@ -1,96 +1,136 @@
-import { useState, useEffect, useRef } from 'react';
-import { ref, onValue, set, onDisconnect, serverTimestamp, get } from 'firebase/database';
-import { database } from '../config/firebase';
+import { useEffect, useState } from 'react';
+import { signInAnonymously } from 'firebase/auth';
+import {
+  onDisconnect,
+  onValue,
+  orderByChild,
+  query,
+  ref,
+  runTransaction,
+  serverTimestamp,
+  set,
+  startAt,
+} from 'firebase/database';
+import { auth, database } from '../config/firebase';
 
-export const useVisitorTracking = () => {
+// A visitor is "active" if the server saw them within this window. The
+// heartbeat has to be comfortably shorter so a live tab never falls out of it.
+const ACTIVE_WINDOW_MS = 60_000;
+const HEARTBEAT_MS = 20_000;
+
+export interface VisitorStats {
+  totalVisitors: number;
+  activeUsers: number;
+  loading: boolean;
+}
+
+export const useVisitorTracking = (): VisitorStats => {
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [activeUsers, setActiveUsers] = useState(0);
   const [loading, setLoading] = useState(true);
-  const visitorIdRef = useRef<string | null>(null);
 
   useEffect(() => {
-    const getOrCreateVisitorId = () => {
-      let visitorId = localStorage.getItem('visitorId');
-      if (!visitorId) {
-        visitorId = `visitor_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`;
-        localStorage.setItem('visitorId', visitorId);
-      }
-      return visitorId;
+    let cancelled = false;
+    let heartbeat: ReturnType<typeof setInterval> | undefined;
+    let unsubscribeActive: (() => void) | undefined;
+    const teardown: Array<() => void> = [];
+
+    // The database clock is authoritative; the visitor's system clock is not.
+    let serverOffsetMs = 0;
+
+    const countFirstVisitOnce = async (uid: string) => {
+      const claimRef = ref(database, `countedVisitors/${uid}`);
+
+      // Transaction rather than get-then-set: two tabs opening at the same
+      // moment must not both claim a first visit.
+      const claim = await runTransaction(claimRef, (current) =>
+        current === null ? true : undefined,
+      );
+
+      if (!claim.committed) return;
+
+      await runTransaction(
+        ref(database, 'totalVisitors'),
+        (current: number | null) => (current ?? 0) + 1,
+      );
     };
 
-    const visitorId = getOrCreateVisitorId();
-    visitorIdRef.current = visitorId;
+    const trackPresence = (uid: string) => {
+      const presenceRef = ref(database, `activeUsers/${uid}`);
+      const connectedRef = ref(database, '.info/connected');
 
-    const activeUsersRef = ref(database, 'activeUsers');
-    const visitorRef = ref(database, `activeUsers/${visitorId}`);
-    const totalVisitorsRef = ref(database, 'totalVisitors');
+      const write = () => set(presenceRef, { lastSeen: serverTimestamp() });
 
-    const unsubscribeActiveUsers = onValue(activeUsersRef, (snapshot) => {
-      if (snapshot.exists()) {
-        const activeUsersData = snapshot.val();
-        const now = Date.now();
-        const validActiveUsers = Object.keys(activeUsersData).filter((userId) => {
-          const lastSeen = activeUsersData[userId]?.lastSeen;
-          if (!lastSeen) return false;
-          return now - lastSeen < 30000;
+      const stopConnected = onValue(connectedRef, (snapshot) => {
+        if (snapshot.val() !== true) return;
+
+        // Registered before the first write, so a hard close still cleans up.
+        onDisconnect(presenceRef)
+          .remove()
+          .then(write)
+          .catch(() => {});
+      });
+
+      teardown.push(stopConnected, () => set(presenceRef, null).catch(() => {}));
+
+      heartbeat = setInterval(write, HEARTBEAT_MS);
+    };
+
+    // The window slides, so the subscription is rebuilt on every heartbeat.
+    const watchActiveUsers = () => {
+      const subscribe = () => {
+        unsubscribeActive?.();
+
+        const since = Date.now() + serverOffsetMs - ACTIVE_WINDOW_MS;
+        const activeQuery = query(
+          ref(database, 'activeUsers'),
+          orderByChild('lastSeen'),
+          startAt(since),
+        );
+
+        unsubscribeActive = onValue(activeQuery, (snapshot) => {
+          setActiveUsers(snapshot.size);
+          setLoading(false);
         });
-        setActiveUsers(validActiveUsers.length);
-      } else {
-        setActiveUsers(0);
-      }
-    });
+      };
 
-    const unsubscribeTotalVisitors = onValue(totalVisitorsRef, (snapshot) => {
-      if (snapshot.exists()) {
-        setTotalVisitors(snapshot.val());
-      }
-    });
+      subscribe();
+      const resubscribe = setInterval(subscribe, HEARTBEAT_MS);
+      teardown.push(
+        () => clearInterval(resubscribe),
+        () => unsubscribeActive?.(),
+      );
+    };
 
-    const init = async () => {
-      try {
-        await set(visitorRef, {
-          timestamp: serverTimestamp(),
-          lastSeen: Date.now(),
-        });
-        onDisconnect(visitorRef).remove();
+    const start = async () => {
+      const stopOffset = onValue(ref(database, '.info/serverTimeOffset'), (snapshot) => {
+        serverOffsetMs = snapshot.val() ?? 0;
+      });
+      teardown.push(stopOffset);
 
-        const snapshot = await get(totalVisitorsRef);
-        if (!snapshot.exists()) {
-          await set(totalVisitorsRef, 1);
-          localStorage.setItem('lastVisitDate', new Date().toDateString());
-        } else {
-          const lastVisitDate = localStorage.getItem('lastVisitDate');
-          const today = new Date().toDateString();
-          if (lastVisitDate !== today) {
-            await set(totalVisitorsRef, snapshot.val() + 1);
-            localStorage.setItem('lastVisitDate', today);
-          }
-        }
-      } catch (error) {
-        console.error('Visitor tracking error:', error);
-      } finally {
+      const stopTotal = onValue(ref(database, 'totalVisitors'), (snapshot) => {
+        setTotalVisitors(snapshot.val() ?? 0);
         setLoading(false);
-      }
+      });
+      teardown.push(stopTotal);
+
+      const { user } = await signInAnonymously(auth);
+      if (cancelled) return;
+
+      trackPresence(user.uid);
+      watchActiveUsers();
+      await countFirstVisitOnce(user.uid);
     };
 
-    init();
-
-    const heartbeatInterval = setInterval(() => {
-      if (visitorIdRef.current) {
-        set(ref(database, `activeUsers/${visitorIdRef.current}`), {
-          timestamp: serverTimestamp(),
-          lastSeen: Date.now(),
-        });
-      }
-    }, 10000);
+    start().catch((error) => {
+      console.error('Visitor tracking unavailable:', error);
+      setLoading(false);
+    });
 
     return () => {
-      unsubscribeActiveUsers();
-      unsubscribeTotalVisitors();
-      clearInterval(heartbeatInterval);
-      if (visitorIdRef.current) {
-        set(ref(database, `activeUsers/${visitorIdRef.current}`), null).catch(() => {});
-      }
+      cancelled = true;
+      if (heartbeat) clearInterval(heartbeat);
+      teardown.forEach((fn) => fn());
     };
   }, []);
 

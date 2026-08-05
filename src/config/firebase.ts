@@ -1,5 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
+import { getAuth } from 'firebase/auth';
 
 // Firebase web config is public by design; access is controlled by Realtime
 // Database security rules. It lives in env vars so each environment can point
@@ -29,4 +30,5 @@ if (missing.length > 0) {
 const app = initializeApp(firebaseConfig);
 
 export const database = getDatabase(app);
+export const auth = getAuth(app);
 export default app;
