@@ -27,7 +27,7 @@ export const socialLinks = [
     href: `mailto:${settings.email}`,
     Icon: HiOutlineMail,
     external: false,
-    railClass: 'bg-pink-600 hover:shadow-pink-600/50',
+    railClass: 'bg-pink-700 hover:shadow-pink-600/50',
   },
   {
     id: 'resume',
