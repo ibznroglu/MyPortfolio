@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
 import { useLanguage } from '../context/LanguageContext';
 import Logo from '../assets/logo.webp';

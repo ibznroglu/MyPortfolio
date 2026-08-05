@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import { data } from '../data/data.js';
 const FOCUS_RING =

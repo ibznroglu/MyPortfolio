@@ -1,4 +1,3 @@
-import React from 'react';
 import { useLanguage } from '../context/LanguageContext';
 import HTML from '../assets/html.webp';
 import CSS from '../assets/css.webp';
