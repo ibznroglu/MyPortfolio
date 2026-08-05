@@ -1,0 +1,51 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+
+# A new push to the same branch cancels the previous, still-running check.
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Typecheck, lint, test, build
+    runs-on: ubuntu-latest
+
+    env:
+      # Firebase web config is public, and the app only checks that these are
+      # present. Placeholders keep CI self-contained; Vercel holds the real values.
+      VITE_FIREBASE_API_KEY: ci-placeholder
+      VITE_FIREBASE_AUTH_DOMAIN: ci-placeholder
+      VITE_FIREBASE_DATABASE_URL: https://ci-placeholder.firebaseio.com
+      VITE_FIREBASE_PROJECT_ID: ci-placeholder
+      VITE_FIREBASE_STORAGE_BUCKET: ci-placeholder
+      VITE_FIREBASE_MESSAGING_SENDER_ID: ci-placeholder
+      VITE_FIREBASE_APP_ID: ci-placeholder
+      VITE_FIREBASE_MEASUREMENT_ID: ci-placeholder
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Lint
+        run: npm run lint -- --max-warnings 0
+
+      - name: Test
+        run: npm test
+
+      - name: Build
+        run: npm run build
