@@ -9,8 +9,8 @@ const Home = ({ setActiveSection }) => {
   const { totalVisitors, activeUsers, loading } = useVisitorTracking();
 
   return (
-    <div className="w-full min-h-[calc(100vh-80px)] flex items-center justify-center bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
-      <div className="max-w-6xl mx-auto px-8 py-16">
+    <div className="w-full min-h-[calc(100dvh-80px)] flex items-center justify-center bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
+      <div className="max-w-6xl mx-auto px-8 py-12">
         <div className="flex flex-col lg:flex-row items-center gap-12">
           <div className="flex-shrink-0">
             <div className="relative">

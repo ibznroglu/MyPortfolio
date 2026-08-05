@@ -7,9 +7,9 @@ const Work = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="w-full min-h-[calc(100vh-80px)] text-gray-300 bg-[#0a192f] py-16">
-      <div className="max-w-6xl mx-auto px-6 sm:px-8">
-        <header className="text-center mb-12">
+    <section className="w-full min-h-[calc(100dvh-80px)] text-gray-300 bg-[#0a192f] py-12">
+      <div className="max-w-5xl mx-auto px-6 sm:px-8">
+        <header className="text-center mb-8">
           <h2 className="text-4xl sm:text-5xl font-bold inline-block border-b-4 border-pink-600 pb-2">
             {t.projects.title}
           </h2>
