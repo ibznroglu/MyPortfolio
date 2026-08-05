@@ -1,5 +1,5 @@
-import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.png';
-import RentalCarImg from '../assets/projects/rentalcar.png';
+import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.webp';
+import RentalCarImg from '../assets/projects/rentalcar.webp';
 
 export const data = [
   {

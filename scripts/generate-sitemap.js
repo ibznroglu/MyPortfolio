@@ -1,3 +1,11 @@
+/**
+ * Generates build/sitemap.xml after every production build.
+ *
+ * `lastmod` is taken from the last commit that touched src/ or public/, so that
+ * config-only or docs-only commits do not falsely mark the page as updated.
+ * Falls back to the build date when git history is unavailable.
+ */
+
 const { writeFileSync, mkdirSync, existsSync } = require('node:fs');
 const { execSync } = require('node:child_process');
 const path = require('node:path');
@@ -6,22 +14,18 @@ const BASE_URL = 'https://isabezeniroglu.com';
 const OUT_DIR = path.join(__dirname, '..', 'build');
 const OUT_FILE = path.join(OUT_DIR, 'sitemap.xml');
 
-/**
- * Sayfayı gerçekten etkileyen dosyalara (src/, public/) dokunan
- * son commit'in tarihini döndürür. Git okunamazsa build tarihine düşer.
- */
 function lastModified() {
   try {
     const out = execSync('git log -1 --format=%cs -- src public', {
       encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore'], // git'in hata çıktısı log'u kirletmesin
+      stdio: ['ignore', 'pipe', 'ignore'], // keep git's stderr out of the build log
     }).trim();
 
     if (/^\d{4}-\d{2}-\d{2}$/.test(out)) {
       return { date: out, source: 'git' };
     }
   } catch {
-    // git yok, .git klonlanmamış ya da komut başarısız — aşağıya düş
+    // git missing, shallow clone without history, or command failed - fall through
   }
 
   return { date: new Date().toISOString().slice(0, 10), source: 'fallback' };
@@ -44,11 +48,11 @@ if (!existsSync(OUT_DIR)) {
 
 writeFileSync(OUT_FILE, xml, 'utf8');
 
-console.log(`sitemap.xml yazildi - lastmod: ${lastmod} (kaynak: ${source})`);
+console.log(`sitemap.xml written - lastmod: ${lastmod} (source: ${source})`);
 
 if (source === 'fallback') {
   console.warn(
-    'UYARI: git gecmisi okunamadi, lastmod build tarihine dusuruldu. ' +
-      'Vercel sig klonlama yaptiysa beklenen bir durumdur.'
+    'WARNING: git history unavailable, lastmod fell back to the build date. ' +
+      'This is expected when the CI provider uses a shallow clone.',
   );
 }

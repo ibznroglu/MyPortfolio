@@ -1,8 +1,8 @@
 import { initializeApp } from 'firebase/app';
 import { getDatabase } from 'firebase/database';
 
-// Firebase yapılandırmanızı buraya ekleyin
-// Firebase Console'dan (https://console.firebase.google.com) alacağınız config bilgileri
+// Firebase web config is public by design; access is controlled by Realtime
+// Database security rules, not by hiding these values.
 const firebaseConfig = {
   apiKey: 'AIzaSyDezStBQ7zwfGwmIfyxBIAT5SqKHg_xTqo',
   authDomain: 'myportfolio-b381e.firebaseapp.com',
@@ -14,9 +14,7 @@ const firebaseConfig = {
   measurementId: 'G-P30QYV1SFQ',
 };
 
-// Firebase'i başlat
 const app = initializeApp(firebaseConfig);
 
-// Realtime Database referansını al
 export const database = getDatabase(app);
 export default app;

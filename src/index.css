@@ -2,30 +2,46 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;500;600;700;800;900&display=swap');
-
 @layer base {
-  body {
-    @apply font-[Raleway];
+  :root {
+    --header-h: 80px;
+    --footer-h: 64px;
   }
-  li {
-    @apply px-4;
-    @apply cursor-pointer;
+
+  /* The desktop social rail replaces the footer from lg upwards. */
+  @media (min-width: 1024px) {
+    :root {
+      --footer-h: 0px;
+    }
+  }
+
+  /* Tailwind display utilities outrank the UA [hidden] rule, so restore it. */
+  [hidden] {
+    display: none !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
 
-.content-div {
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  height: 300px;
-  border-radius: 0.5rem;
+@layer components {
+  /* Every section fills the viewport minus the fixed header and the footer. */
+  .section-shell {
+    min-height: calc(100dvh - var(--header-h) - var(--footer-h));
+  }
 }
 
-.content-div:hover {
-  background-image: linear-gradient(
-    to right,
-    rgba(219, 39, 119, 0.9),
-    rgba(219, 39, 119, 0.7)
-  ) !important;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
