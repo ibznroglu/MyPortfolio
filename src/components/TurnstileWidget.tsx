@@ -11,6 +11,7 @@ interface TurnstileApi {
       callback: (token: string) => void;
       'error-callback': () => void;
       'expired-callback': () => void;
+      'refresh-expired'?: 'auto' | 'manual' | 'never';
     },
   ) => string;
   remove: (widgetId: string) => void;
@@ -51,16 +52,18 @@ interface Props {
   resetKey: number;
   onVerify: (token: string) => void;
   onError: () => void;
+  onExpire: () => void;
 }
 
-const TurnstileWidget = ({ siteKey, resetKey, onVerify, onError }: Props) => {
+const TurnstileWidget = ({ siteKey, resetKey, onVerify, onError, onExpire }: Props) => {
   const containerRef = useRef<HTMLDivElement>(null);
   // Kept in refs so a changing callback identity never re-renders the widget.
   const onVerifyRef = useRef(onVerify);
   const onErrorRef = useRef(onError);
-
+  const onExpireRef = useRef(onExpire);
   useEffect(() => {
     onVerifyRef.current = onVerify;
+    onExpireRef.current = onExpire;
     onErrorRef.current = onError;
   });
 
@@ -75,9 +78,11 @@ const TurnstileWidget = ({ siteKey, resetKey, onVerify, onError }: Props) => {
         widgetId = window.turnstile.render(containerRef.current, {
           sitekey: siteKey,
           theme: 'dark',
+          'refresh-expired': 'auto',
           callback: (token) => onVerifyRef.current(token),
+          // Expiry is a normal part of the lifecycle, not a failure.
+          'expired-callback': () => onExpireRef.current(),
           'error-callback': () => onErrorRef.current(),
-          'expired-callback': () => onErrorRef.current(),
         });
       })
       .catch(() => {
