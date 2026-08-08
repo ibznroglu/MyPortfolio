@@ -8,7 +8,7 @@ import prettier from 'eslint-config-prettier';
 import tseslint from 'typescript-eslint';
 
 export default [
-  { ignores: ['build/**', 'node_modules/**', 'assets-source/**'] },
+  { ignores: ['build/**', 'node_modules/**', 'assets-source/**', '.lighthouseci/**'] },
   ...tseslint.configs.recommended,
   // Application code runs in the browser.
   {
@@ -52,7 +52,7 @@ export default [
 
   // Tests get both browser globals and the Vitest globals.
   {
-    files: ['src/**/*.test.{ts,tsx}'],
+    files: ['scripts/**/*.js', 'api/**/*.ts', '*.config.{js,ts}'],
     languageOptions: { globals: { ...globals.browser, ...globals.vitest } },
   },
 
