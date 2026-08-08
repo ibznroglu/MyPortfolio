@@ -1,5 +1,5 @@
 import { Resend } from 'resend';
-import { contactSchema, toFieldErrors } from '../src/lib/contactSchema';
+import { contactSchema, toFieldErrors } from '../src/lib/contactSchema.js';
 
 // Serverless instances are short-lived and there can be several at once, so
 // this throttles bursts rather than guaranteeing a global limit. Good enough to
