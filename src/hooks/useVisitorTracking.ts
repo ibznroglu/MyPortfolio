@@ -18,16 +18,18 @@ import { auth, database } from '../config/firebase';
 const ACTIVE_WINDOW_MS = 60_000;
 const HEARTBEAT_MS = 20_000;
 
+export type VisitorStatsStatus = 'loading' | 'ready' | 'unavailable';
+
 export interface VisitorStats {
   totalVisitors: number;
   activeUsers: number;
-  loading: boolean;
+  status: VisitorStatsStatus;
 }
 
 export const useVisitorTracking = (): VisitorStats => {
   const [totalVisitors, setTotalVisitors] = useState(0);
   const [activeUsers, setActiveUsers] = useState(0);
-  const [loading, setLoading] = useState(true);
+  const [status, setStatus] = useState<VisitorStatsStatus>('loading');
 
   useEffect(() => {
     let cancelled = false;
@@ -37,6 +39,10 @@ export const useVisitorTracking = (): VisitorStats => {
 
     // The database clock is authoritative; the visitor's system clock is not.
     let serverOffsetMs = 0;
+
+    // One failing read must not hide numbers that already arrived.
+    const markUnavailable = () =>
+      setStatus((current) => (current === 'ready' ? current : 'unavailable'));
 
     const countFirstVisitOnce = async (uid: string) => {
       const claimRef = ref(database, `countedVisitors/${uid}`);
@@ -88,10 +94,17 @@ export const useVisitorTracking = (): VisitorStats => {
           startAt(since),
         );
 
-        unsubscribeActive = onValue(activeQuery, (snapshot) => {
-          setActiveUsers(snapshot.size);
-          setLoading(false);
-        });
+        unsubscribeActive = onValue(
+          activeQuery,
+          (snapshot) => {
+            setActiveUsers(snapshot.size);
+            setStatus('ready');
+          },
+          (error) => {
+            console.error('Could not read active users:', error);
+            markUnavailable();
+          },
+        );
       };
 
       subscribe();
@@ -103,15 +116,28 @@ export const useVisitorTracking = (): VisitorStats => {
     };
 
     const start = async () => {
-      const stopOffset = onValue(ref(database, '.info/serverTimeOffset'), (snapshot) => {
-        serverOffsetMs = snapshot.val() ?? 0;
-      });
+      const stopOffset = onValue(
+        ref(database, '.info/serverTimeOffset'),
+        (snapshot) => {
+          serverOffsetMs = snapshot.val() ?? 0;
+        },
+        () => {
+          // Falling back to the local clock is acceptable here.
+        },
+      );
       teardown.push(stopOffset);
 
-      const stopTotal = onValue(ref(database, 'totalVisitors'), (snapshot) => {
-        setTotalVisitors(snapshot.val() ?? 0);
-        setLoading(false);
-      });
+      const stopTotal = onValue(
+        ref(database, 'totalVisitors'),
+        (snapshot) => {
+          setTotalVisitors(snapshot.val() ?? 0);
+          setStatus('ready');
+        },
+        (error) => {
+          console.error('Could not read visitor totals:', error);
+          markUnavailable();
+        },
+      );
       teardown.push(stopTotal);
 
       const { user } = await signInAnonymously(auth);
@@ -124,7 +150,7 @@ export const useVisitorTracking = (): VisitorStats => {
 
     start().catch((error) => {
       console.error('Visitor tracking unavailable:', error);
-      setLoading(false);
+      markUnavailable();
     });
 
     return () => {
@@ -134,5 +160,5 @@ export const useVisitorTracking = (): VisitorStats => {
     };
   }, []);
 
-  return { totalVisitors, activeUsers, loading };
+  return { totalVisitors, activeUsers, status };
 };

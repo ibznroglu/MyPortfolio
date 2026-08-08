@@ -5,7 +5,7 @@ import IsaImg from '../assets/isa.webp';
 
 const Home = () => {
   const { t } = useLanguage();
-  const { totalVisitors, activeUsers, loading } = useVisitorTracking();
+  const { totalVisitors, activeUsers, status } = useVisitorTracking();
 
   return (
     <div className="w-full section-shell flex items-center justify-center bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
@@ -17,6 +17,8 @@ const Home = () => {
               <img
                 src={IsaImg}
                 alt="İsa Bezeniroğlu"
+                width="512"
+                height="512"
                 className="relative w-64 h-64 rounded-full object-cover border-4 border-pink-600 shadow-2xl shadow-pink-600/50"
                 style={{ objectPosition: '50% calc(50% + 2rem)' }}
               />
@@ -34,40 +36,55 @@ const Home = () => {
               {t.home.description}
             </p>
 
-            <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
-              <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-pink-600/30 shadow-lg min-w-[140px]">
-                <div className="bg-pink-600/20 p-2 rounded-lg">
-                  <HiUsers className="text-pink-500 text-xl" />
+            {/* Hidden entirely when the database is unreachable: showing 0 would
+                be a wrong number, and a spinner that never resolves is worse. */}
+            {status !== 'unavailable' && (
+              <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
+                <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-pink-600/30 shadow-lg min-w-[140px]">
+                  <div className="bg-pink-600/20 p-2 rounded-lg">
+                    <HiUsers className="text-pink-500 text-xl" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-[#8892b0] text-sm">{t.visitor.total}</p>
+                    {status === 'loading' ? (
+                      <div
+                        className="w-5 h-5 border-2 border-pink-600/30 border-t-pink-600 rounded-full animate-spin mt-1"
+                        role="status"
+                        aria-label={t.visitor.total}
+                      />
+                    ) : (
+                      <p className="text-[#ccd6f6] text-xl font-bold">
+                        {totalVisitors.toLocaleString()}
+                      </p>
+                    )}
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[#8892b0] text-sm">{t.visitor.total}</p>
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-pink-600/30 border-t-pink-600 rounded-full animate-spin mt-1" />
-                  ) : (
-                    <p className="text-[#ccd6f6] text-xl font-bold">
-                      {totalVisitors.toLocaleString()}
-                    </p>
-                  )}
-                </div>
-              </div>
 
-              <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-green-500/30 shadow-lg min-w-[140px]">
-                <div className="bg-green-500/20 p-2 rounded-lg">
-                  <HiUserGroup className="text-green-500 text-xl" />
-                </div>
-                <div>
-                  <p className="text-[#8892b0] text-sm">{t.visitor.active}</p>
-                  {loading ? (
-                    <div className="w-5 h-5 border-2 border-green-500/30 border-t-green-500 rounded-full animate-spin mt-1" />
-                  ) : (
-                    <p className="text-[#ccd6f6] text-xl font-bold flex items-center gap-2">
-                      {activeUsers}
-                      <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span>
-                    </p>
-                  )}
+                <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-green-500/30 shadow-lg min-w-[140px]">
+                  <div className="bg-green-500/20 p-2 rounded-lg">
+                    <HiUserGroup className="text-green-500 text-xl" aria-hidden="true" />
+                  </div>
+                  <div>
+                    <p className="text-[#8892b0] text-sm">{t.visitor.active}</p>
+                    {status === 'loading' ? (
+                      <div
+                        className="w-5 h-5 border-2 border-green-500/30 border-t-green-500 rounded-full animate-spin mt-1"
+                        role="status"
+                        aria-label={t.visitor.active}
+                      />
+                    ) : (
+                      <p className="text-[#ccd6f6] text-xl font-bold flex items-center gap-2">
+                        {activeUsers}
+                        <span
+                          className="w-2 h-2 bg-green-500 rounded-full animate-pulse"
+                          aria-hidden="true"
+                        ></span>
+                      </p>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       </div>
