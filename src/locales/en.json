@@ -50,6 +50,7 @@
     "name": "Name",
     "email": "Email",
     "message": "Message",
+    "retry": "Try again",
     "send": "Send Message",
     "sending": "Sending…",
     "success": "Thanks — your message is on its way. I'll reply to the address you gave.",
@@ -65,7 +66,7 @@
       "messageTooLong": "Please keep this under 500 characters.",
       "forbidden": "This request was blocked. Please reload the page and try again.",
       "humanCheckFailed": "The human verification failed. Please try again.",
-      "humanCheckUnavailable": "The human verification could not load, so the form is disabled. Please email me directly instead."
+      "humanCheckUnavailable": "The human verification did not complete. Try again, or email me directly if it keeps failing."
     }
   }
 }

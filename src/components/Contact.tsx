@@ -220,7 +220,19 @@ const Contact = () => {
           )}
 
           {widgetBroken && (
-            <p className="text-sm text-amber-400">{messages.humanCheckUnavailable}</p>
+            <div className="space-y-2 text-sm">
+              <p className="text-amber-400">{messages.humanCheckUnavailable}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  setWidgetBroken(false);
+                  renewChallenge();
+                }}
+                className="rounded-md border border-gray-600 px-3 py-1.5 text-gray-300 transition-colors hover:border-pink-500 hover:text-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400"
+              >
+                {t.contact.retry}
+              </button>
+            </div>
           )}
 
           <button
