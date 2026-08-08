@@ -19,7 +19,7 @@
     "noEmit": true,
     "skipLibCheck": true,
 
-    "types": ["vite/client", "vitest/globals", "@testing-library/jest-dom"]
+    "types": ["node", "vite/client", "vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src", "vite.config.ts"]
+  "include": ["src", "api", "vite.config.ts"]
 }

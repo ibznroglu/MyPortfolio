@@ -50,6 +50,20 @@
     "name": "Adınız",
     "email": "E-posta",
     "message": "Mesajınız",
-    "send": "Mesaj Gönder"
+    "send": "Mesaj Gönder",
+    "sending": "Gönderiliyor…",
+    "success": "Teşekkürler — mesajınız yola çıktı. Verdiğiniz adrese yanıt yazacağım.",
+    "errors": {
+      "nameTooShort": "Lütfen en az 2 karakter girin.",
+      "nameTooLong": "Lütfen 80 karakteri aşmayın.",
+      "emailInvalid": "Lütfen geçerli bir e-posta adresi girin.",
+      "emailTooLong": "Lütfen 200 karakteri aşmayın.",
+      "messageTooShort": "Lütfen en az 20 karakter yazın.",
+      "rateLimited": "Zaten birkaç mesaj gönderdiniz. Lütfen daha sonra tekrar deneyin.",
+      "sendFailed": "Mesaj gönderilemedi. Lütfen doğrudan e-posta gönderin.",
+      "network": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+      "messageTooLong": "Lütfen 500 karakteri aşmayın.",
+      "forbidden": "Bu istek engellendi. Lütfen sayfayı yenileyip tekrar deneyin."
+    }
   }
 }
