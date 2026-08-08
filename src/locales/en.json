@@ -63,7 +63,9 @@
       "sendFailed": "The message could not be sent. Please email me directly instead.",
       "network": "Could not reach the server. Please check your connection and try again.",
       "messageTooLong": "Please keep this under 500 characters.",
-      "forbidden": "This request was blocked. Please reload the page and try again."
+      "forbidden": "This request was blocked. Please reload the page and try again.",
+      "humanCheckFailed": "The human verification failed. Please try again.",
+      "humanCheckUnavailable": "The human verification could not load, so the form is disabled. Please email me directly instead."
     }
   }
 }

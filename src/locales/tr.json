@@ -63,7 +63,9 @@
       "sendFailed": "Mesaj gönderilemedi. Lütfen doğrudan e-posta gönderin.",
       "network": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
       "messageTooLong": "Lütfen 500 karakteri aşmayın.",
-      "forbidden": "Bu istek engellendi. Lütfen sayfayı yenileyip tekrar deneyin."
+      "forbidden": "Bu istek engellendi. Lütfen sayfayı yenileyip tekrar deneyin.",
+      "humanCheckFailed": "İnsan doğrulaması başarısız oldu. Lütfen tekrar deneyin.",
+      "humanCheckUnavailable": "İnsan doğrulaması yüklenemedi, bu yüzden form devre dışı. Lütfen doğrudan e-posta gönderin."
     }
   }
 }

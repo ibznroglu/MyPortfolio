@@ -35,7 +35,10 @@ export default [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
       // TypeScript provides prop typing; PropTypes would duplicate it.
       'react/prop-types': 'off',
-      'no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      // The base rule cannot read TypeScript signatures, so parameter names in
+      // type declarations get flagged as unused.
+      'no-unused-vars': 'off',
+      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
     },
   },
 
