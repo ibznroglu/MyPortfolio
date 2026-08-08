@@ -32,7 +32,36 @@ const isRateLimited = (ip: string): boolean => {
   attempts.set(ip, recent);
   return false;
 };
+/**
+ * Cloudflare verifies that the token came from a real browser session on one of
+ * our hostnames. Tokens are single use, so a replayed one is rejected here.
+ */
+const isHumanVerified = async (token: string | undefined, ip: string): Promise<boolean> => {
+  const secret = process.env.TURNSTILE_SECRET_KEY;
 
+  // Not configured (local development): fall back to the other guards.
+  if (!secret) return true;
+  if (!token) return false;
+
+  try {
+    const response = await fetch('https://challenges.cloudflare.com/turnstile/v0/siteverify', {
+      method: 'POST',
+      headers: { 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams({ secret, response: token, remoteip: ip }),
+    });
+
+    const result = (await response.json()) as { success?: boolean; 'error-codes'?: string[] };
+
+    if (!result.success) {
+      console.warn('Turnstile rejected a submission:', result['error-codes']);
+    }
+
+    return result.success === true;
+  } catch (error) {
+    console.error('Could not reach Turnstile:', error);
+    return false;
+  }
+};
 const json = (body: unknown, status: number) =>
   new Response(JSON.stringify(body), {
     status,
@@ -90,7 +119,14 @@ export async function POST(request: Request): Promise<Response> {
   } catch {
     return json({ error: 'invalidBody' }, 400);
   }
+  const token =
+    typeof payload === 'object' && payload !== null && 'turnstileToken' in payload
+      ? String((payload as { turnstileToken: unknown }).turnstileToken)
+      : undefined;
 
+  if (!(await isHumanVerified(token, ip))) {
+    return json({ error: 'humanCheckFailed' }, 403);
+  }
   const parsed = contactSchema.safeParse(payload);
 
   if (!parsed.success) {

@@ -1,15 +1,20 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
+import TurnstileWidget from './TurnstileWidget';
 import {
   MESSAGE_MAX,
   contactSchema,
   toFieldErrors,
   type ContactErrors,
 } from '../lib/contactSchema';
+
 type Field = 'name' | 'email' | 'message';
 type Status = 'idle' | 'sending' | 'sent' | 'failed';
 
 const EMPTY = { name: '', email: '', message: '', company: '' };
+
+// Absent in local development, where the API falls back to its other guards.
+const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
 const FIELD_CLASS =
   'w-full rounded-lg border bg-[#0a192f] p-3 text-gray-200 transition-colors placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-600/50';
@@ -20,6 +25,9 @@ const Contact = () => {
   const [errors, setErrors] = useState<ContactErrors>({});
   const [status, setStatus] = useState<Status>('idle');
   const [formError, setFormError] = useState<string | null>(null);
+  const [token, setToken] = useState<string | null>(null);
+  const [widgetBroken, setWidgetBroken] = useState(false);
+  const [widgetKey, setWidgetKey] = useState(0);
 
   const messages = t.contact.errors as Record<string, string>;
 
@@ -38,6 +46,12 @@ const Contact = () => {
     errors[field]
       ? 'border-red-500/70 focus:border-red-500'
       : 'border-pink-600/30 focus:border-pink-600';
+
+  // Tokens are single use, so every attempt needs a fresh widget.
+  const renewChallenge = () => {
+    setToken(null);
+    setWidgetKey((current) => current + 1);
+  };
 
   const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -60,13 +74,15 @@ const Contact = () => {
       const response = await fetch('/api/contact', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify(parsed.data),
+        body: JSON.stringify({ ...parsed.data, turnstileToken: token }),
       });
 
       const body = (await response.json().catch(() => ({}))) as {
         error?: string;
         fields?: ContactErrors;
       };
+
+      renewChallenge();
 
       if (response.ok) {
         setValues(EMPTY);
@@ -78,12 +94,16 @@ const Contact = () => {
       setFormError(messages[body.error ?? 'sendFailed'] ?? messages.sendFailed);
       setStatus('failed');
     } catch {
+      renewChallenge();
       setFormError(messages.network);
       setStatus('failed');
     }
   };
+
+  const awaitingHuman = Boolean(SITE_KEY) && !widgetBroken && !token;
   const counterTone =
     values.message.length > MESSAGE_MAX * 0.9 ? 'text-amber-400' : 'text-gray-500';
+
   return (
     <div className="section-shell w-full bg-gradient-to-b from-[#112240] to-[#0a192f] flex items-center justify-center py-12">
       <div className="mx-auto w-full max-w-2xl px-6 sm:px-8">
@@ -186,9 +206,25 @@ const Contact = () => {
             />
           </div>
 
+          {SITE_KEY && !widgetBroken && (
+            <TurnstileWidget
+              siteKey={SITE_KEY}
+              resetKey={widgetKey}
+              onVerify={setToken}
+              onError={() => {
+                setToken(null);
+                setWidgetBroken(true);
+              }}
+            />
+          )}
+
+          {widgetBroken && (
+            <p className="text-sm text-amber-400">{messages.humanCheckUnavailable}</p>
+          )}
+
           <button
             type="submit"
-            disabled={status === 'sending'}
+            disabled={status === 'sending' || awaitingHuman || widgetBroken}
             className="w-full rounded-lg bg-pink-600 px-8 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 disabled:cursor-not-allowed disabled:bg-pink-600/50"
           >
             {status === 'sending' ? t.contact.sending : t.contact.send}

@@ -9,6 +9,8 @@ export const contactSchema = z.object({
   name: z.string().trim().min(2, 'nameTooShort').max(80, 'nameTooLong'),
   email: z.string().trim().email('emailInvalid').max(200, 'emailTooLong'),
   message: z.string().trim().min(MESSAGE_MIN, 'messageTooShort').max(MESSAGE_MAX, 'messageTooLong'),
+  // Verified server side against Cloudflare, so the shape is all we check here.
+  turnstileToken: z.string().optional(),
   // Honeypot: hidden from humans, irresistible to naive bots.
   company: z.string().max(0).optional().or(z.literal('')),
 });
