@@ -1,12 +1,14 @@
 import { z } from 'zod';
-
+// Shared with the form so the counter and the rule can never disagree.
+export const MESSAGE_MIN = 20;
+export const MESSAGE_MAX = 500;
 // One schema, two consumers: the form uses it for instant feedback, the API
 // route uses it as the actual gate. Client-side validation is a convenience,
 // never a security boundary.
 export const contactSchema = z.object({
   name: z.string().trim().min(2, 'nameTooShort').max(80, 'nameTooLong'),
   email: z.string().trim().email('emailInvalid').max(200, 'emailTooLong'),
-  message: z.string().trim().min(20, 'messageTooShort').max(3000, 'messageTooLong'),
+  message: z.string().trim().min(MESSAGE_MIN, 'messageTooShort').max(MESSAGE_MAX, 'messageTooLong'),
   // Honeypot: hidden from humans, irresistible to naive bots.
   company: z.string().max(0).optional().or(z.literal('')),
 });

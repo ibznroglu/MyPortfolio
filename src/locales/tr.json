@@ -59,10 +59,11 @@
       "emailInvalid": "Lütfen geçerli bir e-posta adresi girin.",
       "emailTooLong": "Lütfen 200 karakteri aşmayın.",
       "messageTooShort": "Lütfen en az 20 karakter yazın.",
-      "messageTooLong": "Lütfen 3000 karakteri aşmayın.",
       "rateLimited": "Zaten birkaç mesaj gönderdiniz. Lütfen daha sonra tekrar deneyin.",
       "sendFailed": "Mesaj gönderilemedi. Lütfen doğrudan e-posta gönderin.",
-      "network": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin."
+      "network": "Sunucuya ulaşılamadı. Bağlantınızı kontrol edip tekrar deneyin.",
+      "messageTooLong": "Lütfen 500 karakteri aşmayın.",
+      "forbidden": "Bu istek engellendi. Lütfen sayfayı yenileyip tekrar deneyin."
     }
   }
 }

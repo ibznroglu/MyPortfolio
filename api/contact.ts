@@ -6,6 +6,17 @@ import { contactSchema, toFieldErrors } from '../src/lib/contactSchema.js';
 // stop a naive script; anything more needs durable storage.
 const WINDOW_MS = 60 * 60 * 1000;
 const MAX_PER_WINDOW = 3;
+const MAX_BODY_BYTES = 8_000;
+
+// Only requests that came from a page we served are accepted. A determined
+// attacker can forge this header, so it is a filter against scripted floods,
+// not an authentication mechanism.
+const allowedOrigins = (): string[] => {
+  const origins = ['https://isabezeniroglu.com', 'https://www.isabezeniroglu.com'];
+  if (process.env.VERCEL_URL) origins.push(`https://${process.env.VERCEL_URL}`);
+  if (process.env.VERCEL_BRANCH_URL) origins.push(`https://${process.env.VERCEL_BRANCH_URL}`);
+  return origins;
+};
 const attempts = new Map<string, number[]>();
 
 const isRateLimited = (ip: string): boolean => {
@@ -52,7 +63,21 @@ export async function POST(request: Request): Promise<Response> {
     console.error('Contact form is missing RESEND_API_KEY or CONTACT_TO_EMAIL');
     return json({ error: 'serverMisconfigured' }, 500);
   }
+  const origin = request.headers.get('origin');
 
+  if (!origin || !allowedOrigins().includes(origin)) {
+    return json({ error: 'forbidden' }, 403);
+  }
+
+  if (request.headers.get('content-type')?.includes('application/json') !== true) {
+    return json({ error: 'invalidBody' }, 415);
+  }
+
+  const declaredLength = Number(request.headers.get('content-length') ?? 0);
+
+  if (declaredLength > MAX_BODY_BYTES) {
+    return json({ error: 'invalidBody' }, 413);
+  }
   const ip = request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ?? 'unknown';
 
   if (isRateLimited(ip)) {

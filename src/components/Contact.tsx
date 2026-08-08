@@ -1,7 +1,11 @@
 import { useState, type ChangeEvent, type FormEvent } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
-import { contactSchema, toFieldErrors, type ContactErrors } from '../lib/contactSchema';
-
+import {
+  MESSAGE_MAX,
+  contactSchema,
+  toFieldErrors,
+  type ContactErrors,
+} from '../lib/contactSchema';
 type Field = 'name' | 'email' | 'message';
 type Status = 'idle' | 'sending' | 'sent' | 'failed';
 
@@ -78,7 +82,8 @@ const Contact = () => {
       setStatus('failed');
     }
   };
-
+  const counterTone =
+    values.message.length > MESSAGE_MAX * 0.9 ? 'text-amber-400' : 'text-gray-500';
   return (
     <div className="section-shell w-full bg-gradient-to-b from-[#112240] to-[#0a192f] flex items-center justify-center py-12">
       <div className="mx-auto w-full max-w-2xl px-6 sm:px-8">
@@ -152,22 +157,30 @@ const Contact = () => {
               aria-describedby={errors.message ? 'contact-message-error' : undefined}
               className={`${FIELD_CLASS} resize-none ${borderFor('message')}`}
             />
-            {errors.message && (
-              <p id="contact-message-error" className="mt-1.5 text-sm text-red-400">
-                {messages[errors.message]}
-              </p>
-            )}
+            <div className="mt-1.5 flex items-start justify-between gap-4">
+              {errors.message ? (
+                <p id="contact-message-error" className="text-sm text-red-400">
+                  {messages[errors.message]}
+                </p>
+              ) : (
+                <span />
+              )}
+              <span className={`shrink-0 text-xs tabular-nums ${counterTone}`} aria-hidden="true">
+                {values.message.length} / {MESSAGE_MAX}
+              </span>
+            </div>
           </div>
 
-          {/* Honeypot: off-screen, skipped by keyboard, hidden from assistive tech. */}
+          {/* Honeypot: off-screen, skipped by keyboard, hidden from assistive tech.
+              The name is deliberately meaningless so browser autofill leaves it
+              alone; a plausible one like "company" gets filled by Chrome. */}
           <div className="absolute left-[-9999px]" aria-hidden="true">
-            <label htmlFor="contact-company">Company</label>
             <input
-              id="contact-company"
-              name="company"
+              id="contact-reference-code"
+              name="reference_code"
               type="text"
               tabIndex={-1}
-              autoComplete="off"
+              autoComplete="new-password"
               value={values.company}
               onChange={update('company')}
             />

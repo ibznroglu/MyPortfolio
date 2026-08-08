@@ -59,10 +59,11 @@
       "emailInvalid": "Please enter a valid email address.",
       "emailTooLong": "Please keep this under 200 characters.",
       "messageTooShort": "Please write at least 20 characters.",
-      "messageTooLong": "Please keep this under 3000 characters.",
       "rateLimited": "You have sent several messages already. Please try again later.",
       "sendFailed": "The message could not be sent. Please email me directly instead.",
-      "network": "Could not reach the server. Please check your connection and try again."
+      "network": "Could not reach the server. Please check your connection and try again.",
+      "messageTooLong": "Please keep this under 500 characters.",
+      "forbidden": "This request was blocked. Please reload the page and try again."
     }
   }
 }
