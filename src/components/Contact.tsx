@@ -211,6 +211,7 @@ const Contact = () => {
               siteKey={SITE_KEY}
               resetKey={widgetKey}
               onVerify={setToken}
+              onExpire={() => setToken(null)}
               onError={() => {
                 setToken(null);
                 setWidgetBroken(true);
