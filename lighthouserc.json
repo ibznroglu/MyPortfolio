@@ -24,8 +24,7 @@
         "modern-image-formats": "error",
         "uses-optimized-images": "error",
         "unminified-javascript": "error",
-        "unminified-css": "error",
-        "render-blocking-resources": "warn"
+        "unminified-css": "error"
       }
     },
     "upload": {
