@@ -1,142 +1,154 @@
 # Portfolio — İsa Bezeniroğlu
 
-Personal portfolio site built with React and Tailwind CSS, featuring bilingual
-content (TR/EN), real-time visitor analytics backed by Firebase, and a
-build-time generated sitemap.
+Bilingual portfolio site. React 18 and TypeScript on Vite, deployed on Vercel,
+with a serverless contact endpoint and realtime visitor stats.
 
 **Live:** [isabezeniroglu.com](https://isabezeniroglu.com/)
 
+|             |                                                                   |
+| ----------- | ----------------------------------------------------------------- |
+| Main bundle | 67 kB gzip                                                        |
+| Images      | 233 KB total (from 3.73 MB of sources)                            |
+| Lighthouse  | 100 performance · 100 accessibility · 96 best practices · 100 SEO |
+
 ---
 
-## Features
+## Notable decisions
 
-- **Bilingual content** — Turkish and English, switched at runtime through a
-  React context provider. No page reload, no route change.
-- **Real-time visitor analytics** — Firebase Realtime Database tracks total
-  unique visitors and concurrent active users. Presence is maintained with a
-  10-second heartbeat and cleaned up via `onDisconnect`, so a closed tab drops
-  out of the active count without a server-side job.
-- **Responsive dark theme** — Gradient backgrounds and section transitions,
-  laid out mobile-first with Tailwind.
-- **Section navigation** — Smooth scrolling with active-state indicators via
-  `react-scroll`.
-- **Project showcase** — Personal projects with live demo and source links.
-- **Contact form** — Posts to a [Getform](https://getform.io) endpoint; no
-  backend required.
-- **SEO metadata** — Canonical URL, Open Graph tags, and `Person` + `WebSite`
-  JSON-LD structured data. See [SEO](#seo) below.
+Most of what is interesting here is not the feature list but why things are
+built the way they are.
+
+**Language lives in the URL, not in state.** English is served from the root and
+Turkish under `/tr`, so both are separately indexable, a shared link keeps its
+language, and `<html lang>` is derived from the route rather than hardcoded.
+Route slugs live in one JSON file that the router, the navbar and the sitemap
+generator all read, so the three cannot drift apart.
+
+**Canonical URLs are per route.** As a SPA the site originally carried a single
+canonical tag in `index.html`, which meant every route claimed to be the home
+page. `useDocumentMeta` now sets canonical, `og:url` and hreflang alternates per
+route; the sitemap emits all ten URLs with matching alternates.
+
+**Images are generated, never committed by hand.** `assets-source/` holds
+full-resolution PNGs. A sharp pipeline crops project screenshots to a shared
+2:1 ratio, resizes everything to twice its on-screen size, and emits WebP into
+`src/assets/`. 3.73 MB of sources become 233 KB of output, and every project
+card gets an identical box without CSS letterboxing.
+
+**Vite's asset inlining had to be turned off.** The default inlines anything
+under 4 kB as base64, which caught most of the WebP icons and pushed the bundle
+from 104 kB to 140 kB gzip — base64 inflates by a third and gzips poorly.
+`assetsInlineLimit: 0` recovered it.
+
+**The contact endpoint is owned end to end.** `api/contact.ts` validates with a
+Zod schema shared with the form, rejects requests whose `Origin` is not ours,
+caps body size, rate limits per IP, checks a honeypot, and verifies a Cloudflare
+Turnstile token before Resend sends the mail. The client uses the same schema for
+instant feedback, but the server is the only gate. Verified with curl: a request
+carrying a forged `Origin` header still returns `403 humanCheckFailed`.
+
+**Visitor stats were reworked for correctness.** The counter used to read then
+write, losing an increment under concurrent visits; it is now a transaction.
+Deduplication moved from localStorage — which a visitor can clear — to a
+server-side claim guarded by rules that allow creation but never update.
+`lastSeen` is a `serverTimestamp()` that the security rules require, so a client
+cannot forge a permanent presence. Active users come from an indexed
+`orderByChild` query over a sliding window instead of downloading the whole node.
+
+**CI asserts on what is deterministic.** Lighthouse's performance score swung
+thirty points between runs on shared GitHub runners, so it warns rather than
+blocks. `total-byte-weight`, `modern-image-formats` and the minification audits
+block — they catch the regression that actually matters (a large unoptimised
+image sneaking back in) and cannot be moved by CPU contention.
+
+**Fonts are self-hosted.** Google Fonts cost two extra DNS and TLS handshakes
+before first paint and sent every visitor's IP address to Google. Raleway now
+ships through npm as a variable font, lands in `/assets` with a content hash, and
+falls under the one-year immutable cache rule.
 
 ## Tech stack
 
-| Layer      | Choice                                   |
-| ---------- | ---------------------------------------- |
-| Framework  | React 18.2                               |
-| Styling    | Tailwind CSS 3.3                         |
-| Icons      | React Icons                              |
-| Scrolling  | react-scroll                             |
-| Data       | Firebase Realtime Database 12.x          |
-| Forms      | Getform                                  |
-| Build      | Create React App (`react-scripts` 5.0.1) |
-| Hosting    | Vercel                                   |
-| Runtime    | Node.js 24.x                             |
-
-> **Note on the build tool:** Create React App is no longer maintained — the
-> last `react-scripts` release was April 2022. It still builds correctly, but a
-> migration to Vite is planned. See [Roadmap](#roadmap).
+| Layer     | Choice                                                  |
+| --------- | ------------------------------------------------------- |
+| Framework | React 18, TypeScript (strict)                           |
+| Build     | Vite                                                    |
+| Routing   | react-router-dom                                        |
+| Styling   | Tailwind CSS                                            |
+| Data      | Firebase Realtime Database, Anonymous Auth              |
+| Backend   | Vercel Functions, Zod, Resend, Cloudflare Turnstile     |
+| Testing   | Vitest, Testing Library                                 |
+| Quality   | ESLint (flat config, jsx-a11y), Prettier, Lighthouse CI |
+| Hosting   | Vercel                                                  |
 
 ## Getting started
 
-**Prerequisites:** Node.js 24.x (pinned via the `engines` field) and npm.
+Requires Node.js 24.x.
 
 ```bash
 git clone https://github.com/ibznroglu/MyPortfolio.git
 cd MyPortfolio
 npm install
+cp .env.example .env.local   # fill in the Firebase values
 npm start
 ```
 
 The dev server runs at `http://localhost:3000`.
 
-To run against your own Firebase project, replace the config object in
-`src/config/firebase.js`. This object is **not a secret** — a Firebase web
-config is a public identifier, not a credential, and ships inside the client
-bundle regardless. Access is controlled by database rules, not by hiding the
-config. See [Firebase setup](#firebase-setup).
+`/api/contact` does not run under the Vite dev server; use `npx vercel dev` or
+test it on a preview deployment.
 
 ## Scripts
 
-| Command         | Description                                                     |
-| --------------- | --------------------------------------------------------------- |
-| `npm start`     | Development server with hot reload                              |
-| `npm run build` | Production build into `build/`                                  |
-| `postbuild`     | Runs automatically after `build`; regenerates `build/sitemap.xml` |
+| Command                   | Description                                                  |
+| ------------------------- | ------------------------------------------------------------ |
+| `npm start`               | Dev server with hot reload                                   |
+| `npm run build`           | Production build into `build/`, then regenerates the sitemap |
+| `npm run preview`         | Serves the production build locally                          |
+| `npm test`                | Vitest run                                                   |
+| `npm run typecheck`       | `tsc --noEmit`                                               |
+| `npm run lint`            | ESLint over `src/`, `api/` and the build scripts             |
+| `npm run lighthouse`      | Lighthouse CI against a local preview                        |
+| `npm run optimize:images` | Regenerates WebP assets from `assets-source/`                |
 
 ## Project structure
 
-```
 .
-├── public/                     # Static assets copied verbatim into build/
-│   ├── favicon.ico             # 48–256px multi-resolution icon set
-│   ├── apple-touch-icon.png
-│   ├── robots.txt
-│   └── sitemap.xml             # Fallback; overwritten at build time
+├── api/
+│ └── contact.ts # Serverless contact endpoint
+├── assets-source/ # Full-resolution PNG originals, never bundled
 ├── scripts/
-│   └── generate-sitemap.js     # Emits sitemap.xml with a derived lastmod
+│ ├── generate-sitemap.js # Ten URLs with hreflang, lastmod from git
+│ └── optimize-images.js # sharp pipeline: crop, resize, WebP
 ├── src/
-│   ├── assets/                 # Images and logos
-│   ├── components/             # Home, About, Skills, Work, Contact, navbar
-│   ├── config/
-│   │   └── firebase.js         # Firebase app initialisation
-│   ├── context/
-│   │   └── LanguageContext.js  # TR/EN provider and translation lookup
-│   ├── data/                   # Project and content data
-│   ├── helpers/
-│   ├── hooks/
-│   │   └── useVisitorTracking.js
-│   ├── App.js
-│   └── index.js
-├── vercel.json
-└── tailwind.config.js
-```
+│ ├── assets/ # Generated WebP output
+│ ├── components/
+│ ├── config/firebase.ts
+│ ├── context/ # Language context and provider, split apart
+│ ├── hooks/ # useLanguage, useDocumentMeta, useVisitorTracking
+│ ├── lib/
+│ │ ├── contactSchema.ts # Shared by the form and the API route
+│ │ ├── navigation.ts
+│ │ ├── routes.json # Single source of truth for slugs
+│ │ └── translations.ts # Bundles with an English fallback
+│ └── locales/ # en.json, tr.json
+├── .github/workflows/ # ci.yml, lighthouse.yml
+├── vercel.json # Rewrites, CSP, HSTS, cache headers
+└── lighthouserc.json
 
-## SEO
+## Environment
 
-The site is a single-route SPA, so all metadata lives in `public/index.html`
-and is served statically — crawlers do not need to execute JavaScript to read
-it.
+| Variable                  | Where                                                    |
+| ------------------------- | -------------------------------------------------------- |
+| `VITE_FIREBASE_*`         | Client. Public by design; database rules control access. |
+| `VITE_TURNSTILE_SITE_KEY` | Client. Public.                                          |
+| `TURNSTILE_SECRET_KEY`    | Server only. Secret.                                     |
+| `RESEND_API_KEY`          | Server only. Secret.                                     |
+| `CONTACT_TO_EMAIL`        | Server only.                                             |
 
-- **Canonical URL** pins the site to one address, preventing duplicate
-  indexing across Vercel preview and legacy deployment domains.
-- **`WebSite` JSON-LD** with `name` and `alternateName` signals the preferred
-  site name to Google.
-- **`Person` JSON-LD** links the profile to LinkedIn and GitHub via `sameAs`.
-- **Open Graph and Twitter Card** tags control link previews.
-- **Favicon set** is provided at 48px and above in line with Google's
-  guidance, so search results show the brand mark rather than a default icon.
+The `VITE_` prefix is the boundary: anything carrying it is compiled into the
+browser bundle, so the two secrets deliberately do not have it.
 
-### Sitemap generation
-
-`sitemap.xml` is not maintained by hand. The `postbuild` hook derives
-`<lastmod>` from the most recent commit that touched `src/` or `public/`:
-
-```bash
-git log -1 --format=%cs -- src public
-```
-
-Using the commit date rather than the build date matters: a `lastmod` that
-always reads "today" is inaccurate, and Google learns to ignore the field for
-sites that report it that way. When git history is unavailable — for example
-under a shallow CI clone — the script falls back to the build date and logs a
-warning so the degradation is visible in build output rather than silent.
-
-## Firebase setup
-
-1. Create a project in the [Firebase Console](https://console.firebase.google.com/).
-2. Enable Realtime Database.
-3. Apply the rules below.
-4. Copy the web config into `src/config/firebase.js`.
-
-### Database rules
+## Database rules
 
 ```json
 {
@@ -146,55 +158,46 @@ warning so the degradation is visible in build output rather than silent.
 
     "totalVisitors": {
       ".read": true,
-      ".write": "newData.isNumber() && ((!data.exists() && newData.val() === 1) || (data.exists() && newData.val() === data.val() + 1))"
+      ".write": "auth != null && newData.isNumber() && ((!data.exists() && newData.val() === 1) || (data.exists() && newData.val() === data.val() + 1))"
+    },
+
+    "countedVisitors": {
+      "$uid": {
+        ".read": "auth != null && auth.uid === $uid",
+        ".write": "auth != null && auth.uid === $uid && !data.exists()",
+        ".validate": "newData.isBoolean()"
+      }
     },
 
     "activeUsers": {
       ".read": true,
-
-      "$visitorId": {
-        ".write": true,
-        ".validate": "$visitorId.length <= 64 && newData.hasChildren(['timestamp', 'lastSeen'])",
-
-        "timestamp": { ".validate": "newData.isNumber()" },
-        "lastSeen":  { ".validate": "newData.isNumber()" },
-        "$other":    { ".validate": false }
+      ".indexOn": ["lastSeen"],
+      "$uid": {
+        ".write": "auth != null && auth.uid === $uid",
+        ".validate": "newData.hasChildren(['lastSeen'])",
+        "lastSeen": { ".validate": "newData.val() === now" },
+        "$other": { ".validate": false }
       }
     }
   }
 }
 ```
 
-Because the client is unauthenticated, these rules constrain writes by shape
-rather than by identity:
-
-- `totalVisitors` accepts only a monotonic increment of exactly one. It cannot
-  be reset, decremented, or set to a non-numeric value.
-- Write access on `activeUsers` is granted per key, not on the node itself. A
-  client can only write its own presence entry, so no single request can
-  overwrite or inflate the whole collection — which matters because every
-  visitor subscribes to that node and would download whatever it contains.
-- Presence entries must be exactly `{ timestamp, lastSeen }` with numeric
-  values. Extra fields are rejected.
+Three constraints carry the weight. `totalVisitors` accepts only an increment of
+exactly one, so it cannot be reset or inflated. `countedVisitors/$uid` can be
+created but never updated or deleted, so nobody can re-claim a first visit.
+`lastSeen: newData.val() === now` forces `serverTimestamp()`, which makes a
+forged or future-dated presence entry impossible.
 
 ## Deployment
 
-Deployed on Vercel. Pushes to `master` trigger a production deployment; every
-other branch produces a preview deployment.
+Vercel. Pushes to `master` deploy to production; every other branch produces a
+preview. `master` is protected: pull requests only, and the CI check must pass.
 
-| Setting          | Value           |
-| ---------------- | --------------- |
-| Build command    | `npm run build` |
-| Output directory | `build`         |
-| Node.js version  | 24.x            |
-
-## Roadmap
-
-- Migrate from Create React App to Vite, and upgrade to React 19 and
-  Tailwind CSS 4. This removes an unmaintained toolchain and the transitive
-  deprecation warnings it emits on modern Node.
-- Replace the read-then-write visitor counter with `runTransaction` to
-  eliminate the lost-update race under concurrent visits.
+`vercel.json` pins the framework and output directory, rewrites unknown paths to
+`index.html` for client-side routing, and sets CSP, HSTS, `X-Frame-Options`,
+`Referrer-Policy`, `Permissions-Policy` and a one-year immutable cache on hashed
+assets.
 
 ## License
 
