@@ -199,6 +199,20 @@ preview. `master` is protected: pull requests only, and the CI check must pass.
 `Referrer-Policy`, `Permissions-Policy` and a one-year immutable cache on hashed
 assets.
 
+## Dependency audit
+
+`npm audit` reports findings in the development toolchain. None of them reach the
+production bundle, which ships React, React Router, the Firebase Web SDK, Zod and
+react-icons — none of which appear in any advisory.
+
+Five findings remain, all from the `@lhci/cli` chain: a symlink issue and a path
+traversal in `tmp`, a bounds check in `uuid`, and two transitive advisories via
+`inquirer`. All are exploitable only by code already running on the build machine. `npm audit fix --force` would resolve them by downgrading to
+`@lhci/cli@0.1.0`, released in 2020, which removes the performance budgets
+entirely. Keeping the tooling is the better trade.
+
+Reviewed 2026-08-09.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
