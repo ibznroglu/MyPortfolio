@@ -7,8 +7,8 @@ with a serverless contact endpoint and realtime visitor stats.
 
 |             |                                                                   |
 | ----------- | ----------------------------------------------------------------- |
-| Main bundle | 67 kB gzip                                                        |
-| Images      | 233 KB total (from 3.73 MB of sources)                            |
+| Main bundle | ~68 kB gzip (the Contact route adds 19 kB for Zod and Turnstile)  |
+| Images      | 233 KB total, generated from 3.73 MB of sources                   |
 | Lighthouse  | 100 performance · 100 accessibility · 96 best practices · 100 SEO |
 
 ---
@@ -88,14 +88,16 @@ Requires Node.js 24.x.
 git clone https://github.com/ibznroglu/MyPortfolio.git
 cd MyPortfolio
 npm install
-cp .env.example .env.local   # fill in the Firebase values
+cp .env.example .env.local   # Firebase values; Turnstile and Resend are optional locally
 npm start
 ```
 
 The dev server runs at `http://localhost:3000`.
 
 `/api/contact` does not run under the Vite dev server; use `npx vercel dev` or
-test it on a preview deployment.
+test it on a preview deployment. Without `TURNSTILE_SECRET_KEY` the endpoint
+skips the human check and falls back to its other guards, so local development
+works without a Cloudflare account.
 
 ## Scripts
 
@@ -112,28 +114,34 @@ test it on a preview deployment.
 
 ## Project structure
 
+```
 .
 ├── api/
-│ └── contact.ts # Serverless contact endpoint
-├── assets-source/ # Full-resolution PNG originals, never bundled
+│   └── contact.ts              # Serverless contact endpoint
+├── assets-source/              # Full-resolution PNG originals, never bundled
+├── public/                     # Copied verbatim: favicons, resume, robots.txt
 ├── scripts/
-│ ├── generate-sitemap.js # Ten URLs with hreflang, lastmod from git
-│ └── optimize-images.js # sharp pipeline: crop, resize, WebP
+│   ├── generate-sitemap.js     # Ten URLs with hreflang, lastmod from git
+│   └── optimize-images.js      # sharp pipeline: crop, resize, WebP
 ├── src/
-│ ├── assets/ # Generated WebP output
-│ ├── components/
-│ ├── config/firebase.ts
-│ ├── context/ # Language context and provider, split apart
-│ ├── hooks/ # useLanguage, useDocumentMeta, useVisitorTracking
-│ ├── lib/
-│ │ ├── contactSchema.ts # Shared by the form and the API route
-│ │ ├── navigation.ts
-│ │ ├── routes.json # Single source of truth for slugs
-│ │ └── translations.ts # Bundles with an English fallback
-│ └── locales/ # en.json, tr.json
-├── .github/workflows/ # ci.yml, lighthouse.yml
-├── vercel.json # Rewrites, CSP, HSTS, cache headers
+│   ├── assets/                 # Generated WebP output
+│   ├── components/
+│   ├── config/firebase.ts
+│   ├── context/                # Language context and provider, split apart
+│   ├── hooks/                  # useLanguage, useDocumentMeta, useVisitorTracking
+│   ├── lib/
+│   │   ├── contactSchema.ts    # Shared by the form and the API route
+│   │   ├── navigation.ts
+│   │   ├── routes.json         # Single source of truth for slugs
+│   │   └── translations.ts     # Bundles with an English fallback
+│   ├── locales/                # en.json, tr.json
+│   ├── App.tsx
+│   └── main.tsx
+├── .github/workflows/          # ci.yml, lighthouse.yml
+├── index.html                  # Vite entry point, at the root rather than public/
+├── vercel.json                 # Rewrites, CSP, HSTS, cache headers
 └── lighthouserc.json
+```
 
 ## Environment
 
@@ -147,6 +155,10 @@ test it on a preview deployment.
 
 The `VITE_` prefix is the boundary: anything carrying it is compiled into the
 browser bundle, so the two secrets deliberately do not have it.
+
+Preview deployments use Cloudflare's public test keys rather than the real ones.
+Turnstile rejects hostnames on the Public Suffix List, so `*.vercel.app` can
+never be verified, and preview URLs change with every branch.
 
 ## Database rules
 
@@ -199,6 +211,10 @@ preview. `master` is protected: pull requests only, and the CI check must pass.
 `Referrer-Policy`, `Permissions-Policy` and a one-year immutable cache on hashed
 assets.
 
+The CSP allows `challenges.cloudflare.com` for Turnstile and
+`*.firebaseio.com` in `script-src` — Firebase falls back to long polling when
+WebSocket is blocked, and that transport injects a script tag.
+
 ## Dependency audit
 
 `npm audit` reports findings in the development toolchain. None of them reach the
@@ -207,7 +223,8 @@ react-icons — none of which appear in any advisory.
 
 Five findings remain, all from the `@lhci/cli` chain: a symlink issue and a path
 traversal in `tmp`, a bounds check in `uuid`, and two transitive advisories via
-`inquirer`. All are exploitable only by code already running on the build machine. `npm audit fix --force` would resolve them by downgrading to
+`inquirer`. All are exploitable only by code already running on the build
+machine. `npm audit fix --force` would resolve them by downgrading to
 `@lhci/cli@0.1.0`, released in 2020, which removes the performance budgets
 entirely. Keeping the tooling is the better trade.
 
