@@ -35,3 +35,9 @@ test('renders the portfolio case study', async () => {
     await screen.findByRole('heading', { level: 1, name: /started in 2023/i }),
   ).toBeInTheDocument();
 });
+test('renders a case study that has no public link', async () => {
+  renderAt('/projects/gaming-pro-market');
+  expect(
+    await screen.findByRole('heading', { level: 1, name: /team of seven/i }),
+  ).toBeInTheDocument();
+});

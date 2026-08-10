@@ -30,6 +30,7 @@ const TARGETS = [
     position: 'left top',
     quality: 82,
   },
+  { file: 'projects/gamingpromarket.png', width: 1100, height: 550, position: 'top', quality: 82 },
 
   { file: 'isa.png', width: 512, quality: 82 },
 ];

@@ -50,14 +50,22 @@ const CaseStudy = () => {
             </div>
           </dl>
 
-          <a
-            href={study.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className={`mt-6 inline-block rounded-md bg-pink-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-pink-500 ${FOCUS_RING}`}
-          >
-            {study.liveLabel}
-          </a>
+          {study.liveUrl && study.liveLabel && (
+            <a
+              href={study.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`mt-6 inline-block rounded-md bg-pink-600 px-4 py-2 text-sm font-semibold text-white transition-colors hover:bg-pink-500 ${FOCUS_RING}`}
+            >
+              {study.liveLabel}
+            </a>
+          )}
+
+          {study.statusNote && (
+            <p className="mt-6 rounded-md border border-amber-500/30 bg-amber-500/5 px-4 py-3 text-sm text-amber-300">
+              {study.statusNote}
+            </p>
+          )}
         </header>
 
         <section aria-label={study.metricsHeading} className="mt-10">

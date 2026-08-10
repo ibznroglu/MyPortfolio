@@ -301,6 +301,106 @@
           ]
         }
       ]
+    },
+    "gaming-pro-market": {
+      "title": "Building an e-commerce platform with a team of seven",
+      "summary": "A full storefront and admin panel, built by seven people over three and a half months. My share was the auth flow, the cart, user addresses and most of the admin user management. The backend it talked to is long gone, so this is a look at the code rather than the site.",
+      "roleLabel": "Role",
+      "role": "Frontend developer — auth, cart, addresses, admin user management, API layer",
+      "stackLabel": "Stack",
+      "stack": "React 18 · Redux Toolkit · React Router 6 · Formik · Yup · SCSS · Bootstrap",
+      "timelineLabel": "Timeline",
+      "timeline": "February to June 2023",
+      "backLabel": "Back to projects",
+      "statusNote": "The repository is private and the Heroku backend it depended on no longer runs, so there is no code or live link to offer here. Everything below is written from the source I still have locally.",
+      "metricsHeading": "Scope",
+      "metrics": [
+        {
+          "label": "Team",
+          "value": "7"
+        },
+        {
+          "label": "My commits",
+          "value": "170"
+        },
+        {
+          "label": "Duration",
+          "value": "3.5 months"
+        },
+        {
+          "label": "Areas owned",
+          "value": "5"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "How the team worked",
+          "body": [
+            "Seven of us, though four did most of the work. We picked a team lead and split the application into modules by agreement rather than assignment — someone would take the shop pages, someone the checkout flow, and so on.",
+            "I took the authentication screens, the cart, user addresses, and most of the admin user management: listing users and editing a single user's addresses, coupons, orders and reviews. I also wrote a good part of the API service layer that everything else called into."
+          ]
+        },
+        {
+          "heading": "What I built",
+          "items": [
+            {
+              "term": "Authentication.",
+              "text": "Login, registration, forgot password and reset password, including the email confirmation step. Formik and Yup handled the forms; the token went into encrypted storage and the session was restored on app start so a refresh did not log you out."
+            },
+            {
+              "term": "The cart.",
+              "text": "A Redux slice backed by the server, with add, increment, decrement and remove all synchronised against the API rather than kept only in local state."
+            },
+            {
+              "term": "User addresses.",
+              "text": "The area I spent the most time in. Straightforward CRUD, but it touches checkout, admin and the profile page at once, so the shape of the data had to work in three places."
+            },
+            {
+              "term": "Admin user management.",
+              "text": "A user list plus a per-user edit screen with tabs for that user's addresses, coupons, orders and reviews — four separate resources joined by one identifier."
+            },
+            {
+              "term": "The service layer.",
+              "text": "Product, order, review, coupon, address and contact services. One module per resource, each wrapping axios and attaching the auth header."
+            }
+          ]
+        },
+        {
+          "heading": "What I would do differently",
+          "body": [
+            "Going back through this code with what I know now, five things stand out. None of them are anyone's mistake in particular — they are the decisions a team makes when it is learning."
+          ],
+          "items": [
+            {
+              "term": "The storage encryption key shipped to the browser.",
+              "text": "We stored the auth token with encrypt-storage, and the key came from an environment variable prefixed REACT_APP_ — which means the build compiled it straight into the bundle. Anyone who could read the encrypted token could read the key beside it. The decision was made in good faith, but the threat model was missing: the attack it was meant to stop is XSS, and against XSS the only real answer is an httpOnly cookie the page cannot read at all."
+            },
+            {
+              "term": "Route protection repeated thirty times.",
+              "text": "Every admin route was individually wrapped in a ProtectedRoute element. React Router 6 has layout routes for exactly this: one wrapper around a group. Thirty repetitions is thirty chances to forget one when adding a page, which is the kind of gap that only shows up after it matters."
+            },
+            {
+              "term": "No code splitting.",
+              "text": "Every page was imported eagerly at the top of the router file, so an anonymous visitor browsing products downloaded the entire admin panel — product editing, coupon assignment, reports. Lazy routes would have cut the first load substantially."
+            },
+            {
+              "term": "The router and the routes lived in the same file.",
+              "text": "BrowserRouter was created in the middle of the route definitions, which makes the routes untestable — you cannot wrap them in a MemoryRouter to assert on navigation. Separating the two is one line and it unlocks the whole category of routing tests."
+            },
+            {
+              "term": "Cart state was never validated.",
+              "text": "Two bugs came from the same root. Decrementing allowed the quantity to reach zero, leaving items sitting in the cart with a count of nothing. And the add action looked for an existing item by payload.id while every other part of the cart keyed on productId, so the same product could be added twice as separate rows. A single validated shape for a cart item, applied on every path that writes to it, would have removed both."
+            }
+          ]
+        },
+        {
+          "heading": "What it was worth",
+          "body": [
+            "This was the first time I worked in a team where the pieces had to fit together without anyone holding the whole picture. Merge conflicts, agreeing on the shape of an API response before either side existed, working out whose module a bug belonged to — none of that is visible in the code, and all of it was the point.",
+            "The habits I keep from it are mostly about interfaces: agree on the data shape early, keep one module per resource, and make the boundary between your area and someone else's explicit. The habits I have added since are the ones this project did not have — types, tests, and a pipeline that says no."
+          ]
+        }
+      ]
     }
   }
 }

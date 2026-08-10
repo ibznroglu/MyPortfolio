@@ -1,5 +1,6 @@
 import PortfolioImg from '../assets/projects/portfolio.webp';
 import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.webp';
+import GamingProMarketImg from '../assets/projects/gamingpromarket.webp';
 import type { CaseStudySlug } from '../lib/caseStudies';
 
 interface Project {
@@ -28,5 +29,13 @@ export const data: Project[] = [
     github: 'https://github.com/ibznroglu/vargeloglu-insaat-Vue',
     live: 'https://www.vargelogluinsaat.com/',
     caseStudy: 'vargeloglu-insaat',
+  },
+  {
+    id: 3,
+    name: 'Gaming Pro Market',
+    image: GamingProMarketImg,
+    github: '',
+    live: '',
+    caseStudy: 'gaming-pro-market',
   },
 ];

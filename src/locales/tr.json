@@ -301,6 +301,106 @@
           ]
         }
       ]
+    },
+    "gaming-pro-market": {
+      "title": "Yedi kişilik bir ekiple e-ticaret platformu geliştirmek",
+      "summary": "Tam bir mağaza ve yönetim paneli, yedi kişiyle üç buçuk ayda yazıldı. Benim payıma auth akışı, sepet, kullanıcı adresleri ve admin kullanıcı yönetiminin büyük kısmı düştü. Konuştuğu backend çoktan kapandı, dolayısıyla bu yazı siteye değil koda bakıyor.",
+      "roleLabel": "Rol",
+      "role": "Frontend geliştirici — auth, sepet, adresler, admin kullanıcı yönetimi, API katmanı",
+      "stackLabel": "Teknoloji",
+      "stack": "React 18 · Redux Toolkit · React Router 6 · Formik · Yup · SCSS · Bootstrap",
+      "timelineLabel": "Süre",
+      "timeline": "Şubat – Haziran 2023",
+      "backLabel": "Projelere dön",
+      "statusNote": "Depo private ve bağlı olduğu Heroku backend'i artık çalışmıyor; bu yüzden burada kod ya da canlı link yok. Aşağıdakiler hâlâ yerelimde duran kaynaktan yazıldı.",
+      "metricsHeading": "Kapsam",
+      "metrics": [
+        {
+          "label": "Ekip",
+          "value": "7"
+        },
+        {
+          "label": "Commit'im",
+          "value": "170"
+        },
+        {
+          "label": "Süre",
+          "value": "3,5 ay"
+        },
+        {
+          "label": "Sahiplendiğim alan",
+          "value": "5"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Ekip nasıl çalıştı",
+          "body": [
+            "Yedi kişiydik, ama işin çoğunu dördümüz yaptık. Bir takım lideri seçtik ve uygulamayı modüllere böldük — görev dağıtılmadı, konuşarak karar verildi. Biri mağaza sayfalarını aldı, biri ödeme akışını, böyle gitti.",
+            "Ben kimlik doğrulama ekranlarını, sepeti, kullanıcı adreslerini ve admin kullanıcı yönetiminin büyük kısmını üstlendim: kullanıcı listesi ve tek bir kullanıcının adreslerini, kuponlarını, siparişlerini, yorumlarını düzenleme ekranları. Diğer her şeyin çağırdığı API servis katmanının da önemli bir bölümünü yazdım."
+          ]
+        },
+        {
+          "heading": "Ne yaptım",
+          "items": [
+            {
+              "term": "Kimlik doğrulama.",
+              "text": "Giriş, kayıt, şifremi unuttum ve şifre sıfırlama; e-posta onay adımı dahil. Formları Formik ve Yup yönetiyordu; token şifreli depolamaya yazılıyor, uygulama açılışında oturum geri kuruluyordu, yani sayfayı yenilemek sizi çıkarmıyordu."
+            },
+            {
+              "term": "Sepet.",
+              "text": "Sunucuyla senkron çalışan bir Redux slice'ı. Ekleme, artırma, azaltma ve silme yalnızca yerel state'te tutulmuyor, her biri API üzerinden doğrulanıyordu."
+            },
+            {
+              "term": "Kullanıcı adresleri.",
+              "text": "En çok vakit geçirdiğim alan. Görünürde basit CRUD, ama ödeme akışına, admin paneline ve profil sayfasına aynı anda dokunuyor; dolayısıyla verinin şekli üç yerde birden çalışmak zorundaydı."
+            },
+            {
+              "term": "Admin kullanıcı yönetimi.",
+              "text": "Kullanıcı listesi ve kullanıcı başına düzenleme ekranı: o kullanıcının adresleri, kuponları, siparişleri ve yorumları için ayrı sekmeler — tek bir kimlikle birleşen dört farklı kaynak."
+            },
+            {
+              "term": "Servis katmanı.",
+              "text": "Ürün, sipariş, yorum, kupon, adres ve iletişim servisleri. Kaynak başına bir modül; her biri axios'u sarıp auth başlığını ekliyordu."
+            }
+          ]
+        },
+        {
+          "heading": "Bugün olsa neyi farklı yapardım",
+          "body": [
+            "Bu koda bugünkü bildiklerimle dönünce beş şey öne çıkıyor. Hiçbiri birinin şahsi hatası değil — öğrenirken bir ekibin verdiği kararlar."
+          ],
+          "items": [
+            {
+              "term": "Depolama şifreleme anahtarı tarayıcıya gidiyordu.",
+              "text": "Auth token'ını encrypt-storage ile saklıyorduk ve anahtar REACT_APP_ önekli bir ortam değişkeninden geliyordu — yani build onu doğrudan bundle'ın içine gömüyordu. Şifreli token'ı okuyabilen, yanındaki anahtarı da okuyabilirdi. Karar iyi niyetliydi ama tehdit modeli eksikti: durdurmak istediği saldırı XSS ve XSS'e karşı tek gerçek cevap, sayfanın hiç okuyamayacağı bir httpOnly çerez."
+            },
+            {
+              "term": "Route koruması otuz kez tekrarlanmıştı.",
+              "text": "Her admin route'u tek tek bir ProtectedRoute içine sarılmıştı. React Router 6'da tam bunun için layout route var: bir grubun etrafına tek sarmalayıcı. Otuz tekrar, yeni bir sayfa eklerken birini unutmak için otuz fırsat demek — ve bu tür bir boşluk ancak iş işten geçtikten sonra kendini gösterir."
+            },
+            {
+              "term": "Kod bölünmesi yoktu.",
+              "text": "Bütün sayfalar router dosyasının başında doğrudan import ediliyordu; yani ürünlere bakan anonim bir ziyaretçi admin panelinin tamamını indiriyordu — ürün düzenleme, kupon atama, raporlar. Lazy route'lar ilk yüklemeyi belirgin şekilde küçültürdü."
+            },
+            {
+              "term": "Router ile route tanımları aynı dosyadaydı.",
+              "text": "BrowserRouter, route tanımlarının ortasında oluşturuluyordu; bu da route'ları test edilemez yapıyor — gezinmeyi doğrulamak için onları bir MemoryRouter içine saramıyorsunuz. İkisini ayırmak tek satır ve bütün bir test kategorisinin önünü açıyor."
+            },
+            {
+              "term": "Sepet state'i hiç doğrulanmıyordu.",
+              "text": "İki hata aynı kökten geliyordu. Azaltma işlemi adedin sıfıra inmesine izin veriyor, sepette adedi sıfır olan ürünler kalıyordu. Ekleme işlemi ise mevcut ürünü payload.id ile arıyordu, oysa sepetin geri kalanı productId ile çalışıyordu; yani aynı ürün iki ayrı satır olarak eklenebiliyordu. Sepet öğesi için tek bir doğrulanmış şekil ve ona yazan her yolun oradan geçmesi, ikisini birden ortadan kaldırırdı."
+            }
+          ]
+        },
+        {
+          "heading": "Ne kazandırdı",
+          "body": [
+            "Parçaların, bütünü kimsenin tek başına tutmadığı bir ekipte birbirine oturmak zorunda olduğu ilk deneyimimdi. Merge çakışmaları, iki taraf da yokken bir API yanıtının şekli üzerinde anlaşmak, bir hatanın kimin modülüne ait olduğunu çözmek — bunların hiçbiri kodda görünmüyor ve asıl mesele hepsiydi.",
+            "Oradan kalan alışkanlıklarım çoğunlukla arayüzlerle ilgili: veri şekli üzerinde erken anlaş, kaynak başına tek modül tut, senin alanınla başkasınınki arasındaki sınırı açık bırak. Sonradan edindiklerim ise bu projede olmayanlar — tipler, testler ve hayır diyebilen bir pipeline."
+          ]
+        }
+      ]
     }
   }
 }
