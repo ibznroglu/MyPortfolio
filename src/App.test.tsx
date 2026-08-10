@@ -29,3 +29,9 @@ test('renders the localized 404 page for an unknown turkish route', async () => 
   renderAt('/tr/olmayan-sayfa');
   expect(await screen.findByRole('heading', { name: /sayfa bulunamadı/i })).toBeInTheDocument();
 });
+test('renders the portfolio case study', async () => {
+  renderAt('/projects/portfolio');
+  expect(
+    await screen.findByRole('heading', { level: 1, name: /started in 2023/i }),
+  ).toBeInTheDocument();
+});

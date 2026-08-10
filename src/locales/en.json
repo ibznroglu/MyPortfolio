@@ -193,6 +193,114 @@
           ]
         }
       ]
+    },
+    "portfolio": {
+      "title": "Rebuilding the portfolio I started in 2023",
+      "summary": "I set this site up in July 2023, barely touched it for two and a half years, and came back to find every shortcut still sitting where I left it. The git history reads like a record of what I did not know yet.",
+      "roleLabel": "Role",
+      "role": "Everything — architecture, build tooling, backend, CI, content",
+      "stackLabel": "Stack",
+      "stack": "React 18 · TypeScript · Vite · Vercel Functions · Firebase · Cloudflare",
+      "timelineLabel": "Timeline",
+      "timeline": "Created July 2023 · revived December 2025 · rebuilt August 2026",
+      "liveLabel": "View the repository",
+      "liveUrl": "https://github.com/ibznroglu/MyPortfolio",
+      "backLabel": "Back to projects",
+      "metricsHeading": "Before and after the rebuild",
+      "metrics": [
+        {
+          "label": "Main bundle",
+          "value": "131 → 68 kB"
+        },
+        {
+          "label": "Images",
+          "value": "3.73 MB → 233 KB"
+        },
+        {
+          "label": "Lighthouse",
+          "value": "100 / 100"
+        },
+        {
+          "label": "Tests",
+          "value": "1 → 7"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "What the git log records",
+          "body": [
+            "The history splits into three eras, and the commit messages give each one away.",
+            "July 2023: six commits, named v3, v4, v5 and “firts portfolio commit”. Create React App, a dark theme, five sections. Then nothing for two and a half years while I was busy with client work.",
+            "December 2025 through July 2026: about fifty commits. This is where I started caring — Firebase visitor tracking, Turkish and English content, Search Console, structured data, a sitemap. Pull requests appear for the first time around April. The messages get better too, though CI=false build for vercel and two commits called test are still in there.",
+            "August 2026: seventy-four commits, more than half the project's history, done in two weeks. That is the rebuild this page is about."
+          ]
+        },
+        {
+          "heading": "What I found when I came back",
+          "body": [
+            "Coming back to your own old code after three years is a useful exercise. You are far enough away to read it like a stranger, but you cannot blame anyone else.",
+            "The projects page shipped a 2.2 MB PNG. Project cards hid their titles and buttons behind :hover, which on a phone meant two grey rectangles and nothing else. There was no router, so every URL rendered the home page — including the ones that should have been 404s. The single test in the suite was the create-react-app default, and it failed.",
+            "There was also a CI=false flag in the build script, put there at some point to stop warnings from failing the build. When I removed it, the build was clean. It had been guarding against nothing for months."
+          ]
+        },
+        {
+          "heading": "Working in phases",
+          "body": [
+            "I split the rebuild into four phases and gave each one a pull request. Hygiene, then the mobile and accessibility failures, then build tooling and routing, then infrastructure. Nothing reached master without passing CI.",
+            "The order mattered. Fixing the hover bug before there was a router would have meant touching the same components twice. Adding TypeScript before the Vite migration would have meant migrating twice."
+          ]
+        },
+        {
+          "heading": "Decisions worth explaining",
+          "items": [
+            {
+              "term": "Language lives in the URL.",
+              "text": "English at the root, Turkish under /tr. Both are separately indexable, a shared link keeps its language, and the lang attribute comes from the route. Slugs live in one JSON file that the router, the navbar and the sitemap generator all read, so those three cannot drift apart."
+            },
+            {
+              "term": "Canonical tags per route.",
+              "text": "As a single-page app the site carried one canonical tag in index.html, so every route told Google it was the home page. Nine of ten routes were effectively invisible. Canonical, og:url and hreflang now come from the route, confirmed through Search Console's live test."
+            },
+            {
+              "term": "Images are generated, not committed.",
+              "text": "Full-resolution PNGs live outside the bundle. A sharp pipeline crops project screenshots to a shared 2:1 ratio, sizes everything at twice its display width, and writes WebP. 3.73 MB of sources become 233 KB of output."
+            },
+            {
+              "term": "Vite's asset inlining had to be switched off.",
+              "text": "It base64-inlines anything under 4 kB, which caught most of the icons and pushed the bundle from 104 to 140 kB gzip. Base64 adds a third to the size and compresses badly. The same trap had been costing me bytes under create-react-app, with PNGs, without my noticing."
+            },
+            {
+              "term": "The contact form is mine end to end.",
+              "text": "It used to POST to a third-party endpoint and navigate the visitor away with no confirmation. Now a Vercel function validates with a Zod schema shared with the form, checks a honeypot, rate limits per IP, verifies a Cloudflare Turnstile token, and sends through Resend from my own domain. The client validates too, but only for fast feedback — the server is the gate."
+            },
+            {
+              "term": "The visitor counter, properly this time.",
+              "text": "I had noticed the race condition back in May and committed a partial fix. It was still a read followed by a write, so two people arriving together still cancelled each other out. This time it is a transaction, deduplication moved from localStorage to a server-side claim that can be created but never updated, and a security rule accepts nothing but serverTimestamp() for presence."
+            }
+          ]
+        },
+        {
+          "heading": "What CI actually guards",
+          "body": [
+            "Every pull request runs typecheck, lint, tests and build, and master is protected so none of it can be skipped. A separate job runs Lighthouse against three routes.",
+            "Calibrating it was the interesting part. A pull request that changed one CSS class failed with a performance score of 0.66, then passed at 100 on a re-run — shared runners throttle, and every time-based metric moves with them. An alarm that fires at random teaches you to press re-run instead of investigate.",
+            "So performance became a warning, and the blocking assertions moved to things CPU contention cannot touch: total byte weight under 600 kB, modern image formats, minification. Those catch the regression I actually worry about, which is a large unoptimised image finding its way back in."
+          ]
+        },
+        {
+          "heading": "Two bugs that only appeared in production",
+          "body": [
+            "The visitor stats spun forever on desktop while working fine on mobile. Firebase falls back to long polling when WebSocket is blocked, and that transport works by injecting a script tag — which my own Content Security Policy blocked. One CSP directive fixed it. The more useful lesson was underneath: the failed read had no error handler, so the loading state never cleared. It now renders nothing rather than a wrong number.",
+            "The contact form locked itself after five minutes. Turnstile tokens expire, and I had wired the expiry callback to the same handler as the error callback, so a routine part of the token lifecycle was being treated as a broken widget."
+          ]
+        },
+        {
+          "heading": "What is next",
+          "body": [
+            "Case studies for the remaining projects, and a tighter performance budget as more content lands here. The dependency audit is reviewed rather than silenced: five advisories remain, all inside the Lighthouse CI toolchain, and the README explains why dropping to a 2020 release to clear them would be the wrong trade."
+          ]
+        }
+      ]
     }
   }
 }

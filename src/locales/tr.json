@@ -193,6 +193,114 @@
           ]
         }
       ]
+    },
+    "portfolio": {
+      "title": "2023'te başladığım portfolyoyu yeniden kurmak",
+      "summary": "Bu siteyi Temmuz 2023'te kurdum, iki buçuk yıl neredeyse hiç dokunmadım, sonra geri döndüğümde bıraktığım her kestirmeyi olduğu yerde buldum. Git geçmişi, o zaman neleri bilmediğimin kaydı gibi okunuyor.",
+      "roleLabel": "Rol",
+      "role": "Her şey — mimari, build araçları, backend, CI, içerik",
+      "stackLabel": "Teknoloji",
+      "stack": "React 18 · TypeScript · Vite · Vercel Functions · Firebase · Cloudflare",
+      "timelineLabel": "Süre",
+      "timeline": "Temmuz 2023'te kuruldu · Aralık 2025'te canlandı · Ağustos 2026'da yeniden yazıldı",
+      "liveLabel": "Depoyu görüntüle",
+      "liveUrl": "https://github.com/ibznroglu/MyPortfolio",
+      "backLabel": "Projelere dön",
+      "metricsHeading": "Yeniden yazımdan önce ve sonra",
+      "metrics": [
+        {
+          "label": "Ana bundle",
+          "value": "131 → 68 kB"
+        },
+        {
+          "label": "Görseller",
+          "value": "3,73 MB → 233 KB"
+        },
+        {
+          "label": "Lighthouse",
+          "value": "100 / 100"
+        },
+        {
+          "label": "Test",
+          "value": "1 → 7"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Git geçmişi ne anlatıyor",
+          "body": [
+            "Geçmiş üç döneme ayrılıyor ve her birini commit mesajları ele veriyor.",
+            "Temmuz 2023: altı commit; adları v3, v4, v5 ve “firts portfolio commit”. Create React App, koyu tema, beş bölüm. Sonra iki buçuk yıl hiçbir şey — müşteri işleriyle uğraşıyordum.",
+            "Aralık 2025'ten Temmuz 2026'ya: yaklaşık elli commit. Önemsemeye burada başlamışım — Firebase ziyaretçi takibi, Türkçe ve İngilizce içerik, Search Console, yapılandırılmış veri, site haritası. Pull request'ler ilk kez nisan civarında beliriyor. Mesajlar da düzeliyor, ama CI=false build for vercel ve test adında iki commit hâlâ orada duruyor.",
+            "Ağustos 2026: yetmiş dört commit, yani projenin geçmişinin yarısından fazlası, iki haftada. Bu sayfanın anlattığı şey o yeniden yazım."
+          ]
+        },
+        {
+          "heading": "Geri döndüğümde bulduklarım",
+          "body": [
+            "Üç yıl sonra kendi eski kodunuza dönmek işe yarayan bir alıştırma. Yabancı gözüyle okuyacak kadar uzaklaşmışsınızdır, ama suçlayacak kimse yoktur.",
+            "Projeler sayfası 2,2 MB'lık bir PNG gönderiyordu. Proje kartları başlığını ve butonlarını :hover arkasına saklıyordu; telefonda bu, iki gri dikdörtgen ve başka hiçbir şey demekti. Router yoktu, dolayısıyla her URL ana sayfayı render ediyordu — 404 olması gerekenler dahil. Test paketindeki tek test create-react-app'in varsayılanıydı ve başarısızdı.",
+            "Build script'inde bir de CI=false bayrağı vardı; bir noktada uyarıların build'i kırmasını engellemek için konmuştu. Kaldırdığımda build tertemiz çıktı. Aylardır hiçbir şeye karşı koruma yapmıyormuş."
+          ]
+        },
+        {
+          "heading": "Fazlar halinde çalışmak",
+          "body": [
+            "Yeniden yazımı dört faza böldüm ve her birini bir pull request yaptım. Önce temizlik, sonra mobil ve erişilebilirlik hataları, sonra build araçları ve routing, en son altyapı. CI'dan geçmeyen hiçbir şey master'a ulaşmadı.",
+            "Sıralama önemliydi. Hover hatasını router'dan önce düzeltmek aynı bileşenlere iki kez dokunmak olurdu. TypeScript'i Vite geçişinden önce eklemek iki kez taşınmak olurdu."
+          ]
+        },
+        {
+          "heading": "Açıklanmaya değer kararlar",
+          "items": [
+            {
+              "term": "Dil URL'de yaşıyor.",
+              "text": "İngilizce kökte, Türkçe /tr altında. İkisi ayrı ayrı indekslenebiliyor, paylaşılan link dilini koruyor ve lang niteliği route'tan geliyor. Slug'lar tek bir JSON dosyasında; router, navbar ve sitemap üreticisi aynı dosyayı okuyor, dolayısıyla üçü birbirinden kayamıyor."
+            },
+            {
+              "term": "Route başına canonical.",
+              "text": "Tek sayfa uygulaması olduğu için site index.html'de tek bir canonical etiketi taşıyordu; yani her route Google'a ana sayfa olduğunu söylüyordu. On route'un dokuzu fiilen görünmezdi. Canonical, og:url ve hreflang artık route'tan geliyor; Search Console'un canlı testiyle doğrulandı."
+            },
+            {
+              "term": "Görseller commit'lenmiyor, üretiliyor.",
+              "text": "Tam çözünürlüklü PNG'ler bundle'ın dışında duruyor. Bir sharp pipeline'ı proje ekran görüntülerini ortak 2:1 orana kırpıyor, her şeyi görüntülenme genişliğinin iki katına ölçekliyor ve WebP yazıyor. 3,73 MB kaynak, 233 KB çıktıya dönüşüyor."
+            },
+            {
+              "term": "Vite'ın asset inlining'i kapatılmak zorunda kaldı.",
+              "text": "4 kB altındaki her şeyi base64 olarak gömüyor; bu ikonların çoğunu yakaladı ve bundle'ı 104'ten 140 kB gzip'e çıkardı. Base64 boyutu üçte bir artırıyor ve kötü sıkışıyor. Aynı tuzak create-react-app altında PNG'lerle de bana bayt kaybettiriyormuş, fark etmemişim."
+            },
+            {
+              "term": "İletişim formu baştan sona benim.",
+              "text": "Eskiden üçüncü parti bir uca POST atıyor ve ziyaretçiyi hiçbir onay vermeden siteden çıkarıyordu. Artık bir Vercel fonksiyonu, formla paylaşılan bir Zod şemasıyla doğruluyor, honeypot kontrol ediyor, IP başına rate limit uyguluyor, Cloudflare Turnstile token'ını doğruluyor ve Resend üzerinden kendi domain'imden gönderiyor. İstemci de doğruluyor ama sadece hızlı geri bildirim için — kapı sunucuda."
+            },
+            {
+              "term": "Ziyaretçi sayacı, bu sefer düzgün.",
+              "text": "Yarışma koşulunu mayısta fark etmiş ve kısmi bir düzeltme commit'lemiştim. Yine de okuma ardından yazma vardı, yani aynı anda gelen iki kişi birbirini götürmeye devam ediyordu. Bu sefer bir transaction var; tekilleştirme localStorage'dan, oluşturulabilen ama güncellenemeyen bir sunucu kaydına taşındı; güvenlik kuralı da varlık kaydı için serverTimestamp() dışında hiçbir şeyi kabul etmiyor."
+            }
+          ]
+        },
+        {
+          "heading": "CI gerçekte neyi koruyor",
+          "body": [
+            "Her pull request typecheck, lint, test ve build çalıştırıyor; master korumalı olduğu için hiçbiri atlanamıyor. Ayrı bir job üç route üzerinde Lighthouse çalıştırıyor.",
+            "İlginç kısım kalibrasyondu. Tek bir CSS sınıfını değiştiren bir pull request 0,66 performans skoruyla kırıldı, yeniden çalıştırınca 100 aldı — paylaşımlı runner'lar kısılıyor ve zamana bağlı her metrik onlarla birlikte oynuyor. Rastgele çalan bir alarm, incelemek yerine yeniden çalıştırmayı öğretir.",
+            "Bu yüzden performans uyarıya döndü ve bloklayan kontroller CPU yükünün dokunamayacağı şeylere kaydı: 600 kB altında toplam bayt, modern görsel formatları, minification. Bunlar asıl endişelendiğim regresyonu yakalıyor: optimize edilmemiş büyük bir görselin geri sızması."
+          ]
+        },
+        {
+          "heading": "Yalnızca üretimde ortaya çıkan iki hata",
+          "body": [
+            "Ziyaretçi istatistikleri masaüstünde sonsuza kadar dönüyor, mobilde sorunsuz çalışıyordu. WebSocket engellendiğinde Firebase long polling'e düşüyor; o taşıma da script etiketi enjekte ederek çalışıyor — ki kendi Content Security Policy'm bunu blokluyordu. Tek bir CSP direktifi çözdü. Asıl işe yarayan ders alttaydı: başarısız okumanın hata callback'i yoktu, dolayısıyla yükleme durumu hiç temizlenmiyordu. Artık yanlış bir sayı yerine hiçbir şey göstermiyor.",
+            "İletişim formu beş dakika sonra kendini kilitliyordu. Turnstile token'larının süresi doluyor ve ben süre dolma callback'ini hata callback'iyle aynı işleyiciye bağlamıştım; yani token yaşam döngüsünün rutin bir parçası bozuk widget olarak işleniyordu."
+          ]
+        },
+        {
+          "heading": "Sırada ne var",
+          "body": [
+            "Kalan projeler için case study'ler ve buraya içerik geldikçe sıkılaşan bir performans bütçesi. Bağımlılık denetimi susturulmuş değil, incelenmiş durumda: beş uyarı kaldı, hepsi Lighthouse CI zincirinde, ve README bunları temizlemek için 2020 sürümüne inmenin neden yanlış bir takas olacağını açıklıyor."
+          ]
+        }
+      ]
     }
   }
 }
