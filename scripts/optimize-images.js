@@ -22,6 +22,7 @@ const OUT_DIR = path.join(__dirname, '..', 'src', 'assets');
 // Screenshots share a 2:1 ratio so every card gets an identical box.
 // `extract` picks the crop window manually when the automatic one frames badly.
 const TARGETS = [
+  { file: 'projects/portfolio.png', width: 1100, height: 550, position: 'top', quality: 82 },
   {
     file: 'projects/vargelogluinsaat.png',
     width: 1100,
@@ -29,13 +30,7 @@ const TARGETS = [
     position: 'left top',
     quality: 82,
   },
-  {
-    file: 'projects/rentalcar.png',
-    width: 1100,
-    height: 550,
-    extract: { left: 0, top: 230, width: 1013, height: 507 },
-    quality: 88,
-  },
+
   { file: 'isa.png', width: 512, quality: 82 },
 ];
 

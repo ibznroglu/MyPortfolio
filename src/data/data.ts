@@ -1,5 +1,5 @@
+import PortfolioImg from '../assets/projects/portfolio.webp';
 import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.webp';
-import RentalCarImg from '../assets/projects/rentalcar.webp';
 import type { CaseStudySlug } from '../lib/caseStudies';
 
 interface Project {
@@ -15,17 +15,18 @@ interface Project {
 export const data: Project[] = [
   {
     id: 1,
-    name: 'Vargeloğlu İnşaat',
-    image: VargelogluInsaatImg,
-    github: '',
-    live: 'https://www.vargelogluinsaat.com/',
-    caseStudy: 'vargeloglu-insaat',
+    name: 'isabezeniroglu.com',
+    image: PortfolioImg,
+    github: 'https://github.com/ibznroglu/MyPortfolio',
+    live: 'https://isabezeniroglu.com/',
+    caseStudy: 'portfolio',
   },
   {
     id: 2,
-    name: 'Rental Car',
-    image: RentalCarImg,
-    github: '',
-    live: 'https://www.letsrentalcar.com/',
+    name: 'Vargeloğlu İnşaat',
+    image: VargelogluInsaatImg,
+    github: 'https://github.com/ibznroglu/vargeloglu-insaat-Vue',
+    live: 'https://www.vargelogluinsaat.com/',
+    caseStudy: 'vargeloglu-insaat',
   },
 ];
