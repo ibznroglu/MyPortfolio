@@ -11,6 +11,7 @@ const Skills = lazy(() => import('./components/Skills'));
 const Work = lazy(() => import('./components/Work'));
 const Contact = lazy(() => import('./components/Contact'));
 const NotFound = lazy(() => import('./components/NotFound'));
+const CaseStudy = lazy(() => import('./components/CaseStudy'));
 
 const PAGES = {
   home: Home,
@@ -34,11 +35,13 @@ function App() {
     <Routes>
       <Route path="/" element={<Layout language="en" />}>
         {pageRoutes}
+        <Route path="projects/:caseSlug" element={<CaseStudy />} />
         <Route path="*" element={<NotFound />} />
       </Route>
 
       <Route path={TR_PREFIX} element={<Layout language="tr" />}>
         {pageRoutes}
+        <Route path="projects/:caseSlug" element={<CaseStudy />} />
         <Route path="*" element={<NotFound />} />
       </Route>
     </Routes>

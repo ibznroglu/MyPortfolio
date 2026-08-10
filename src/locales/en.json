@@ -42,7 +42,8 @@
     "title": "Projects",
     "subtitle": "Some of my recent work",
     "live": "Live",
-    "code": "Code"
+    "code": "Code",
+    "readCaseStudy": "Read the case study"
   },
   "contact": {
     "title": "Get In Touch",
@@ -67,6 +68,131 @@
       "forbidden": "This request was blocked. Please reload the page and try again.",
       "humanCheckFailed": "The human verification failed. Please try again.",
       "humanCheckUnavailable": "The human verification did not complete. Try again, or email me directly if it keeps failing."
+    }
+  },
+  "caseStudies": {
+    "vargeloglu-insaat": {
+      "title": "Bringing a dead corporate site back online",
+      "summary": "Vargeloğlu İnşaat's website had gone offline and nobody could reach the server it lived on. Getting back in came first; rebuilding came second.",
+      "roleLabel": "Role",
+      "role": "Sole developer — recovery, rebuild, content, deployment, SEO",
+      "stackLabel": "Stack",
+      "stack": "Vue 3 · TypeScript · Composition API · Vercel · Cloudflare",
+      "timelineLabel": "Timeline",
+      "timeline": "Three weeks of build, on top of a longer recovery",
+      "liveLabel": "Visit the site",
+      "liveUrl": "https://www.vargelogluinsaat.com/",
+      "backLabel": "Back to projects",
+      "metricsHeading": "Three months of Search Console data",
+      "metrics": [
+        {
+          "label": "Average position",
+          "value": "3.7"
+        },
+        {
+          "label": "Click-through rate",
+          "value": "15.2%"
+        },
+        {
+          "label": "Clicks",
+          "value": "52"
+        },
+        {
+          "label": "Impressions",
+          "value": "341"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "The problem",
+          "body": [
+            "Vargeloğlu İnşaat is a construction company that gets most of its work through the jobs it has already finished. One project leads to a recommendation, that leads to the next. The website is there to reach the people who are not already in that circle.",
+            "Their old site had stopped loading. The hosting had expired, the SSL certificate along with it, and the site had been down long enough that nobody was quite sure what was still recoverable.",
+            "The client owned the domain. He did not have the hosting login, and the content — years of project photographs, the reference list, all the copy — was sitting on a server neither of us could open."
+          ]
+        },
+        {
+          "heading": "Getting the content back",
+          "body": [
+            "This part took longer than writing the site. I spent several days going back and forth with the hosting company by phone and email until they restored control panel access.",
+            "Once I was in, I pulled out everything that was worth keeping before anything else lapsed: the copy, the project photographs, the reference list. Only after that could we talk about what to build."
+          ]
+        },
+        {
+          "heading": "The rebuild",
+          "body": [
+            "I built it in Vue 3 with the Composition API. React is what I use professionally, and I picked Vue here deliberately: this was a project I owned end to end, the deadline was mine, and the requirements — a content site with a gallery and a way to get in touch — did not push toward one framework over the other. I wanted to learn a second ecosystem on a real project rather than a tutorial. It slowed me down for the first few days and left me able to read Vue code properly.",
+            "The build took about three weeks. Most of it landed in the first ten days; the rest was refinement."
+          ],
+          "items": [
+            {
+              "term": "Two languages.",
+              "text": "Turkish and English, because the company works with contractors who do not all read Turkish. The chosen language is saved and applied to the lang attribute when the page loads, so returning visitors land where they left off and screen readers pronounce the page correctly."
+            },
+            {
+              "term": "A gallery of 187 photographs.",
+              "text": "Split across four categories: infrastructure and drainage, site and road concrete, stone walling, landscaping. The lightbox was the easy part. Construction photographs do not explain themselves — the same pile of earth is excavation to one person and demolition to another. Working out what the categories should be, then going through 187 images one by one, took longer than writing the component."
+            },
+            {
+              "term": "Content I wrote, not content I copied.",
+              "text": "Some text came across from the old site. Most of it I drafted and the client approved. The numbers on the homepage — years in business, completed projects, references — came from him, because the ones on the old site were years stale."
+            },
+            {
+              "term": "Logo and photography.",
+              "text": "I wrote a brief, generated a set of logo candidates with AI, picked one and cleaned it up for production. Where the client had no photograph for something, I found and prepared one."
+            },
+            {
+              "term": "Performance during the build, not after.",
+              "text": "The hero slider and intro imagery were converted to WebP while I was working on them, rather than in a cleanup pass once someone complained about load times."
+            },
+            {
+              "term": "Mobile first throughout.",
+              "text": "Local search traffic for a business like this arrives almost entirely on phones."
+            }
+          ]
+        },
+        {
+          "heading": "The migration nobody sees",
+          "body": [
+            "Replacing a site Google already knows is a different job from launching a new one. The old WordPress URLs were still sitting in the index, and every one of them now pointed at nothing.",
+            "I moved DNS to Cloudflare and deployment to Vercel. Propagation took about a day worldwide. There was no downtime to plan around, since the old site had already been unreachable for a while — the switch could only be an improvement.",
+            "Search Console showed the rest: pages Google refused to index, crawl errors left over from the old structure, and the wait while a new sitemap was accepted. I set up Analytics at the same time so the client could watch the traffic himself instead of taking my word for it."
+          ]
+        },
+        {
+          "heading": "Results",
+          "body": [
+            "The absolute numbers are small, and for a local construction firm they should be — the search volume is what it is. Position and click-through rate are the ones I look at.",
+            "Sitting near the top of the first page means the ranking the old domain had built up came across instead of being lost, which is the usual way these migrations go wrong. A 15.2% click-through rate is well above average, which tells me the titles and descriptions are pulling their weight.",
+            "On the company's own name — the query that matters most — the site gets 22 clicks from 51 impressions. People looking for this business find it.",
+            "PageSpeed Insights on mobile: SEO 100, best practices 100, accessibility 84, performance 69."
+          ]
+        },
+        {
+          "heading": "What I have not finished",
+          "body": [
+            "I check this site rather than assume it is fine, and the numbers say the migration is not done."
+          ],
+          "items": [
+            {
+              "term": "The old URLs are still indexed.",
+              "text": "Three legacy paths pulled 112 impressions over three months and produced 3 clicks between them. They still rank; they just go nowhere. The deployment config redirects the apex domain to www and does nothing else, so the ranking those pages still carry is leaking away instead of moving to the new ones. Adding 301s from the old structure is the next thing I do."
+            },
+            {
+              "term": "Two of nine pages are indexed.",
+              "text": "Five are excluded as “alternate page with proper canonical tag”. That is what a single-page app looks like when it serves one static canonical tag: every route claims to be the home page and Google files the rest as duplicates. One more returns a 5xx. I ran into exactly this on this portfolio and fixed it by deriving canonical and hreflang per route."
+            },
+            {
+              "term": "Performance sits at 69 on mobile.",
+              "text": "Lower than a content site should be. The images are already WebP, so the groundwork is there, but image delivery and render-blocking resources have not had the pass this portfolio got."
+            },
+            {
+              "term": "No security headers.",
+              "text": "The deployment config sets no CSP, HSTS or X-Content-Type-Options. Not urgent for a brochure site whose only input is a contact form, but it is on the list."
+            }
+          ]
+        }
+      ]
     }
   }
 }

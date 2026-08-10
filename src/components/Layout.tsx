@@ -17,9 +17,16 @@ const Layout = ({ language }: { language: Language }) => {
   const { pathname } = useLocation();
   const slug = slugFromPathname(pathname);
   const t = getBundle(language);
-  const pageTitle = slug
-    ? `${t.nav[slug as keyof typeof t.nav]} | ${t.home.name} — ${t.home.title}`
-    : `${t.home.name} | ${t.home.title}`;
+  const caseSlug = slug.startsWith('projects/') ? slug.slice('projects/'.length) : undefined;
+  const caseStudy = caseSlug
+    ? (t.caseStudies as Record<string, { title: string } | undefined>)[caseSlug]
+    : undefined;
+
+  const pageTitle = caseStudy
+    ? `${caseStudy.title} | ${t.home.name}`
+    : slug
+      ? `${t.nav[slug as keyof typeof t.nav]} | ${t.home.name} — ${t.home.title}`
+      : `${t.home.name} | ${t.home.title}`;
 
   useDocumentMeta(slug, language, pageTitle);
   useEffect(() => {

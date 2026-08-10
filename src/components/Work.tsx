@@ -1,9 +1,11 @@
+import { Link } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
 import { data } from '../data/data.js';
+import { localizedPath } from '../lib/navigation';
 const FOCUS_RING =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
 const Work = () => {
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
   return (
     <section className="w-full section-shell text-gray-300 bg-[#0a192f] py-12">
@@ -37,6 +39,18 @@ const Work = () => {
                 <h3 className="text-lg font-bold text-[#ccd6f6]">{item.name}</h3>
 
                 <div className="mt-auto flex flex-wrap gap-2 pt-1">
+                  {item.caseStudy && (
+                    <Link
+                      to={`${localizedPath('projects', language)}/${item.caseStudy}`}
+                      aria-label={item.name + ' - ' + t.projects.readCaseStudy}
+                      className={
+                        'rounded-md px-4 py-2 text-sm font-semibold bg-pink-600 text-white hover:bg-pink-500 transition-colors ' +
+                        FOCUS_RING
+                      }
+                    >
+                      {t.projects.readCaseStudy}
+                    </Link>
+                  )}
                   {item.live && (
                     <a
                       href={item.live}
@@ -44,7 +58,7 @@ const Work = () => {
                       rel="noopener noreferrer"
                       aria-label={item.name + ' - ' + t.projects.live}
                       className={
-                        'rounded-md px-4 py-2 text-sm font-semibold bg-pink-600 text-white hover:bg-pink-500 transition-colors ' +
+                        'rounded-md px-4 py-2 text-sm font-semibold border border-gray-600 text-gray-300 hover:border-pink-500 hover:text-pink-500 transition-colors ' +
                         FOCUS_RING
                       }
                     >
