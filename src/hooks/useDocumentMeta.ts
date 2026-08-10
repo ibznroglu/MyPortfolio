@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import { NAV_ITEMS, SITE_URL, localizedPath } from '../lib/navigation';
 import type { Language } from '../lib/translations';
+import { isCaseStudySlug } from '../lib/caseStudies';
 
 const MANAGED = 'data-managed-meta';
 
@@ -46,9 +47,18 @@ export const useDocumentMeta = (slug: string, language: Language, title: string)
   }, [slug, language, title]);
 };
 
-/** Maps a pathname back to the slug the router matched, '' for the home page. */
+/**
+ * Maps a pathname back to the slug the router matched, '' for the home page.
+ * Case studies live under /projects/<slug>, so the full two-segment path is
+ * kept — otherwise every case study would canonicalise to /projects.
+ */
 export const slugFromPathname = (pathname: string): string => {
-  const parts = pathname.replace(/^\/(tr)?\/?/, '').split('/');
-  const slug = parts[0] ?? '';
-  return NAV_ITEMS.some((item) => item.slug === slug) ? slug : '';
+  const bare = pathname.replace(/^\/(tr)?\/?/, '').replace(/\/$/, '');
+  const [first, second] = bare.split('/');
+
+  if (first === 'projects' && second && isCaseStudySlug(second)) {
+    return `projects/${second}`;
+  }
+
+  return NAV_ITEMS.some((item) => item.slug === first) ? first : '';
 };

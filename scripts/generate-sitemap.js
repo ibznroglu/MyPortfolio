@@ -26,6 +26,26 @@ const routes = JSON.parse(
   readFileSync(path.join(__dirname, '..', 'src', 'lib', 'routes.json'), 'utf8'),
 );
 
+// Case studies are addressable pages but not navigation items, so they are read
+// straight out of the module that defines them rather than duplicated here.
+const caseStudySource = readFileSync(
+  path.join(__dirname, '..', 'src', 'lib', 'caseStudies.ts'),
+  'utf8',
+);
+const caseStudyMatch = caseStudySource.match(/CASE_STUDY_SLUGS = \[([^\]]*)\]/);
+const caseStudySlugs = caseStudyMatch
+  ? [...caseStudyMatch[1].matchAll(/'([^']+)'/g)].map((match) => match[1])
+  : [];
+
+if (caseStudySlugs.length === 0) {
+  console.warn('WARNING: no case study slugs found; the sitemap will omit them.');
+}
+
+const allSlugs = [
+  ...routes.map((route) => route.slug),
+  ...caseStudySlugs.map((slug) => `projects/${slug}`),
+];
+
 const urlFor = (slug, language) => {
   const prefix = language === 'tr' ? '/tr' : '';
   if (!slug) return `${BASE_URL}${prefix || '/'}`;
@@ -51,7 +71,7 @@ function lastModified() {
 
 const { date: lastmod, source } = lastModified();
 
-const entries = routes.flatMap(({ slug }) =>
+const entries = allSlugs.flatMap((slug) =>
   ['en', 'tr'].map((language) => {
     const alternates = [
       `      <xhtml:link rel="alternate" hreflang="en" href="${urlFor(slug, 'en')}" />`,

@@ -42,7 +42,8 @@
     "title": "Projeler",
     "subtitle": "Yakın zamanda üzerinde çalıştığım projeler",
     "live": "Canlı",
-    "code": "Kod"
+    "code": "Kod",
+    "readCaseStudy": "Vaka analizini oku"
   },
   "contact": {
     "title": "İletişim",
@@ -67,6 +68,131 @@
       "forbidden": "Bu istek engellendi. Lütfen sayfayı yenileyip tekrar deneyin.",
       "humanCheckFailed": "İnsan doğrulaması başarısız oldu. Lütfen tekrar deneyin.",
       "humanCheckUnavailable": "İnsan doğrulaması tamamlanamadı. Tekrar deneyin, sorun devam ederse doğrudan e-posta gönderin."
+    }
+  },
+  "caseStudies": {
+    "vargeloglu-insaat": {
+      "title": "Kapanmış bir kurumsal siteyi yeniden ayağa kaldırmak",
+      "summary": "Vargeloğlu İnşaat'ın sitesi kapanmıştı ve barındığı sunucuya kimse erişemiyordu. Önce içeri girmek, sonra yeniden kurmak gerekti.",
+      "roleLabel": "Rol",
+      "role": "Tek geliştirici — kurtarma, yeniden inşa, içerik, deploy, SEO",
+      "stackLabel": "Teknoloji",
+      "stack": "Vue 3 · TypeScript · Composition API · Vercel · Cloudflare",
+      "timelineLabel": "Süre",
+      "timeline": "Üç haftalık geliştirme, daha uzun süren bir kurtarmanın üstüne",
+      "liveLabel": "Siteyi ziyaret et",
+      "liveUrl": "https://www.vargelogluinsaat.com/",
+      "backLabel": "Projelere dön",
+      "metricsHeading": "Üç aylık Search Console verisi",
+      "metrics": [
+        {
+          "label": "Ortalama konum",
+          "value": "3,7"
+        },
+        {
+          "label": "Tıklama oranı",
+          "value": "%15,2"
+        },
+        {
+          "label": "Tıklama",
+          "value": "52"
+        },
+        {
+          "label": "Gösterim",
+          "value": "341"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Sorun",
+          "body": [
+            "Vargeloğlu İnşaat, işlerinin çoğunu daha önce tamamladığı projelerden alıyor. Bir iş bir tavsiyeye, o tavsiye bir sonraki işe dönüşüyor. Web sitesi ise bu çevrenin dışındaki insanlara ulaşmak için var.",
+            "Firmanın eski sitesi açılmıyordu. Hosting süresi dolmuş, SSL sertifikası da onunla birlikte geçersiz kalmıştı. Site yeterince uzun süredir kapalıydı ki geriye ne kurtarılabileceğinden kimse emin değildi.",
+            "Domain müşteriye aitti. Ancak hosting girişi elinde yoktu ve içerik — yılların proje fotoğrafları, referans listesi, bütün metinler — ikimizin de açamadığı bir sunucuda duruyordu."
+          ]
+        },
+        {
+          "heading": "İçeriği geri almak",
+          "body": [
+            "Bu kısım siteyi yazmaktan uzun sürdü. Hosting firmasıyla telefon ve e-posta üzerinden günlerce yazışıp panele erişimin açılmasını sağladım.",
+            "İçeri girdikten sonra saklamaya değer ne varsa başka bir şey daha sona ermeden dışarı çıkardım: metinler, proje fotoğrafları, referans listesi. Ne inşa edeceğimizi ancak bundan sonra konuşabildik."
+          ]
+        },
+        {
+          "heading": "Yeniden inşa",
+          "body": [
+            "Siteyi Vue 3 ve Composition API ile yazdım. Profesyonel olarak React kullanıyorum; Vue'yu burada bilerek seçtim. Bu, uçtan uca benim sahiplendiğim bir projeydi, takvimi ben belirliyordum ve gereksinimler — galerisi ve iletişim yolu olan bir içerik sitesi — bir framework'ü diğerine üstün kılmıyordu. İkinci bir ekosistemi eğitim videosunda değil, gerçek bir projede öğrenmek istedim. İlk birkaç gün beni yavaşlattı, karşılığında Vue kodunu düzgün okuyabilir hale getirdi.",
+            "Geliştirme yaklaşık üç hafta sürdü. Büyük kısmı ilk on güne sığdı, kalanı ince ayardı."
+          ],
+          "items": [
+            {
+              "term": "İki dil.",
+              "text": "Türkçe ve İngilizce, çünkü firma Türkçe okumayan müteahhitlerle de çalışıyor. Seçilen dil kaydediliyor ve sayfa açılırken lang niteliğine uygulanıyor; böylece geri dönen ziyaretçi kaldığı yerden devam ediyor, ekran okuyucular da sayfayı doğru telaffuz ediyor."
+            },
+            {
+              "term": "187 fotoğraftan oluşan galeri.",
+              "text": "Dört kategoriye ayrıldı: altyapı ve drenaj, saha ve yol betonu, taş duvar, çevre düzenleme. Kolay kısım lightbox'tı. İnşaat fotoğrafları kendi kendini anlatmıyor — aynı toprak yığını birine hafriyat, birine yıkım görünüyor. Kategorilerin ne olacağına karar vermek ve 187 görseli tek tek elden geçirmek, bileşeni yazmaktan uzun sürdü."
+            },
+            {
+              "term": "Kopyaladığım değil, yazdığım içerik.",
+              "text": "Bir kısmı eski siteden geldi. Çoğunu ben yazdım, müşteri onayladı. Ana sayfadaki rakamlar — kaç yıldır faaliyette, kaç tamamlanmış proje, kaç referans — ondan geldi, çünkü eski sitedekiler yıllardır güncellenmemişti."
+            },
+            {
+              "term": "Logo ve fotoğraflar.",
+              "text": "Bir brief yazdım, yapay zekayla bir dizi logo adayı ürettim, birini seçip yayına hazır hale getirdim. Müşterinin fotoğrafı olmayan yerlerde görselleri ben bulup düzenledim."
+            },
+            {
+              "term": "Performans sonradan değil, iş sırasında.",
+              "text": "Hero slider ve tanıtım görsellerini, biri yavaşlıktan şikâyet ettikten sonraki bir temizlik turunda değil, üzerlerinde çalışırken WebP'ye çevirdim."
+            },
+            {
+              "term": "Baştan sona mobil öncelikli.",
+              "text": "Böyle bir işletmenin yerel arama trafiği neredeyse tamamen telefondan geliyor."
+            }
+          ]
+        },
+        {
+          "heading": "Kimsenin görmediği taşıma",
+          "body": [
+            "Google'ın zaten tanıdığı bir siteyi değiştirmek, yeni bir site yayınlamaktan farklı bir iş. Eski WordPress adresleri hâlâ indekste duruyordu ve artık hiçbirinin karşılığı yoktu.",
+            "DNS'i Cloudflare'e, deploy'u Vercel'e taşıdım. Dünya genelinde yayılması yaklaşık bir gün sürdü. Planlanacak bir kesinti yoktu; eski site zaten bir süredir erişilemez durumdaydı, dolayısıyla geçiş her hâlükârda iyileştirmeydi.",
+            "Gerisini Search Console gösterdi: Google'ın dizine almayı reddettiği sayfalar, eski yapıdan kalan tarama hataları ve yeni site haritasının kabul edilmesini bekleme süreci. Analytics'i de aynı anda kurdum ki müşteri trafiği benim sözüme güvenerek değil, kendisi izleyebilsin."
+          ]
+        },
+        {
+          "heading": "Sonuçlar",
+          "body": [
+            "Mutlak sayılar küçük ve yerel bir inşaat firması için öyle olması normal — arama hacmi ne kadarsa o. Benim baktıklarım konum ve tıklama oranı.",
+            "İlk sayfanın üst sıralarında olmak, eski domain'in biriktirdiği sıralamanın kaybolmadan taşındığı anlamına geliyor; bu taşımalar genelde tam burada bozulur. %15,2 tıklama oranı ortalamanın belirgin üstünde, yani başlıklar ve açıklamalar işini yapıyor.",
+            "Firmanın kendi adında — en önemli sorguda — site 51 gösterimden 22 tıklama alıyor. Bu işi arayan onu buluyor.",
+            "PageSpeed Insights mobil: SEO 100, en iyi uygulamalar 100, erişilebilirlik 84, performans 69."
+          ]
+        },
+        {
+          "heading": "Henüz bitirmediklerim",
+          "body": [
+            "Bu siteyi iyi olduğunu varsayarak değil kontrol ederek takip ediyorum, ve rakamlar taşımanın bitmediğini söylüyor."
+          ],
+          "items": [
+            {
+              "term": "Eski adresler hâlâ indekste.",
+              "text": "Eski yapıdan üç adres üç ayda 112 gösterim aldı ve toplam 3 tıklama üretti. Hâlâ sıralanıyorlar, sadece hiçbir yere gitmiyorlar. Deploy yapılandırması apex domain'i www'ye yönlendiriyor, başka bir şey yapmıyor; dolayısıyla o sayfaların hâlâ taşıdığı sıralama yenilerine geçmek yerine sızıyor. Sıradaki iş, eski yapıdan 301 yönlendirmeleri eklemek."
+            },
+            {
+              "term": "Dokuz sayfadan ikisi indekste.",
+              "text": "Beşi “doğru standart etikete sahip alternatif sayfa” olarak dışlanıyor. Tek bir statik canonical etiketi sunan bir SPA tam olarak böyle görünür: her route kendini ana sayfa ilan eder, Google da gerisini kopya olarak kaydeder. Bir sayfa da 5xx dönüyor. Aynı sorunla bu portfolyoda karşılaştım ve canonical ile hreflang'i route başına üreterek çözdüm."
+            },
+            {
+              "term": "Mobil performans 69.",
+              "text": "Bir içerik sitesi için olması gerekenin altında. Görseller zaten WebP, yani zemin hazır; ama görsel teslimatı ve render'ı bloklayan kaynaklar, bu portfolyonun geçtiği turdan geçmedi."
+            },
+            {
+              "term": "Güvenlik başlıkları yok.",
+              "text": "Deploy yapılandırmasında CSP, HSTS ya da X-Content-Type-Options tanımlı değil. Tek girdisi iletişim formu olan bir tanıtım sitesi için acil değil, ama listede."
+            }
+          ]
+        }
+      ]
     }
   }
 }
