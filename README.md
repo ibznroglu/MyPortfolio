@@ -7,9 +7,10 @@ with a serverless contact endpoint and realtime visitor stats.
 
 |             |                                                                   |
 | ----------- | ----------------------------------------------------------------- |
-| Main bundle | ~68 kB gzip (the Contact route adds 19 kB for Zod and Turnstile)  |
-| Images      | 233 KB total, generated from 3.73 MB of sources                   |
+| Main bundle | ~85 kB gzip (the Contact route adds 18 kB for Zod and Turnstile)  |
+| Images      | 248 KB total, generated from 6.1 MB of sources                    |
 | Lighthouse  | 100 performance · 100 accessibility · 96 best practices · 100 SEO |
+| Tests       | 11, on routing, case studies and the theme                        |
 
 ---
 
@@ -17,6 +18,12 @@ with a serverless contact endpoint and realtime visitor stats.
 
 Most of what is interesting here is not the feature list but why things are
 built the way they are.
+
+**Case studies have their own routes.** Each project write-up lives at
+`/projects/<slug>` and its Turkish twin under `/tr`, lazily loaded at about 1 kB
+gzip each. The slugs sit in their own module rather than in `routes.json`: they
+are addressable pages but not navigation items, so they belong in the sitemap
+and not in the navbar. That brings the sitemap to 16 URLs.
 
 **Language lives in the URL, not in state.** English is served from the root and
 Turkish under `/tr`, so both are separately indexable, a shared link keeps its
@@ -32,7 +39,7 @@ route; the sitemap emits all ten URLs with matching alternates.
 **Images are generated, never committed by hand.** `assets-source/` holds
 full-resolution PNGs. A sharp pipeline crops project screenshots to a shared
 2:1 ratio, resizes everything to twice its on-screen size, and emits WebP into
-`src/assets/`. 3.73 MB of sources become 233 KB of output, and every project
+`src/assets/`. 6.1 MB of sources become 248 KB of output, and every project
 card gets an identical box without CSS letterboxing.
 
 **Vite's asset inlining had to be turned off.** The default inlines anything
