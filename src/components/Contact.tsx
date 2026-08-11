@@ -20,10 +20,10 @@ const EMPTY = { name: '', email: '', message: '', company: '' };
 const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
 
 const FOCUS_RING =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft';
 
 const FIELD_CLASS =
-  'w-full rounded-lg border bg-[#0a192f] p-3 text-gray-200 transition-colors placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-600/50';
+  'w-full rounded-lg border bg-surface p-3 text-heading transition-colors placeholder:text-muted focus:outline-none focus:ring-2 focus:ring-accent/50';
 
 const Contact = () => {
   const { t } = useLanguage();
@@ -66,7 +66,7 @@ const Contact = () => {
   const borderFor = (field: ContactField) =>
     errors[field]
       ? 'border-red-500/70 focus:border-red-500'
-      : 'border-pink-600/30 focus:border-pink-600';
+      : 'border-accent/30 focus:border-accent';
 
   const describedBy = (field: ContactField, extra?: string) =>
     [errors[field] ? `contact-${field}-error` : null, extra].filter(Boolean).join(' ') || undefined;
@@ -133,20 +133,20 @@ const Contact = () => {
 
   const awaitingHuman = Boolean(SITE_KEY) && !widgetBroken && !token;
   const counterTone = (over: boolean, count: number, max: number) =>
-    over ? 'text-red-400' : count > max * 0.9 ? 'text-amber-400' : 'text-gray-500';
+    over ? 'text-red-400' : count > max * 0.9 ? 'text-amber-400' : 'text-muted';
 
   return (
-    <div className="section-shell flex w-full items-center justify-center bg-gradient-to-b from-[#112240] to-[#0a192f] py-6">
+    <div className="section-shell flex w-full items-center justify-center bg-gradient-to-b from-raised to-surface py-6">
       <div className="mx-auto w-full max-w-2xl px-6 sm:px-8">
         <div className="mb-5 text-center">
-          <h2 className="inline border-b-4 border-pink-600 pb-2 text-3xl font-bold text-gray-300 sm:text-4xl">
+          <h2 className="inline border-b-4 border-accent pb-2 text-3xl font-bold text-body sm:text-4xl">
             {t.contact.title}
           </h2>
-          <p className="mt-4 text-sm text-gray-400">
+          <p className="mt-4 text-sm text-body">
             {t.contact.subtitle}{' '}
             <a
               href={`mailto:${settings.email}`}
-              className={`rounded text-gray-300 underline decoration-pink-600/50 underline-offset-4 transition-colors hover:text-pink-400 ${FOCUS_RING}`}
+              className={`rounded text-body underline decoration-accent/50 underline-offset-4 transition-colors hover:text-accent-soft ${FOCUS_RING}`}
             >
               {settings.email}
             </a>
@@ -156,12 +156,12 @@ const Contact = () => {
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="space-y-3 rounded-xl border border-white/5 bg-[#112240] p-4 shadow-2xl sm:p-5"
+          className="space-y-3 rounded-xl border border-hairline/5 bg-raised p-4 shadow-2xl sm:p-5"
         >
           <div className="grid gap-3 sm:grid-cols-2">
             <div>
               <div className="mb-1.5 flex items-baseline justify-between gap-4">
-                <label htmlFor="contact-name" className="text-sm text-gray-400">
+                <label htmlFor="contact-name" className="text-sm text-body">
                   {t.contact.name}
                 </label>
                 {nameCount > NAME_MAX * 0.75 && (
@@ -193,7 +193,7 @@ const Contact = () => {
             </div>
 
             <div>
-              <label htmlFor="contact-email" className="mb-1.5 block text-sm text-gray-400">
+              <label htmlFor="contact-email" className="mb-1.5 block text-sm text-body">
                 {t.contact.email}
               </label>
               <input
@@ -219,7 +219,7 @@ const Contact = () => {
           </div>
 
           <div>
-            <label htmlFor="contact-message" className="mb-1.5 block text-sm text-gray-400">
+            <label htmlFor="contact-message" className="mb-1.5 block text-sm text-body">
               {t.contact.message}
             </label>
             <textarea
@@ -287,7 +287,7 @@ const Contact = () => {
                   setWidgetBroken(false);
                   renewChallenge();
                 }}
-                className="rounded-md border border-gray-600 px-3 py-1.5 text-gray-300 transition-colors hover:border-pink-500 hover:text-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400"
+                className="rounded-md border border-hairline/25 px-3 py-1.5 text-body transition-colors hover:border-accent-soft hover:text-accent-soft focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
               >
                 {t.contact.retry}
               </button>
@@ -297,7 +297,7 @@ const Contact = () => {
           <button
             type="submit"
             disabled={status === 'sending' || awaitingHuman || widgetBroken}
-            className="w-full rounded-lg bg-pink-600 px-8 py-2.5 font-semibold text-white shadow-lg transition-colors hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 disabled:cursor-not-allowed disabled:bg-pink-600/50"
+            className="w-full rounded-lg bg-accent px-8 py-2.5 font-semibold text-white shadow-lg transition-colors hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft disabled:cursor-not-allowed disabled:bg-accent/50"
           >
             {status === 'sending' ? t.contact.sending : t.contact.send}
           </button>

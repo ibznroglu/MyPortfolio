@@ -6,12 +6,12 @@ interface CardProps {
 }
 
 const Card = ({ title, text }: CardProps) => (
-  <article className="mb-4 break-inside-avoid rounded-xl border border-white/5 bg-[#112240] p-5 transition-colors duration-300 hover:border-pink-600/50">
-    <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-pink-500 sm:text-xl">
-      <span className="h-2 w-2 rounded-full bg-pink-600" aria-hidden="true"></span>
+  <article className="mb-4 break-inside-avoid rounded-xl border border-hairline/5 bg-raised p-5 transition-colors duration-300 hover:border-accent/50">
+    <h3 className="mb-3 flex items-center gap-2 text-lg font-bold text-accent-soft sm:text-xl">
+      <span className="h-2 w-2 rounded-full bg-accent" aria-hidden="true"></span>
       {title}
     </h3>
-    <p className="text-[15px] leading-relaxed text-gray-300">{text}</p>
+    <p className="text-[15px] leading-relaxed text-body">{text}</p>
   </article>
 );
 
@@ -26,10 +26,10 @@ const About = () => {
   ];
 
   return (
-    <div className="section-shell flex w-full items-center bg-[#0a192f] py-10 text-gray-300">
+    <div className="section-shell flex w-full items-center bg-surface py-10 text-body">
       <div className="mx-auto w-full max-w-5xl px-6 sm:px-8">
         <div className="mb-6 text-center">
-          <h2 className="inline border-b-4 border-pink-600 pb-2 text-3xl font-bold sm:text-4xl">
+          <h2 className="inline border-b-4 border-accent pb-2 text-3xl font-bold sm:text-4xl">
             {t.about.title}
           </h2>
         </div>
