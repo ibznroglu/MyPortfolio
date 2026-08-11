@@ -215,6 +215,42 @@ The CSP allows `challenges.cloudflare.com` for Turnstile and
 `*.firebaseio.com` in `script-src` — Firebase falls back to long polling when
 WebSocket is blocked, and that transport injects a script tag.
 
+## Themes
+
+Colour lives in CSS variables as RGB channel triplets rather than finished
+colours, which is what keeps Tailwind's alpha modifier working —
+`bg-surface/95` resolves to `rgb(var(--surface) / 0.95)`, and the header needs
+that for its translucent blur. It also rules out the `light-dark()` CSS
+function, which returns a colour and cannot be sliced this way. `color-scheme`
+is set alongside `data-theme`, so scrollbars and form controls follow natively.
+
+Dark is the default and light is the override, so a visitor without JavaScript
+gets the design as intended. `public/theme-init.js` applies the stored or system
+preference before the first paint; it is a separate file rather than an inline
+block because the CSP allows `script-src 'self'` only.
+
+Measured contrast for the light palette:
+
+| Pair | Ratio |
+| --- | --- |
+| Heading on page | 12.90:1 |
+| Heading on card | 14.48:1 |
+| Body on page | 6.20:1 |
+| Body on card | 6.96:1 |
+| Muted on card | 4.76:1 |
+| Accent on card | 6.04:1 |
+| White on accent fill | 6.04:1 |
+
+The accent is pink-700 in light and pink-600 in dark. pink-600 on white measures
+4.56:1, which clears AA by 0.06 — too little room for a palette that will be
+edited again.
+
+**The CI budgets only cover the dark theme.** Lighthouse runs without
+`data-theme` set, so the figures above were calculated rather than asserted. The
+alternative was a query parameter that switches themes, which means shipping a
+test hook in production code to cover a palette that changes rarely. This is a
+known gap, recorded here rather than left to be discovered.
+
 ## Dependency audit
 
 `npm audit` reports findings in the development toolchain. None of them reach the

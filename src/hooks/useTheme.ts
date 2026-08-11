@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
+import { flushSync } from 'react-dom';
 
 export type Theme = 'light' | 'dark';
 
@@ -32,15 +33,26 @@ export const useTheme = () => {
   }, [theme]);
 
   const toggleTheme = useCallback(() => {
-    setTheme((current) => {
-      const next = current === 'dark' ? 'light' : 'dark';
-      try {
-        localStorage.setItem(STORAGE_KEY, next);
-      } catch {
-        // Private mode: the theme still applies for this session.
-      }
-      return next;
-    });
+    const next: Theme = currentTheme() === 'dark' ? 'light' : 'dark';
+
+    try {
+      localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      // Private mode: the theme still applies for this session.
+    }
+
+    // The browser cross-fades between the two states for us. Where the API is
+    // missing, or the visitor asked for less motion, the theme simply changes.
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (!document.startViewTransition || prefersReducedMotion) {
+      setTheme(next);
+      return;
+    }
+
+    // flushSync because startViewTransition snapshots the DOM when its callback
+    // returns; a deferred React update would be missed.
+    document.startViewTransition(() => flushSync(() => setTheme(next)));
   }, []);
 
   return { theme, toggleTheme };

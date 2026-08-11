@@ -74,7 +74,9 @@ const Navbar = () => {
 
   const langLinkClass = (code: Language) =>
     `px-3 py-1 rounded text-sm font-semibold transition-colors ${FOCUS_RING} ${
-      language === code ? 'bg-accent text-white' : 'bg-raised text-body hover:text-heading'
+      language === code
+        ? 'bg-accent text-white'
+        : 'border border-hairline/15 bg-raised text-body hover:border-accent/40 hover:text-heading'
     }`;
 
   return (

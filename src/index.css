@@ -44,8 +44,10 @@
     --header: 255 255 255;
     --heading: 15 42 74;
     --body: 74 90 118;
-    /* pink-700. pink-600 measures 4.21:1 on white, under the 4.5:1 AA floor,
-       both as text and behind white button labels. pink-700 measures 6.04:1. */
+    /* pink-700 rather than the pink-600 used in dark. pink-600 measures 4.56:1
+       on white, which clears the 4.5:1 AA floor by 0.06 — close enough that any
+       later tweak to the palette would break it. pink-700 measures 6.04:1, both
+       as text and behind white button labels. */
     --accent: 190 24 93;
     --accent-hover: 157 23 77;
     --accent-soft: 190 24 93;
@@ -99,6 +101,13 @@
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
+  }
+
+  /* View transitions animate pseudo-elements, which the blanket rule below
+     does not reach. */
+  ::view-transition-old(root),
+  ::view-transition-new(root) {
+    animation: none;
   }
 
   *,

@@ -27,7 +27,7 @@ export const socialLinks = [
     href: `mailto:${settings.email}`,
     Icon: HiOutlineMail,
     external: false,
-    railClass: 'bg-pink-700 hover:shadow-pink-600/50',
+    railClass: 'bg-accent hover:shadow-accent/50',
   },
   {
     id: 'resume',
@@ -35,6 +35,6 @@ export const socialLinks = [
     href: '/isa_bezeniroglu_resume.pdf',
     Icon: BsFillPersonLinesFill,
     external: true,
-    railClass: 'bg-[#565f69] hover:shadow-gray-600/50',
+    railClass: 'bg-[#1f2937] hover:shadow-gray-700/50',
   },
 ];
