@@ -41,3 +41,21 @@ test('renders a case study that has no public link', async () => {
     await screen.findByRole('heading', { level: 1, name: /team of seven/i }),
   ).toBeInTheDocument();
 });
+test('renders the vargeloglu case study', async () => {
+  renderAt('/projects/vargeloglu-insaat');
+  expect(
+    await screen.findByRole('heading', { level: 1, name: /back online/i }),
+  ).toBeInTheDocument();
+});
+
+test('serves the turkish case study under /tr', async () => {
+  renderAt('/tr/projects/vargeloglu-insaat');
+  expect(
+    await screen.findByRole('heading', { level: 1, name: /yeniden ayağa kaldırmak/i }),
+  ).toBeInTheDocument();
+});
+
+test('falls back to 404 for an unknown case study slug', async () => {
+  renderAt('/projects/not-a-case-study');
+  expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();
+});
