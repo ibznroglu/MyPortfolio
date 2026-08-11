@@ -9,8 +9,8 @@ const Home = () => {
 
   return (
     <div className="w-full section-shell flex items-center justify-center bg-gradient-to-br from-[#0a192f] via-[#112240] to-[#0a192f]">
-      <div className="max-w-6xl mx-auto px-8 py-12">
-        <div className="flex flex-col lg:flex-row items-center gap-12">
+      <div className="mx-auto w-full max-w-6xl px-6 py-12 sm:px-8">
+        <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
           <div className="flex-shrink-0">
             <div className="relative">
               <div className="absolute inset-0 bg-pink-600 rounded-full blur-2xl opacity-20 animate-pulse"></div>
@@ -19,28 +19,30 @@ const Home = () => {
                 alt="İsa Bezeniroğlu"
                 width="512"
                 height="512"
-                className="relative w-64 h-64 rounded-full object-cover border-4 border-pink-600 shadow-2xl shadow-pink-600/50"
+                className="relative h-48 w-48 rounded-full border-4 border-pink-600 object-cover shadow-2xl shadow-pink-600/50 sm:h-64 sm:w-64"
                 style={{ objectPosition: '50% calc(50% + 2rem)' }}
               />
-              <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-green-500 rounded-full border-4 border-[#0a192f] animate-pulse shadow-lg"></div>
+              <div className="absolute -bottom-1 -right-1 h-6 w-6 animate-pulse rounded-full border-4 border-[#0a192f] bg-green-500 shadow-lg sm:-bottom-2 sm:-right-2 sm:h-8 sm:w-8"></div>
             </div>
           </div>
           <div className="flex-1 text-center lg:text-left space-y-6">
             <div>
-              <p className="text-pink-500 text-xl font-semibold mb-3">{t.home.title}</p>
-              <h1 className="text-6xl lg:text-7xl font-bold text-[#ccd6f6] mb-4 leading-tight">
+              <p className="mb-3 text-base font-semibold text-pink-500 sm:text-xl">
+                {t.home.title}
+              </p>
+              <h1 className="mb-4 break-words text-4xl font-bold leading-tight text-[#ccd6f6] sm:text-5xl md:text-6xl lg:text-7xl">
                 {t.home.name}
               </h1>
             </div>
-            <p className="text-[#8892b0] text-lg leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-[#8892b0] sm:text-lg lg:mx-0">
               {t.home.description}
             </p>
 
             {/* Hidden entirely when the database is unreachable: showing 0 would
                 be a wrong number, and a spinner that never resolves is worse. */}
             {status !== 'unavailable' && (
-              <div className="flex flex-wrap gap-4 justify-center lg:justify-start mt-8">
-                <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-pink-600/30 shadow-lg min-w-[140px]">
+              <div className="mt-8 flex flex-wrap justify-center gap-3 sm:gap-4 lg:justify-start">
+                <div className="flex min-w-[140px] flex-1 items-center gap-3 rounded-lg border border-pink-600/30 bg-[#112240] px-4 py-3 shadow-lg sm:flex-none">
                   <div className="bg-pink-600/20 p-2 rounded-lg">
                     <HiUsers className="text-pink-500 text-xl" aria-hidden="true" />
                   </div>
@@ -60,7 +62,7 @@ const Home = () => {
                   </div>
                 </div>
 
-                <div className="flex items-center gap-3 bg-[#112240] px-4 py-3 rounded-lg border border-green-500/30 shadow-lg min-w-[140px]">
+                <div className="flex min-w-[140px] flex-1 items-center gap-3 rounded-lg border border-green-500/30 bg-[#112240] px-4 py-3 shadow-lg sm:flex-none">
                   <div className="bg-green-500/20 p-2 rounded-lg">
                     <HiUserGroup className="text-green-500 text-xl" aria-hidden="true" />
                   </div>
@@ -73,7 +75,7 @@ const Home = () => {
                         aria-label={t.visitor.active}
                       />
                     ) : (
-                      <p className="text-[#ccd6f6] text-xl font-bold flex items-center gap-2">
+                      <p className="flex items-center justify-center gap-2 text-xl font-bold tabular-nums text-[#ccd6f6] lg:justify-start">
                         {activeUsers}
                         <span
                           className="w-2 h-2 bg-green-500 rounded-full animate-pulse"
