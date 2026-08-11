@@ -8,16 +8,16 @@ const Work = () => {
   const { t, language } = useLanguage();
 
   return (
-    <section className="w-full section-shell text-gray-300 bg-[#0a192f] py-12">
-      <div className="max-w-5xl mx-auto px-6 sm:px-8">
-        <header className="text-center mb-8">
-          <h2 className="text-4xl sm:text-5xl font-bold inline-block border-b-4 border-pink-600 pb-2">
+    <section className="section-shell flex w-full items-center bg-[#0a192f] py-10 text-gray-300">
+      <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
+        <header className="mb-6 text-center">
+          <h2 className="inline-block border-b-4 border-pink-600 pb-2 text-3xl font-bold sm:text-4xl">
             {t.projects.title}
           </h2>
-          <p className="py-4 text-gray-400">{t.projects.subtitle}</p>
+          <p className="mt-3 text-gray-400">{t.projects.subtitle}</p>
         </header>
 
-        <ul className="grid gap-8 sm:grid-cols-2 list-none p-0">
+        <ul className="grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
           {data.map((item) => (
             <li
               key={item.id}
@@ -35,8 +35,8 @@ const Work = () => {
                 />
               </div>
 
-              <div className="flex flex-1 flex-col gap-3 p-5">
-                <h3 className="text-lg font-bold text-[#ccd6f6]">{item.name}</h3>
+              <div className="flex flex-1 flex-col gap-3 p-4">
+                <h3 className="text-base font-bold text-[#ccd6f6]">{item.name}</h3>
 
                 <div className="mt-auto flex flex-wrap gap-2 pt-1">
                   {item.caseStudy && (
@@ -44,7 +44,7 @@ const Work = () => {
                       to={`${localizedPath('projects', language)}/${item.caseStudy}`}
                       aria-label={item.name + ' - ' + t.projects.readCaseStudy}
                       className={
-                        'rounded-md px-4 py-2 text-sm font-semibold bg-pink-600 text-white hover:bg-pink-500 transition-colors ' +
+                        'rounded-md px-3 py-1.5 text-xs font-semibold bg-pink-600 text-white hover:bg-pink-500 transition-colors ' +
                         FOCUS_RING
                       }
                     >
@@ -58,7 +58,7 @@ const Work = () => {
                       rel="noopener noreferrer"
                       aria-label={item.name + ' - ' + t.projects.live}
                       className={
-                        'rounded-md px-4 py-2 text-sm font-semibold border border-gray-600 text-gray-300 hover:border-pink-500 hover:text-pink-500 transition-colors ' +
+                        'rounded-md px-3 py-1.5 text-xs font-semibold border border-gray-600 text-gray-300 hover:border-pink-500 hover:text-pink-500 transition-colors ' +
                         FOCUS_RING
                       }
                     >
@@ -73,7 +73,7 @@ const Work = () => {
                       rel="noopener noreferrer"
                       aria-label={item.name + ' - ' + t.projects.code}
                       className={
-                        'rounded-md px-4 py-2 text-sm font-semibold border border-gray-600 text-gray-300 hover:border-pink-500 hover:text-pink-500 transition-colors ' +
+                        'rounded-md px-3 py-1.5 text-xs font-semibold border border-gray-600 text-gray-300 hover:border-pink-500 hover:text-pink-500 transition-colors ' +
                         FOCUS_RING
                       }
                     >
