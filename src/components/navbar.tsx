@@ -45,7 +45,11 @@ const Navbar = () => {
 
     document.body.style.overflow = 'hidden';
     document.addEventListener('keydown', onKeyDown);
-    panelRef.current?.querySelector('a')?.focus();
+    // Focus the panel rather than its first link. Moving focus onto a link makes
+    // iOS Safari treat it as keyboard focus and paint the focus ring on a tap,
+    // and a disclosure menu is expected to hand focus to the container anyway —
+    // Tab then reaches the first item naturally.
+    panelRef.current?.focus();
 
     return () => {
       document.body.style.overflow = previousOverflow;
@@ -167,12 +171,13 @@ const Navbar = () => {
       <nav
         id="mobile-menu"
         ref={panelRef}
+        tabIndex={-1}
         aria-label="Mobile"
-        className={`fixed right-3 top-[88px] z-40 w-[min(15rem,72vw)] origin-top-right rounded-2xl border border-hairline/10 bg-raised p-2 shadow-2xl transition-all duration-200 md:hidden ${
+        className={`fixed right-3 top-[88px] z-40 w-[min(15rem,72vw)] origin-top-right rounded-2xl border border-hairline/10 bg-raised p-2 shadow-2xl outline-none transition-all duration-200 md:hidden ${
           isMenuOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
         }`}
       >
-        <ul className="list-none p-0">
+        <ul className="list-none space-y-0.5 p-0">
           {NAV_ITEMS.map(({ key, slug }) => (
             <li key={key}>
               <NavLink
