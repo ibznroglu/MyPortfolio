@@ -1,6 +1,7 @@
 import { useState, type ChangeEvent, type FocusEvent, type FormEvent } from 'react';
 import { useLanguage } from '../hooks/useLanguage';
 import TurnstileWidget from './TurnstileWidget';
+import { settings } from '../helpers/functions/settings';
 import {
   MESSAGE_MAX,
   NAME_MAX,
@@ -17,6 +18,9 @@ const EMPTY = { name: '', email: '', message: '', company: '' };
 
 // Absent in local development, where the API falls back to its other guards.
 const SITE_KEY = import.meta.env.VITE_TURNSTILE_SITE_KEY;
+
+const FOCUS_RING =
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
 
 const FIELD_CLASS =
   'w-full rounded-lg border bg-[#0a192f] p-3 text-gray-200 transition-colors placeholder:text-gray-600 focus:outline-none focus:ring-2 focus:ring-pink-600/50';
@@ -132,76 +136,86 @@ const Contact = () => {
     over ? 'text-red-400' : count > max * 0.9 ? 'text-amber-400' : 'text-gray-500';
 
   return (
-    <div className="section-shell flex w-full items-center justify-center bg-gradient-to-b from-[#112240] to-[#0a192f] py-12">
+    <div className="section-shell flex w-full items-center justify-center bg-gradient-to-b from-[#112240] to-[#0a192f] py-6">
       <div className="mx-auto w-full max-w-2xl px-6 sm:px-8">
-        <div className="mb-8 text-center">
-          <h2 className="inline border-b-4 border-pink-600 pb-2 text-4xl font-bold text-gray-300">
+        <div className="mb-5 text-center">
+          <h2 className="inline border-b-4 border-pink-600 pb-2 text-3xl font-bold text-gray-300 sm:text-4xl">
             {t.contact.title}
           </h2>
-          <p className="mt-4 text-gray-400">{t.contact.subtitle}</p>
+          <p className="mt-4 text-sm text-gray-400">
+            {t.contact.subtitle}{' '}
+            <a
+              href={`mailto:${settings.email}`}
+              className={`rounded text-gray-300 underline decoration-pink-600/50 underline-offset-4 transition-colors hover:text-pink-400 ${FOCUS_RING}`}
+            >
+              {settings.email}
+            </a>
+          </p>
         </div>
 
         <form
           onSubmit={handleSubmit}
           noValidate
-          className="space-y-4 rounded-xl border border-white/5 bg-[#112240] p-6 shadow-2xl"
+          className="space-y-3 rounded-xl border border-white/5 bg-[#112240] p-4 shadow-2xl sm:p-5"
         >
-          <div>
-            <div className="mb-1.5 flex items-baseline justify-between gap-4">
-              <label htmlFor="contact-name" className="text-sm text-gray-400">
-                {t.contact.name}
-              </label>
-              {nameCount > NAME_MAX * 0.75 && (
-                <span
-                  className={`text-xs tabular-nums ${counterTone(nameOver, nameCount, NAME_MAX)}`}
-                  aria-hidden="true"
-                >
-                  {nameCount} / {NAME_MAX}
-                </span>
+          <div className="grid gap-3 sm:grid-cols-2">
+            <div>
+              <div className="mb-1.5 flex items-baseline justify-between gap-4">
+                <label htmlFor="contact-name" className="text-sm text-gray-400">
+                  {t.contact.name}
+                </label>
+                {nameCount > NAME_MAX * 0.75 && (
+                  <span
+                    className={`text-xs tabular-nums ${counterTone(nameOver, nameCount, NAME_MAX)}`}
+                    aria-hidden="true"
+                  >
+                    {nameCount} / {NAME_MAX}
+                  </span>
+                )}
+              </div>
+              <input
+                id="contact-name"
+                name="name"
+                type="text"
+                autoComplete="name"
+                value={values.name}
+                onChange={update('name')}
+                onBlur={handleBlur('name')}
+                aria-invalid={Boolean(errors.name)}
+                aria-describedby={describedBy('name')}
+                className={`${FIELD_CLASS} ${borderFor('name')}`}
+              />
+              {errors.name && (
+                <p id="contact-name-error" className="mt-1.5 text-sm text-red-400">
+                  {messages[errors.name]}
+                </p>
               )}
             </div>
-            <input
-              id="contact-name"
-              name="name"
-              type="text"
-              autoComplete="name"
-              value={values.name}
-              onChange={update('name')}
-              onBlur={handleBlur('name')}
-              aria-invalid={Boolean(errors.name)}
-              aria-describedby={describedBy('name')}
-              className={`${FIELD_CLASS} ${borderFor('name')}`}
-            />
-            {errors.name && (
-              <p id="contact-name-error" className="mt-1.5 text-sm text-red-400">
-                {messages[errors.name]}
-              </p>
-            )}
-          </div>
 
-          <div>
-            <label htmlFor="contact-email" className="mb-1.5 block text-sm text-gray-400">
-              {t.contact.email}
-            </label>
-            <input
-              id="contact-email"
-              name="email"
-              type="email"
-              inputMode="email"
-              autoComplete="email"
-              spellCheck={false}
-              value={values.email}
-              onChange={update('email')}
-              onBlur={handleBlur('email')}
-              aria-invalid={Boolean(errors.email)}
-              aria-describedby={describedBy('email')}
-              className={`${FIELD_CLASS} ${borderFor('email')}`}
-            />
-            {errors.email && (
-              <p id="contact-email-error" className="mt-1.5 text-sm text-red-400">
-                {messages[errors.email]}
-              </p>
-            )}
+            <div>
+              <label htmlFor="contact-email" className="mb-1.5 block text-sm text-gray-400">
+                {t.contact.email}
+              </label>
+              <input
+                id="contact-email"
+                name="email"
+                type="email"
+                inputMode="email"
+                autoComplete="email"
+                spellCheck={false}
+                value={values.email}
+                onChange={update('email')}
+                onBlur={handleBlur('email')}
+                aria-invalid={Boolean(errors.email)}
+                aria-describedby={describedBy('email')}
+                className={`${FIELD_CLASS} ${borderFor('email')}`}
+              />
+              {errors.email && (
+                <p id="contact-email-error" className="mt-1.5 text-sm text-red-400">
+                  {messages[errors.email]}
+                </p>
+              )}
+            </div>
           </div>
 
           <div>
@@ -211,7 +225,7 @@ const Contact = () => {
             <textarea
               id="contact-message"
               name="message"
-              rows={5}
+              rows={3}
               value={values.message}
               onChange={update('message')}
               onBlur={handleBlur('message')}
@@ -283,12 +297,12 @@ const Contact = () => {
           <button
             type="submit"
             disabled={status === 'sending' || awaitingHuman || widgetBroken}
-            className="w-full rounded-lg bg-pink-600 px-8 py-3 font-semibold text-white shadow-lg transition-colors hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 disabled:cursor-not-allowed disabled:bg-pink-600/50"
+            className="w-full rounded-lg bg-pink-600 px-8 py-2.5 font-semibold text-white shadow-lg transition-colors hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400 disabled:cursor-not-allowed disabled:bg-pink-600/50"
           >
             {status === 'sending' ? t.contact.sending : t.contact.send}
           </button>
 
-          <div aria-live="polite" className="min-h-[1.5rem]">
+          <div aria-live="polite" className="min-h-[1.25rem]">
             {status === 'sent' && <p className="text-sm text-green-400">{t.contact.success}</p>}
             {status === 'failed' && formError && (
               <p className="text-sm text-red-400">{formError}</p>
