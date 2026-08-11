@@ -400,5 +400,9 @@
         }
       ]
     }
+  },
+  "theme": {
+    "toLight": "Açık temaya geç",
+    "toDark": "Koyu temaya geç"
   }
 }

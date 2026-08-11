@@ -1,4 +1,5 @@
 import { render, screen, within } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -61,4 +62,35 @@ test('serves the turkish case study under /tr', async () => {
 test('falls back to 404 for an unknown case study slug', async () => {
   renderAt('/projects/not-a-case-study');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();
+});
+
+describe('theme', () => {
+  afterEach(() => {
+    document.documentElement.removeAttribute('data-theme');
+    localStorage.clear();
+  });
+
+  test('toggling switches the theme and remembers the choice', async () => {
+    const user = userEvent.setup();
+    renderAt('/');
+
+    await user.click(await screen.findByRole('button', { name: /light theme/i }));
+
+    expect(document.documentElement).toHaveAttribute('data-theme', 'light');
+    expect(localStorage.getItem('theme')).toBe('light');
+
+    await user.click(screen.getByRole('button', { name: /dark theme/i }));
+
+    expect(document.documentElement).not.toHaveAttribute('data-theme');
+    expect(localStorage.getItem('theme')).toBe('dark');
+  });
+
+  test('adopts the theme the init script already applied', async () => {
+    // theme-init.js runs before React in the browser; the hook has to read what
+    // it decided rather than work it out again.
+    document.documentElement.setAttribute('data-theme', 'light');
+    renderAt('/');
+
+    expect(await screen.findByRole('button', { name: /dark theme/i })).toBeInTheDocument();
+  });
 });
