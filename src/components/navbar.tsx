@@ -200,7 +200,7 @@ const Navbar = () => {
                 href={href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener noreferrer' : undefined}
-                className={`flex justify-between items-center w-full h-full text-heading px-4 ${FOCUS_RING}`}
+                className={`flex h-full w-full items-center justify-between px-4 text-on-brand ${FOCUS_RING}`}
               >
                 {label} <Icon size={30} aria-hidden="true" />
               </a>

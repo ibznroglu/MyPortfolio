@@ -14,6 +14,7 @@ module.exports = {
         'accent-hover': 'rgb(var(--accent-hover) / <alpha-value>)',
         'accent-soft': 'rgb(var(--accent-soft) / <alpha-value>)',
         muted: 'rgb(var(--muted) / <alpha-value>)',
+        'on-brand': 'rgb(var(--on-brand) / <alpha-value>)',
         hairline: 'rgb(var(--hairline) / <alpha-value>)',
       },
       fontFamily: {

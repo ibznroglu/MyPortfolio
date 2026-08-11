@@ -27,6 +27,9 @@
     --accent-hover: 236 72 153;
     --accent-soft: 236 72 153;
     --muted: 107 114 128;
+    /* Text that sits on a brand-coloured fill, not on a theme surface. Stays
+       near-white in both themes because the fills it covers do not change. */
+    --on-brand: 243 244 246;
     --hairline: 255 255 255;
   }
 
@@ -43,6 +46,7 @@
     --accent-hover: 157 23 77;
     --accent-soft: 190 24 93;
     --muted: 100 116 139;
+    --on-brand: 243 244 246;
     --hairline: 15 42 74;
   }
 
