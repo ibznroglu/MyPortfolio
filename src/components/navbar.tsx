@@ -1,7 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { FaBars, FaTimes } from 'react-icons/fa';
+import { HiMoon, HiSun } from 'react-icons/hi';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import { useLanguage } from '../hooks/useLanguage';
+import { useTheme } from '../hooks/useTheme';
 import Logo from '../assets/logo.webp';
 import { socialLinks } from '../data/socialLinks';
 import { NAV_ITEMS, localizedPath, swapLanguage } from '../lib/navigation';
@@ -13,6 +15,7 @@ const FOCUS_RING =
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const { language, t } = useLanguage();
+  const { theme, toggleTheme } = useTheme();
   const { pathname } = useLocation();
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
@@ -76,7 +79,7 @@ const Navbar = () => {
 
   return (
     <>
-      <header className="fixed top-0 w-full h-[80px] flex justify-between items-center px-4 sm:px-6 bg-surface/95 backdrop-blur-sm text-body z-50 border-b border-accent/20">
+      <header className="fixed top-0 w-full h-[80px] flex justify-between items-center px-4 sm:px-6 bg-header/95 backdrop-blur-sm text-body z-50 border-b border-accent/20">
         <Link
           to={localizedPath('', language)}
           aria-label={t.nav.home}
@@ -84,6 +87,7 @@ const Navbar = () => {
         >
           <img
             src={Logo}
+            data-logo
             alt=""
             width="48"
             height="48"
@@ -104,6 +108,15 @@ const Navbar = () => {
         </nav>
 
         <div className="flex items-center gap-3 sm:gap-4">
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label={theme === 'dark' ? t.theme.toLight : t.theme.toDark}
+            className={`rounded-lg p-2 text-xl text-body transition-colors hover:text-accent-soft ${FOCUS_RING}`}
+          >
+            {theme === 'dark' ? <HiSun aria-hidden="true" /> : <HiMoon aria-hidden="true" />}
+          </button>
+
           <div className="flex gap-2" role="group" aria-label="Language">
             <Link
               to={swapLanguage(pathname, 'en')}

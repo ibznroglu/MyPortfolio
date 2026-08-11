@@ -21,6 +21,9 @@
 
     --surface: 10 25 47;
     --surface-raised: 17 34 64;
+    /* Matches the page in dark, where the blur and the accent rule already
+       separate the header. Light needs an actual difference in value. */
+    --header: 10 25 47;
     --heading: 204 214 246;
     --body: 136 146 176;
     --accent: 219 39 119;
@@ -38,6 +41,7 @@
 
     --surface: 238 242 249;
     --surface-raised: 255 255 255;
+    --header: 255 255 255;
     --heading: 15 42 74;
     --body: 74 90 118;
     /* pink-700. pink-600 measures 4.21:1 on white, under the 4.5:1 AA floor,
@@ -64,6 +68,14 @@
 
   html {
     scroll-behavior: smooth;
+  }
+
+  /* The mark is drawn for a dark background. brightness(0) darkens it while
+     leaving its transparency intact, which is cheaper to maintain than a
+     second asset that has to be kept in sync. */
+  :root[data-theme='light'] [data-logo] {
+    filter: brightness(0);
+    opacity: 0.85;
   }
   /* Chrome paints its own background on autofilled inputs, which breaks the
      dark form. A huge inset shadow is the only reliable override. */

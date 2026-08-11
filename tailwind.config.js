@@ -7,6 +7,7 @@ module.exports = {
       // one attribute on <html> rather than a `dark:` variant on every class.
       colors: {
         surface: 'rgb(var(--surface) / <alpha-value>)',
+        header: 'rgb(var(--header) / <alpha-value>)',
         raised: 'rgb(var(--surface-raised) / <alpha-value>)',
         heading: 'rgb(var(--heading) / <alpha-value>)',
         body: 'rgb(var(--body) / <alpha-value>)',
