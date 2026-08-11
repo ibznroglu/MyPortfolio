@@ -15,3 +15,15 @@ interface ImportMetaEnv {
 interface ImportMeta {
   readonly env: ImportMetaEnv;
 }
+
+interface ViewTransition {
+  finished: Promise<void>;
+  ready: Promise<void>;
+  updateCallbackDone: Promise<void>;
+  skipTransition: () => void;
+}
+
+interface Document {
+  /** Baseline since 2025 in Chromium and Safari; still absent in Firefox. */
+  startViewTransition?: (callback: () => void) => ViewTransition;
+}
