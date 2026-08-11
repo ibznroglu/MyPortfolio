@@ -47,14 +47,14 @@ class ErrorBoundary extends Component<Props, State> {
     const copy = MESSAGES[this.props.language] ?? MESSAGES.en;
 
     return (
-      <section className="section-shell flex items-center justify-center bg-[#0a192f] px-6 text-center">
+      <section className="section-shell flex items-center justify-center bg-surface px-6 text-center">
         <div className="max-w-md">
-          <h1 className="text-2xl font-bold text-[#ccd6f6]">{copy.title}</h1>
-          <p className="mt-3 text-[15px] leading-relaxed text-gray-400">{copy.body}</p>
+          <h1 className="text-2xl font-bold text-heading">{copy.title}</h1>
+          <p className="mt-3 text-[15px] leading-relaxed text-body">{copy.body}</p>
           <button
             type="button"
             onClick={() => window.location.reload()}
-            className="mt-8 rounded-lg bg-pink-600 px-6 py-3 font-semibold text-white transition-colors hover:bg-pink-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400"
+            className="mt-8 rounded-lg bg-accent px-6 py-3 font-semibold text-white transition-colors hover:bg-accent-hover focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft"
           >
             {copy.action}
           </button>

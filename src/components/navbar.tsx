@@ -8,7 +8,7 @@ import { NAV_ITEMS, localizedPath, swapLanguage } from '../lib/navigation';
 import type { Language } from '../lib/translations';
 
 const FOCUS_RING =
-  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-pink-400';
+  'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft';
 
 const Navbar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -56,8 +56,8 @@ const Navbar = () => {
   const navLinkClass = ({ isActive }: { isActive: boolean }) =>
     `px-4 py-2 rounded-lg transition-colors duration-300 ${FOCUS_RING} ${
       isActive
-        ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/50'
-        : 'text-gray-300 hover:text-pink-500 hover:bg-[#112240]'
+        ? 'bg-accent text-white shadow-lg shadow-accent/50'
+        : 'text-body hover:text-accent-soft hover:bg-raised'
     }`;
 
   // Deliberately the same pill the desktop nav uses, so the two menus read as
@@ -65,18 +65,18 @@ const Navbar = () => {
   const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
     `block rounded-lg px-4 py-3 text-[15px] transition-colors ${FOCUS_RING} ${
       isActive
-        ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/40'
-        : 'text-gray-300 hover:bg-white/5 hover:text-pink-400'
+        ? 'bg-accent text-white shadow-lg shadow-accent/40'
+        : 'text-body hover:bg-hairline/5 hover:text-accent-soft'
     }`;
 
   const langLinkClass = (code: Language) =>
     `px-3 py-1 rounded text-sm font-semibold transition-colors ${FOCUS_RING} ${
-      language === code ? 'bg-pink-600 text-white' : 'bg-[#112240] text-gray-400 hover:text-white'
+      language === code ? 'bg-accent text-white' : 'bg-raised text-body hover:text-heading'
     }`;
 
   return (
     <>
-      <header className="fixed top-0 w-full h-[80px] flex justify-between items-center px-4 sm:px-6 bg-[#0a192f]/95 backdrop-blur-sm text-gray-300 z-50 border-b border-pink-600/20">
+      <header className="fixed top-0 w-full h-[80px] flex justify-between items-center px-4 sm:px-6 bg-surface/95 backdrop-blur-sm text-body z-50 border-b border-accent/20">
         <Link
           to={localizedPath('', language)}
           aria-label={t.nav.home}
@@ -132,7 +132,7 @@ const Navbar = () => {
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className={`md:hidden p-2 -mr-2 text-2xl rounded-lg hover:text-pink-500 transition-colors ${FOCUS_RING}`}
+            className={`md:hidden p-2 -mr-2 text-2xl rounded-lg hover:text-accent-soft transition-colors ${FOCUS_RING}`}
           >
             {isMenuOpen ? <FaTimes aria-hidden="true" /> : <FaBars aria-hidden="true" />}
           </button>
@@ -153,7 +153,7 @@ const Navbar = () => {
         id="mobile-menu"
         ref={panelRef}
         aria-label="Mobile"
-        className={`fixed right-3 top-[88px] z-40 w-[min(15rem,72vw)] origin-top-right rounded-2xl border border-white/10 bg-[#112240] p-2 shadow-2xl transition-all duration-200 md:hidden ${
+        className={`fixed right-3 top-[88px] z-40 w-[min(15rem,72vw)] origin-top-right rounded-2xl border border-hairline/10 bg-raised p-2 shadow-2xl transition-all duration-200 md:hidden ${
           isMenuOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
         }`}
       >
@@ -172,7 +172,7 @@ const Navbar = () => {
           ))}
         </ul>
 
-        <ul className="mt-2 flex list-none gap-1 border-t border-white/10 p-0 pt-2">
+        <ul className="mt-2 flex list-none gap-1 border-t border-hairline/10 p-0 pt-2">
           {socialLinks.map(({ id, label, href, Icon, external }) => (
             <li key={id}>
               <a
@@ -180,7 +180,7 @@ const Navbar = () => {
                 aria-label={label}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener noreferrer' : undefined}
-                className={`block rounded-lg p-2.5 text-gray-400 transition-colors hover:bg-white/5 hover:text-pink-400 ${FOCUS_RING}`}
+                className={`block rounded-lg p-2.5 text-body transition-colors hover:bg-hairline/5 hover:text-accent-soft ${FOCUS_RING}`}
               >
                 <Icon size={18} aria-hidden="true" />
               </a>
@@ -200,7 +200,7 @@ const Navbar = () => {
                 href={href}
                 target={external ? '_blank' : undefined}
                 rel={external ? 'noopener noreferrer' : undefined}
-                className={`flex justify-between items-center w-full h-full text-gray-100 px-4 ${FOCUS_RING}`}
+                className={`flex justify-between items-center w-full h-full text-heading px-4 ${FOCUS_RING}`}
               >
                 {label} <Icon size={30} aria-hidden="true" />
               </a>

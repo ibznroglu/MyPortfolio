@@ -3,9 +3,47 @@
 @tailwind utilities;
 
 @layer base {
+  /*
+   * Colour tokens are RGB channel triplets rather than finished colours, so
+   * Tailwind's alpha modifier keeps working: `bg-surface/95` resolves to
+   * `rgb(var(--surface) / 0.95)`. That rules out the newer light-dark() CSS
+   * function, which returns a colour and cannot be sliced this way.
+   *
+   * Dark is the default because the site was designed dark first; light is an
+   * override. A visitor with JavaScript disabled therefore gets the intended
+   * design rather than a half-built light theme.
+   */
   :root {
     --header-h: 80px;
     --footer-h: 64px;
+
+    color-scheme: dark;
+
+    --surface: 10 25 47;
+    --surface-raised: 17 34 64;
+    --heading: 204 214 246;
+    --body: 136 146 176;
+    --accent: 219 39 119;
+    --accent-hover: 236 72 153;
+    --accent-soft: 236 72 153;
+    --muted: 107 114 128;
+    --hairline: 255 255 255;
+  }
+
+  :root[data-theme='light'] {
+    color-scheme: light;
+
+    --surface: 238 242 249;
+    --surface-raised: 255 255 255;
+    --heading: 15 42 74;
+    --body: 74 90 118;
+    /* pink-700. pink-600 measures 4.21:1 on white, under the 4.5:1 AA floor,
+       both as text and behind white button labels. pink-700 measures 6.04:1. */
+    --accent: 190 24 93;
+    --accent-hover: 157 23 77;
+    --accent-soft: 190 24 93;
+    --muted: 100 116 139;
+    --hairline: 15 42 74;
   }
 
   /* The desktop social rail replaces the footer from lg upwards. */
@@ -28,9 +66,9 @@
   input:-webkit-autofill,
   input:-webkit-autofill:hover,
   input:-webkit-autofill:focus {
-    -webkit-text-fill-color: #e5e7eb;
-    -webkit-box-shadow: 0 0 0 1000px #0a192f inset;
-    caret-color: #e5e7eb;
+    -webkit-text-fill-color: rgb(var(--heading));
+    -webkit-box-shadow: 0 0 0 1000px rgb(var(--surface)) inset;
+    caret-color: rgb(var(--heading));
     transition: background-color 9999s ease-in-out 0s;
   }
 }
