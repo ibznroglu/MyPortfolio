@@ -17,6 +17,17 @@ const Navbar = () => {
   const toggleRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLElement>(null);
 
+  // The panel stays mounted so it can slide, so `inert` is what keeps it out of
+  // the tab order and the accessibility tree while it is off screen. React 18
+  // does not pass the attribute through, hence the ref.
+  useEffect(() => {
+    const panel = panelRef.current;
+    if (!panel) return;
+
+    if (isMenuOpen) panel.removeAttribute('inert');
+    else panel.setAttribute('inert', '');
+  }, [isMenuOpen]);
+
   // Close on Escape and lock background scroll while the overlay is open.
   useEffect(() => {
     if (!isMenuOpen) return undefined;
@@ -49,9 +60,13 @@ const Navbar = () => {
         : 'text-gray-300 hover:text-pink-500 hover:bg-[#112240]'
     }`;
 
+  // Deliberately the same pill the desktop nav uses, so the two menus read as
+  // one design rather than two.
   const mobileLinkClass = ({ isActive }: { isActive: boolean }) =>
-    `text-3xl px-4 py-2 rounded-lg transition-colors ${FOCUS_RING} ${
-      isActive ? 'text-pink-500' : 'text-gray-300 hover:text-pink-500'
+    `block rounded-lg px-4 py-3 text-[15px] transition-colors ${FOCUS_RING} ${
+      isActive
+        ? 'bg-pink-600 text-white shadow-lg shadow-pink-600/40'
+        : 'text-gray-300 hover:bg-white/5 hover:text-pink-400'
     }`;
 
   const langLinkClass = (code: Language) =>
@@ -124,16 +139,27 @@ const Navbar = () => {
         </div>
       </header>
 
+      {/* A dimmed scrim rather than a blur: blurred page content stays legible
+          enough to compete with the menu in front of it. */}
+      <div
+        onClick={closeMenu}
+        aria-hidden="true"
+        className={`fixed inset-x-0 bottom-0 top-[80px] z-40 bg-black/50 transition-opacity duration-200 md:hidden ${
+          isMenuOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
+        }`}
+      />
+
       <nav
         id="mobile-menu"
         ref={panelRef}
         aria-label="Mobile"
-        hidden={!isMenuOpen}
-        className="md:hidden fixed inset-0 bg-[#0a192f]/98 backdrop-blur-sm z-40 flex flex-col justify-center items-center"
+        className={`fixed right-3 top-[88px] z-40 w-[min(15rem,72vw)] origin-top-right rounded-2xl border border-white/10 bg-[#112240] p-2 shadow-2xl transition-all duration-200 md:hidden ${
+          isMenuOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
+        }`}
       >
-        <ul className="list-none p-0 text-center">
+        <ul className="list-none p-0">
           {NAV_ITEMS.map(({ key, slug }) => (
-            <li key={key} className="py-4">
+            <li key={key}>
               <NavLink
                 to={localizedPath(slug, language)}
                 end={!slug}
@@ -142,6 +168,22 @@ const Navbar = () => {
               >
                 {t.nav[key]}
               </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        <ul className="mt-2 flex list-none gap-1 border-t border-white/10 p-0 pt-2">
+          {socialLinks.map(({ id, label, href, Icon, external }) => (
+            <li key={id}>
+              <a
+                href={href}
+                aria-label={label}
+                target={external ? '_blank' : undefined}
+                rel={external ? 'noopener noreferrer' : undefined}
+                className={`block rounded-lg p-2.5 text-gray-400 transition-colors hover:bg-white/5 hover:text-pink-400 ${FOCUS_RING}`}
+              >
+                <Icon size={18} aria-hidden="true" />
+              </a>
             </li>
           ))}
         </ul>

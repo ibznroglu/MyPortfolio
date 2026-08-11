@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 
@@ -17,7 +17,10 @@ test('renders the hero heading on the english home page', async () => {
 
 test('serves the turkish home page under /tr', async () => {
   renderAt('/tr');
-  expect(await screen.findByRole('link', { name: 'Hakkımda' })).toBeInTheDocument();
+  // Scoped to the desktop nav: the mobile panel stays mounted so it can animate,
+  // so an unscoped query would match the same link twice.
+  const mainNav = await screen.findByRole('navigation', { name: 'Main' });
+  expect(within(mainNav).getByRole('link', { name: 'Hakkımda' })).toBeInTheDocument();
 });
 
 test('renders the 404 page for an unknown route', async () => {
