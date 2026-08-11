@@ -24,15 +24,13 @@
   "about": {
     "title": "Hakkımda",
     "experience": "Deneyim",
-    "experienceText": "KEY Yazılım bünyesinde Front-End Developer olarak görev aldım. Bankacılık ve finans sektöründe, Türkiye'deki majör bankalara yönelik gayrimenkul değerleme platformları (Invex, Hypotex, Propex) geliştirilmesinde aktif rol üstlendim. React ve TypeScript kullanarak ölçeklenebilir, responsive ve cross-browser uyumlu kurumsal web arayüzleri tasarladım. Kurumsal projelerimin yanı sıra, React Native ile kişisel mobil uygulamalar geliştirerek web ve mobil mimariler arasında ortak tasarım ve mühendislik prensipleri uyguluyorum.",
-    "approach": "Yaklaşım",
-    "approachText": "Agile/Scrum metodolojileri ile çalışıyorum. CI/CD pipeline'ları (GitHub Actions, Jenkins) kullanarak production'a deploy ediyorum. Clean code, SOLID prensipleri ve performans optimizasyonu konularına odaklanıyorum. Cross-functional takımlarla etkili iş birliği yapıyorum.",
-    "tech": "Teknoloji Stack",
-    "techText": "React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS",
-    "tools": "Araçlar",
-    "toolsText": "RESTful API entegrasyonları, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum",
-    "goals": "Hedefler",
-    "goalsText": "Sürekli öğrenmeye ve kendimi geliştirmeye odaklanıyorum. Modern front-end teknolojilerini takip ediyor, best practices uyguluyorum. Kullanıcı deneyimini ön planda tutarak, kaliteli ve sürdürülebilir kod yazıyorum."
+    "experienceText": "React ve TypeScript ile web uygulamaları geliştiriyorum. Bankaların kullandığı gayrimenkul değerleme sistemleri ve Tapu Kadastro projeleri gibi yoğun veri trafiği olan platformlarda çalıştım. Kendi projelerimi de Vue ve React Native ile uçtan uca çıkarıyorum.",
+    "beyond": "Arayüzün Ötesi",
+    "beyondText": "İstemci tarafında kalmıyorum. Kendi özelliklerimin ihtiyaç duyduğu API uçlarını, doğrulama mimarisini ve güvenlik kurallarını kendim yazıyorum. Bu sitedeki iletişim formu bunun küçük bir örneği: paylaşılan bir Zod şeması, rate limit ve Turnstile.",
+    "howIWork": "Nasıl Çalışıyorum",
+    "howIWorkText": "Kod kalitesini süreçlere gömüyorum, niyete bırakmıyorum. Küçük ve odaklı pull request'ler, ne yaptığını anlatan bir commit geçmişi ve hatalı hiçbir şeyi geçirmeyen bir CI hattı. Bu sitenin kendisi böyle geliştirildi.",
+    "goals": "Neyin Peşindeyim",
+    "goalsText": "Teknoloji değiştirmek yerine kullandığım araçların içine inmeyi tercih ediyorum. Şu sıralar TypeScript'in tip sistemi, performans optimizasyonu ve başkasının yazdığı kod tabanında hızlı yol alabilmek üzerine çalışıyorum."
   },
   "skills": {
     "title": "Teknik Yetenekler",

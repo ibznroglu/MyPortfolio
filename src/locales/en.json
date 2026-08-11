@@ -24,15 +24,13 @@
   "about": {
     "title": "About Me",
     "experience": "Experience",
-    "experienceText": "Worked as a Front-End Developer at KEY Yazılım. Contributed to the development of real estate valuation platforms (Invex, Hypotex, Propex) for major banks in Türkiye within the banking and finance domain. Built scalable, responsive, and cross-browser compatible enterprise web interfaces using React and TypeScript. Alongside my professional work, I develop personal mobile applications with React Native, applying shared architectural and engineering principles across web and mobile platforms.",
-    "approach": "Approach",
-    "approachText": "Working with Agile/Scrum methodologies. Deploying to production via CI/CD pipelines (GitHub Actions, Jenkins). Focused on clean code, SOLID principles, and performance optimization. Effective collaboration with cross-functional teams.",
-    "tech": "Tech Stack",
-    "techText": "React, Next.js, React Native, TypeScript, JavaScript (ES6+), Redux, Material UI, Ant Design, Tailwind CSS, SCSS",
-    "tools": "Tools",
-    "toolsText": "RESTful API integrations, CI/CD, Git/GitHub, Docker, Webpack, Jira, Agile/Scrum",
-    "goals": "Goals",
-    "goalsText": "Continuously learning and improving. Following modern front-end technologies and applying best practices. Writing quality, maintainable code with focus on user experience."
+    "experienceText": "I build web applications with React and TypeScript. I have worked on data-heavy platforms — real estate valuation systems used by Turkish banks, and Land Registry projects. My own products in Vue and React Native I take end to end.",
+    "beyond": "Beyond the Interface",
+    "beyondText": "I do not stop at the client. I write the API endpoints, validation and security rules my own features need. The contact form on this site is a small example: a shared Zod schema, rate limiting and Turnstile.",
+    "howIWork": "How I Work",
+    "howIWorkText": "I build code quality into the process rather than leaving it to intent. Small, focused pull requests, a commit history that explains itself, and a CI pipeline that lets nothing broken through. This site was built that way.",
+    "goals": "What I'm After",
+    "goalsText": "Rather than switching technologies I go deeper into the ones I use. Lately that means TypeScript's type system, performance work, and moving quickly through a codebase somebody else wrote."
   },
   "skills": {
     "title": "Technical Skills",
