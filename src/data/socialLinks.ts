@@ -35,6 +35,6 @@ export const socialLinks = [
     href: '/isa_bezeniroglu_resume.pdf',
     Icon: BsFillPersonLinesFill,
     external: true,
-    railClass: 'bg-[#1f2937] hover:shadow-gray-700/50',
+    railClass: 'bg-teal-700 hover:shadow-teal-700/50',
   },
 ];
