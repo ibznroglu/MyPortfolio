@@ -31,9 +31,9 @@ const Home = () => {
       {/* Sized by its content rather than the viewport. A forced full height
           left half the fold empty on a laptop and pushed the first preview out
           of sight, which is the opposite of what this page is for. */}
-      <section className="flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-16 lg:py-20">
+      <section className="flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 lg:py-14">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
+          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
             <div className="flex-shrink-0">
               <div className="relative">
                 <div className="absolute inset-0 rounded-full bg-accent opacity-20 blur-2xl"></div>
@@ -43,19 +43,19 @@ const Home = () => {
                   width="512"
                   height="836"
                   fetchPriority="high"
-                  className="relative h-48 w-48 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-64 sm:w-64"
+                  className="relative h-48 w-48 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-56 sm:w-56"
                   style={{ objectPosition: '50% calc(50% + 2rem)' }}
                 />
                 <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full border-4 border-surface bg-green-500 shadow-lg sm:-bottom-2 sm:-right-2 sm:h-8 sm:w-8"></div>
               </div>
             </div>
 
-            <div className="flex-1 space-y-6 text-center lg:text-left">
+            <div className="flex-1 space-y-5 text-center lg:text-left">
               <div>
-                <p className="mb-3 text-base font-semibold text-accent-soft sm:text-xl">
+                <p className="mb-2 text-base font-semibold text-accent-soft sm:text-lg">
                   {t.home.title}
                 </p>
-                <h1 className="mb-4 break-words text-4xl font-bold leading-tight text-heading sm:text-5xl md:text-6xl lg:text-7xl">
+                <h1 className="break-words text-4xl font-bold leading-tight text-heading sm:text-5xl md:text-6xl lg:text-6xl">
                   {t.home.name}
                 </h1>
               </div>
