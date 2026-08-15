@@ -28,10 +28,10 @@ const Home = () => {
 
   return (
     <div className="w-full bg-surface">
-      {/* The hero fills the viewport on desktop, where there is room for it.
-          On a phone that height buys nothing and only pushes the sections
-          below further out of reach. */}
-      <section className="flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-16 lg:min-h-[calc(100dvh-var(--header-h)-var(--footer-h))] lg:py-12">
+      {/* Sized by its content rather than the viewport. A forced full height
+          left half the fold empty on a laptop and pushed the first preview out
+          of sight, which is the opposite of what this page is for. */}
+      <section className="flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-16 lg:py-20">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-12">
             <div className="flex-shrink-0">

@@ -64,6 +64,18 @@ test('links the turkish home page previews to turkish routes', async () => {
   );
 });
 
+test('names the cv in the footer instead of hiding it behind an icon', async () => {
+  renderAt('/');
+  const footer = await screen.findByRole('contentinfo');
+  expect(within(footer).getByRole('link', { name: 'CV' })).toHaveAttribute(
+    'href',
+    '/isa_bezeniroglu_resume.pdf',
+  );
+  // The header nav is fixed and never leaves the screen, so repeating it here
+  // would show the same five links twice at the same moment.
+  expect(within(footer).queryByRole('navigation')).not.toBeInTheDocument();
+});
+
 test('renders the 404 page for an unknown route', async () => {
   renderAt('/definitely-not-a-page');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();

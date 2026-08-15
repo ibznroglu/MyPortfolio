@@ -25,7 +25,8 @@
   },
   "visitor": {
     "total": "Toplam Ziyaretçi",
-    "active": "Anlık Kullanıcılar"
+    "active": "Anlık Kullanıcılar",
+    "footer": "ziyaretçi"
   },
   "about": {
     "title": "Hakkımda",
@@ -410,5 +411,8 @@
   "theme": {
     "toLight": "Açık temaya geç",
     "toDark": "Koyu temaya geç"
+  },
+  "footer": {
+    "cv": "CV"
   }
 }

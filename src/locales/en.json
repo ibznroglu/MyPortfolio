@@ -25,7 +25,8 @@
   },
   "visitor": {
     "total": "Total Visitors",
-    "active": "Active Users"
+    "active": "Active Users",
+    "footer": "visitors"
   },
   "about": {
     "title": "About Me",
@@ -410,5 +411,8 @@
   "theme": {
     "toLight": "Switch to light theme",
     "toDark": "Switch to dark theme"
+  },
+  "footer": {
+    "cv": "CV"
   }
 }

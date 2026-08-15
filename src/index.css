@@ -56,13 +56,6 @@
     --hairline: 15 42 74;
   }
 
-  /* The desktop social rail replaces the footer from lg upwards. */
-  @media (min-width: 1024px) {
-    :root {
-      --footer-h: 0px;
-    }
-  }
-
   /* Tailwind display utilities outrank the UA [hidden] rule, so restore it. */
   [hidden] {
     display: none !important;
