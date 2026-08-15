@@ -86,16 +86,19 @@ const Home = () => {
           <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3">
             <h2 className="text-2xl font-bold text-heading sm:text-3xl">{t.skills.title}</h2>
             <Link to={to('skills')} className={SECTION_LINK}>
-              {t.home.seeAll} <span aria-hidden="true">&rarr;</span>
+              {t.home.seeAllSkills} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
 
           <ul className="grid list-none grid-cols-4 gap-4 p-0 sm:grid-cols-6 lg:grid-cols-8">
             {featuredSkills.map((skill) => (
               <li key={skill.name} className="flex flex-col items-center gap-2 text-center">
+                {/* Decorative: the name is already rendered as text beside it,
+                    so alt text would only repeat what a screen reader just read. */}
                 <img
                   src={skill.icon}
-                  alt={skill.name}
+                  alt=""
+                  aria-hidden="true"
                   width="40"
                   height="40"
                   loading="lazy"
@@ -116,7 +119,7 @@ const Home = () => {
           <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3">
             <h2 className="text-2xl font-bold text-heading sm:text-3xl">{t.projects.title}</h2>
             <Link to={to('projects')} className={SECTION_LINK}>
-              {t.home.seeAll} <span aria-hidden="true">&rarr;</span>
+              {t.home.seeAllProjects} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
 

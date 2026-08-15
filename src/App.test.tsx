@@ -37,6 +37,16 @@ test('offers a way off the home page without opening the menu', async () => {
   );
 });
 
+test('names the two section links distinctly', async () => {
+  renderAt('/');
+  const main = await screen.findByRole('main');
+  expect(within(main).getByRole('link', { name: /All skills/ })).toHaveAttribute('href', '/skills');
+  expect(within(main).getByRole('link', { name: /All projects/ })).toHaveAttribute(
+    'href',
+    '/projects',
+  );
+});
+
 test('previews every section on the home page', async () => {
   renderAt('/');
   const main = await screen.findByRole('main');

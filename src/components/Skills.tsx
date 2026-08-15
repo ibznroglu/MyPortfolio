@@ -19,10 +19,12 @@ const Skills = () => {
               key={skill.name}
               className="bg-raised p-4 rounded-xl border border-accent/20 hover:border-accent hover:shadow-xl hover:shadow-accent/30 transition-all duration-300 transform hover:scale-105 text-center group flex flex-col items-center justify-between"
             >
+              {/* Decorative: the name follows as text in the same card. */}
               <img
                 className="w-11 h-11 mx-auto mb-3 group-hover:scale-110 transition-transform"
                 src={skill.icon}
-                alt={skill.name}
+                alt=""
+                aria-hidden="true"
                 width="44"
                 height="44"
                 loading="lazy"
