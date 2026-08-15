@@ -1,6 +1,5 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa';
 import { HiOutlineMail } from 'react-icons/hi';
-import { BsFillPersonLinesFill } from 'react-icons/bs';
 import { settings } from '../helpers/functions/settings';
 
 // Single source of truth: the desktop rail and the mobile footer both render this.
@@ -28,13 +27,5 @@ export const socialLinks = [
     Icon: HiOutlineMail,
     external: false,
     railClass: 'bg-accent hover:shadow-accent/50',
-  },
-  {
-    id: 'resume',
-    label: 'Resume',
-    href: '/isa_bezeniroglu_resume.pdf',
-    Icon: BsFillPersonLinesFill,
-    external: true,
-    railClass: 'bg-teal-700 hover:shadow-teal-700/50',
   },
 ];

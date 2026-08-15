@@ -3,7 +3,7 @@ import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.webp';
 import GamingProMarketImg from '../assets/projects/gamingpromarket.webp';
 import type { CaseStudySlug } from '../lib/caseStudies';
 
-interface Project {
+export interface Project {
   id: number;
   name: string;
   image: string;
