@@ -9,7 +9,7 @@ concurrency:
 
 jobs:
   audit:
-    name: Performance and accessibility budget
+    name: Performance and accessibility budget (desktop and mobile)
     runs-on: ubuntu-latest
 
     env:
@@ -35,5 +35,8 @@ jobs:
 
       - run: npm run build
 
-      - name: Run Lighthouse CI
-        run: npx lhci autorun
+      - name: Run Lighthouse CI (desktop)
+        run: npx lhci autorun --config=lighthouserc.json
+
+      - name: Run Lighthouse CI (mobile)
+        run: npx lhci autorun --config=lighthouserc.mobile.json

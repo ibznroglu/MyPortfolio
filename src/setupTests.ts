@@ -17,3 +17,23 @@ Object.defineProperty(window, 'matchMedia', {
     dispatchEvent: () => false,
   }),
 });
+
+// jsdom does not implement IntersectionObserver. A stub that never reports an
+// intersection keeps deferred work — the visitor counter's Firebase import —
+// out of the test run entirely.
+class NoopIntersectionObserver {
+  observe() {}
+  unobserve() {}
+  disconnect() {}
+  takeRecords() {
+    return [];
+  }
+  readonly root = null;
+  readonly rootMargin = '';
+  readonly thresholds: readonly number[] = [];
+}
+
+Object.defineProperty(window, 'IntersectionObserver', {
+  writable: true,
+  value: NoopIntersectionObserver,
+});
