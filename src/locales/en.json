@@ -3,7 +3,7 @@
     "home": "Home",
     "about": "About",
     "skills": "Skills",
-    "projects": "Personal Projects",
+    "projects": "Projects",
     "contact": "Contact",
     "menu": "Menu"
   },
@@ -42,11 +42,14 @@
   },
   "skills": {
     "title": "Technical Skills",
-    "subtitle": "Technologies and tools I work with"
+    "groups": {
+      "core": "Core",
+      "frameworks": "Frameworks & UI",
+      "tooling": "Platform & Tooling"
+    }
   },
   "projects": {
     "title": "Projects",
-    "subtitle": "Some of my recent work",
     "live": "Live",
     "code": "Code",
     "readCaseStudy": "Read the case study"

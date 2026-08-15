@@ -10,9 +10,19 @@ const SECONDARY_ACTION =
   'rounded-md px-3 py-1.5 text-xs font-semibold border border-hairline/25 text-body hover:border-accent-soft hover:text-accent-soft transition-colors ' +
   FOCUS_RING;
 
-/** Rendered by both the projects page and the home page preview. */
-const ProjectCard = ({ project }: { project: Project }) => {
+interface Props {
+  project: Project;
+  /**
+   * The card sits directly under the h1 on the projects page and under a
+   * section h2 on the home page, so a fixed level would skip one in one of
+   * them.
+   */
+  headingLevel?: 2 | 3;
+}
+
+const ProjectCard = ({ project, headingLevel = 2 }: Props) => {
   const { t, language } = useLanguage();
+  const Heading = headingLevel === 3 ? 'h3' : 'h2';
 
   return (
     <li className="group flex flex-col overflow-hidden rounded-xl bg-raised border border-hairline/5 hover:border-accent-soft/40 focus-within:border-accent-soft/40 transition-colors duration-300">
@@ -29,7 +39,7 @@ const ProjectCard = ({ project }: { project: Project }) => {
       </div>
 
       <div className="flex flex-1 flex-col gap-3 p-4">
-        <h3 className="text-base font-bold text-heading">{project.name}</h3>
+        <Heading className="text-base font-bold text-heading">{project.name}</Heading>
 
         <div className="mt-auto flex flex-wrap gap-2 pt-1">
           {project.caseStudy && (

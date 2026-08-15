@@ -91,9 +91,30 @@ test('labels the menu toggle and keeps the panel to navigation', async () => {
     'Ana Sayfa',
     'Hakkımda',
     'Yetenekler',
-    'Kişisel Projeler',
+    'Projeler',
     'İletişim',
   ]);
+});
+
+test('gives every page a single h1', async () => {
+  for (const route of ['/', '/about', '/skills', '/projects', '/contact']) {
+    const { unmount } = renderAt(route);
+    // Waiting on the lazy chunk before counting, or the shell resolves first.
+    await screen.findByRole('main');
+    const h1s = await screen.findAllByRole('heading', { level: 1 });
+    expect(h1s).toHaveLength(1);
+    unmount();
+  }
+});
+
+test('groups the skills page instead of listing everything flat', async () => {
+  renderAt('/skills');
+  const main = await screen.findByRole('main');
+  for (const group of ['Core', 'Frameworks & UI', 'Platform & Tooling']) {
+    expect(within(main).getByRole('heading', { level: 2, name: group })).toBeInTheDocument();
+  }
+  expect(within(main).queryByText('HTML')).not.toBeInTheDocument();
+  expect(within(main).queryByText('JIRA')).not.toBeInTheDocument();
 });
 
 test('renders the 404 page for an unknown route', async () => {
