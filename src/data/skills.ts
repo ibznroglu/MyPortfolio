@@ -12,6 +12,9 @@ import MaterialUIImg from '../assets/materialui.webp';
 import AntDesignImg from '../assets/antdesign.webp';
 import NextJsImg from '../assets/nextjs.webp';
 import VueImg from '../assets/vue.webp';
+import ViteImg from '../assets/vite.webp';
+import FirebaseImg from '../assets/firebase.webp';
+import VitestImg from '../assets/vitest.webp';
 
 export type SkillGroup = 'core' | 'frameworks' | 'tooling';
 
@@ -39,6 +42,9 @@ export const skills: Skill[] = [
   { name: 'MATERIAL UI', icon: MaterialUIImg, group: 'frameworks' },
   { name: 'ANT DESIGN', icon: AntDesignImg, group: 'frameworks' },
 
+  { name: 'VITE', icon: ViteImg, group: 'tooling' },
+  { name: 'FIREBASE', icon: FirebaseImg, group: 'tooling' },
+  { name: 'VITEST', icon: VitestImg, group: 'tooling' },
   { name: 'DOCKER', icon: DockerImg, group: 'tooling' },
   { name: 'WEBPACK', icon: WebPackImg, group: 'tooling' },
   { name: 'GITHUB', icon: GitHub, group: 'tooling' },
