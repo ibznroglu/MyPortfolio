@@ -76,6 +76,26 @@ test('names the cv in the footer instead of hiding it behind an icon', async () 
   expect(within(footer).queryByRole('navigation')).not.toBeInTheDocument();
 });
 
+test('labels the menu toggle and keeps the panel to navigation', async () => {
+  renderAt('/tr');
+  const toggle = await screen.findByRole('button', { name: 'Menü' });
+  expect(toggle).toHaveAttribute('aria-expanded', 'false');
+
+  await userEvent.click(toggle);
+  expect(toggle).toHaveAttribute('aria-expanded', 'true');
+
+  const panel = screen.getByRole('navigation', { name: 'Mobile' });
+  const links = within(panel).getAllByRole('link');
+  expect(links).toHaveLength(5);
+  expect(links.map((link) => link.textContent)).toEqual([
+    'Ana Sayfa',
+    'Hakkımda',
+    'Yetenekler',
+    'Kişisel Projeler',
+    'İletişim',
+  ]);
+});
+
 test('renders the 404 page for an unknown route', async () => {
   renderAt('/definitely-not-a-page');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();

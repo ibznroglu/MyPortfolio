@@ -150,10 +150,15 @@ const Navbar = () => {
             onClick={() => setIsMenuOpen((open) => !open)}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
-            className={`md:hidden p-2 -mr-2 text-2xl rounded-lg hover:text-accent-soft transition-colors ${FOCUS_RING}`}
+            className={`md:hidden -mr-2 flex items-center gap-2 rounded-lg p-2 text-body transition-colors hover:text-accent-soft ${FOCUS_RING}`}
           >
-            {isMenuOpen ? <FaTimes aria-hidden="true" /> : <FaBars aria-hidden="true" />}
+            <span className="text-xl" aria-hidden="true">
+              {isMenuOpen ? <FaTimes /> : <FaBars />}
+            </span>
+            {/* The word is the accessible name. A bare glyph is measurably
+                less likely to be tapped, and the old aria-label was hardcoded
+                English on an otherwise bilingual site. */}
+            <span className="text-sm font-semibold">{t.nav.menu}</span>
           </button>
         </div>
       </header>
@@ -188,22 +193,6 @@ const Navbar = () => {
               >
                 {t.nav[key]}
               </NavLink>
-            </li>
-          ))}
-        </ul>
-
-        <ul className="mt-2 flex list-none gap-1 border-t border-hairline/10 p-0 pt-2">
-          {socialLinks.map(({ id, label, href, Icon, external }) => (
-            <li key={id}>
-              <a
-                href={href}
-                aria-label={label}
-                target={external ? '_blank' : undefined}
-                rel={external ? 'noopener noreferrer' : undefined}
-                className={`block rounded-lg p-2.5 text-body transition-colors hover:bg-hairline/5 hover:text-accent-soft ${FOCUS_RING}`}
-              >
-                <Icon size={18} aria-hidden="true" />
-              </a>
             </li>
           ))}
         </ul>
