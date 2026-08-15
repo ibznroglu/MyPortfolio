@@ -1,7 +1,8 @@
-import { render, screen, within } from '@testing-library/react';
+import { render, screen, waitFor, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
+import { observedNodes } from './setupTests';
 
 // Pages are lazily loaded, so every assertion has to await the chunk.
 const renderAt = (route: string) =>
@@ -115,6 +116,23 @@ test('groups the skills page instead of listing everything flat', async () => {
   }
   expect(within(main).queryByText('HTML')).not.toBeInTheDocument();
   expect(within(main).queryByText('JIRA')).not.toBeInTheDocument();
+});
+
+test('waits for load before watching the visitor counter', async () => {
+  const readyState = vi.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
+  observedNodes.length = 0;
+
+  renderAt('/');
+  await screen.findByRole('contentinfo');
+
+  // While a route chunk is in flight RouteFallback fills the viewport and the
+  // footer sits at the fold, so an observer started here would fire at once.
+  expect(observedNodes).toHaveLength(0);
+
+  window.dispatchEvent(new Event('load'));
+  await waitFor(() => expect(observedNodes).toHaveLength(1));
+
+  readyState.mockRestore();
 });
 
 test('renders the 404 page for an unknown route', async () => {

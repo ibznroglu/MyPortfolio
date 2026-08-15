@@ -17,16 +17,36 @@ const Footer = () => {
 
   // The Firebase SDK is fetched only once the counter is actually on screen,
   // so no route pays for it during first paint.
+  //
+  // Observation waits for load. Route chunks are lazy, and RouteFallback fills
+  // the same section-shell every page does, so while a chunk is in flight the
+  // document is exactly one viewport tall and this footer sits at the fold —
+  // visible, and enough to trigger an observer that mounted before the page it
+  // belongs to. By load the real content has laid out and the footer is where
+  // it actually ends up.
   useEffect(() => {
     const node = countRef.current;
     if (!node || inView) return undefined;
 
-    const observer = new IntersectionObserver((entries) => {
-      if (entries.some((entry) => entry.isIntersecting)) setInView(true);
-    });
+    let observer: IntersectionObserver | undefined;
 
-    observer.observe(node);
-    return () => observer.disconnect();
+    const observe = () => {
+      observer = new IntersectionObserver((entries) => {
+        if (entries.some((entry) => entry.isIntersecting)) setInView(true);
+      });
+      observer.observe(node);
+    };
+
+    if (document.readyState === 'complete') {
+      observe();
+      return () => observer?.disconnect();
+    }
+
+    window.addEventListener('load', observe, { once: true });
+    return () => {
+      window.removeEventListener('load', observe);
+      observer?.disconnect();
+    };
   }, [inView]);
 
   // The height sits on the element rather than the inner row: --footer-h has to
