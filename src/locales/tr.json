@@ -3,7 +3,7 @@
     "home": "Ana Sayfa",
     "about": "Hakkımda",
     "skills": "Yetenekler",
-    "projects": "Kişisel Projeler",
+    "projects": "Projeler",
     "contact": "İletişim",
     "menu": "Menü"
   },
@@ -42,11 +42,14 @@
   },
   "skills": {
     "title": "Teknik Yetenekler",
-    "subtitle": "Kullandığım teknolojiler ve araçlar"
+    "groups": {
+      "core": "Ana Teknolojiler",
+      "frameworks": "Framework ve Arayüz",
+      "tooling": "Platform ve Araçlar"
+    }
   },
   "projects": {
     "title": "Projeler",
-    "subtitle": "Yakın zamanda üzerinde çalıştığım projeler",
     "live": "Canlı",
     "code": "Kod",
     "readCaseStudy": "Vaka analizini oku"
