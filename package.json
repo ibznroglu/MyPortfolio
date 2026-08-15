@@ -27,7 +27,8 @@
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
     "format": "prettier --write \"src/**/*.{ts,tsx,css}\"",
-    "lighthouse": "lhci autorun"
+    "lighthouse": "lhci autorun --config=lighthouserc.json",
+    "lighthouse:mobile": "lhci autorun --config=lighthouserc.mobile.json"
   },
   "devDependencies": {
     "@eslint/js": "^9.39.5",
