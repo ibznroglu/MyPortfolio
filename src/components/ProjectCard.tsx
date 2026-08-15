@@ -27,13 +27,18 @@ const ProjectCard = ({ project, headingLevel = 2 }: Props) => {
   return (
     <li className="group flex flex-col overflow-hidden rounded-xl bg-raised border border-hairline/5 hover:border-accent-soft/40 focus-within:border-accent-soft/40 transition-colors duration-300">
       <div className="aspect-[2/1] overflow-hidden bg-surface">
+        {/* The widest this card ever gets is about 405px, in the two-column
+            range. 560w leaves a 1x screen some headroom and 900w covers 2x;
+            sizes tells the browser which to take before layout is known. */}
         <img
           src={project.image}
+          srcSet={`${project.imageSmall} 560w, ${project.image} 900w`}
+          sizes="(min-width: 1024px) 370px, (min-width: 640px) 45vw, calc(100vw - 3rem)"
           alt={project.name}
           loading="lazy"
           decoding="async"
-          width="1100"
-          height="550"
+          width="900"
+          height="450"
           className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-[1.04]"
         />
       </div>
