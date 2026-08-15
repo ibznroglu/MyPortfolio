@@ -5,6 +5,7 @@ import { data } from '../data/data';
 import { featuredSkills } from '../data/skills';
 import { resume } from '../data/resume';
 import ProjectCard from './ProjectCard';
+import ScrollCue from './ScrollCue';
 import IsaImg from '../assets/isa.webp';
 
 const FOCUS_RING =
@@ -31,7 +32,7 @@ const Home = () => {
       {/* Sized by its content rather than the viewport. A forced full height
           left half the fold empty on a laptop and pushed the first preview out
           of sight, which is the opposite of what this page is for. */}
-      <section className="flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 lg:py-14">
+      <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-24 lg:py-14 lg:pb-28">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
             <div className="flex-shrink-0">
@@ -80,6 +81,8 @@ const Home = () => {
             </div>
           </div>
         </div>
+
+        <ScrollCue />
       </section>
 
       <section className="border-t border-hairline/5 bg-raised py-14">
