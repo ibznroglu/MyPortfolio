@@ -10,7 +10,13 @@
     "title": "Front-End Developer",
     "name": "İSA BEZENİROĞLU",
     "description": "React ve TypeScript ile kurumsal ölçekte web uygulamaları geliştiriyorum — son olarak Türkiye'nin önde gelen bankalarının kullandığı gayrimenkul değerleme platformlarında çalıştım. Vue ve React Native tarafında ürünleri ilk commit'ten canlıya kadar uçtan uca geliştiriyorum.",
-    "viewProjects": "Projeleri İncele"
+    "viewProjects": "Projeleri İncele",
+    "downloadCv": "CV İndir",
+    "seeAllSkills": "Tüm yetenekler",
+    "seeAllProjects": "Tüm projeler",
+    "readMore": "Daha fazla",
+    "contactCta": "Yeni fırsatlara açığım. Karmaşık, veri ağırlıklı ürünler üzerinde çalışıyorum.",
+    "contactAction": "İletişime Geç"
   },
   "notFound": {
     "title": "Sayfa bulunamadı",
