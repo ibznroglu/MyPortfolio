@@ -41,7 +41,8 @@ const Home = () => {
                   src={IsaImg}
                   alt="İsa Bezeniroğlu"
                   width="512"
-                  height="512"
+                  height="836"
+                  fetchPriority="high"
                   className="relative h-48 w-48 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-64 sm:w-64"
                   style={{ objectPosition: '50% calc(50% + 2rem)' }}
                 />
@@ -105,9 +106,7 @@ const Home = () => {
                   decoding="async"
                   className="h-10 w-10"
                 />
-                <span className="text-xs font-semibold leading-tight text-muted">
-                  {skill.name}
-                </span>
+                <span className="text-xs font-semibold leading-tight text-muted">{skill.name}</span>
               </li>
             ))}
           </ul>
