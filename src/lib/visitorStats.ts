@@ -1,5 +1,10 @@
 import { initializeApp } from 'firebase/app';
-import { getAuth, signInAnonymously } from 'firebase/auth';
+import {
+  browserLocalPersistence,
+  indexedDBLocalPersistence,
+  initializeAuth,
+  signInAnonymously,
+} from 'firebase/auth';
 import { getDatabase, onValue, ref, runTransaction } from 'firebase/database';
 
 /**
@@ -40,7 +45,20 @@ const connect = () => {
   }
 
   const app = initializeApp(firebaseConfig);
-  return { database: getDatabase(app), auth: getAuth(app) };
+
+  // initializeAuth rather than getAuth: getAuth installs the popup/redirect
+  // resolver, which pulls in apis.google.com and opens a hidden iframe against
+  // firebaseio.com. Anonymous sign-in uses neither, and the CSP blocks both, so
+  // every visit logged two console errors for work it never needed. Leaving
+  // popupRedirectResolver out keeps that code out of the bundle as well.
+  //
+  // The persistence list matches getAuth's own default order, so returning
+  // visitors keep the uid their first visit was counted against.
+  const auth = initializeAuth(app, {
+    persistence: [indexedDBLocalPersistence, browserLocalPersistence],
+  });
+
+  return { database: getDatabase(app), auth };
 };
 
 export interface VisitorCountHandlers {
