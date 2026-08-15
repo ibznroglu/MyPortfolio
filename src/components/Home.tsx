@@ -105,7 +105,7 @@ const Home = () => {
                   decoding="async"
                   className="h-10 w-10"
                 />
-                <span className="text-[11px] font-semibold leading-tight text-muted">
+                <span className="text-xs font-semibold leading-tight text-muted">
                   {skill.name}
                 </span>
               </li>
