@@ -5,13 +5,13 @@ const Skills = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="w-full section-shell bg-gradient-to-b from-raised to-surface text-body py-12">
+    <div className="w-full section-shell bg-gradient-to-b from-raised to-surface text-body py-8">
       <div className="max-w-6xl mx-auto px-8">
-        <div className="text-center mb-12">
+        <div className="text-center mb-8">
           <div className="inline-block border-b-4 border-accent pb-2">
             <h2 className="text-3xl font-bold sm:text-4xl">{t.skills.title}</h2>
           </div>
-          <p className="py-4 text-body">{t.skills.subtitle}</p>
+          <p className="pt-3 text-body">{t.skills.subtitle}</p>
         </div>
         <ul className="grid list-none grid-cols-3 gap-4 p-0 sm:grid-cols-4 md:grid-cols-5 lg:grid-cols-6">
           {skills.map((skill) => (
