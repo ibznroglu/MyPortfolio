@@ -21,8 +21,12 @@ Object.defineProperty(window, 'matchMedia', {
 // jsdom does not implement IntersectionObserver. A stub that never reports an
 // intersection keeps deferred work — the visitor counter's Firebase import —
 // out of the test run entirely.
+export const observedNodes: Element[] = [];
+
 class NoopIntersectionObserver {
-  observe() {}
+  observe(node: Element) {
+    observedNodes.push(node);
+  }
   unobserve() {}
   disconnect() {}
   takeRecords() {
