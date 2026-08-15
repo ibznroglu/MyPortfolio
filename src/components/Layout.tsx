@@ -1,10 +1,11 @@
-import { Suspense, useEffect } from 'react';
+import { Suspense, useCallback, useEffect, useState } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import LanguageProvider from '../context/LanguageProvider';
 import Navbar from './navbar';
 import Footer from './Footer';
 import ErrorBoundary from './ErrorBoundary';
 import RouteFallback from './RouteFallback';
+import RouteReady from './RouteReady';
 import type { Language } from '../lib/translations';
 import { useDocumentMeta, slugFromPathname } from '../hooks/useDocumentMeta';
 import { getBundle } from '../lib/translations';
@@ -15,6 +16,10 @@ import { getBundle } from '../lib/translations';
  */
 const Layout = ({ language }: { language: Language }) => {
   const { pathname } = useLocation();
+  // Latched, not reset per navigation: once any route has rendered, the
+  // footer sits wherever the content puts it and stays trustworthy.
+  const [routeReady, setRouteReady] = useState(false);
+  const markRouteReady = useCallback(() => setRouteReady(true), []);
   const slug = slugFromPathname(pathname);
   const t = getBundle(language);
   const caseSlug = slug.startsWith('projects/') ? slug.slice('projects/'.length) : undefined;
@@ -48,12 +53,13 @@ const Layout = ({ language }: { language: Language }) => {
         <main id="main-content" tabIndex={-1} className="pt-20 focus:outline-none">
           <ErrorBoundary key={pathname} language={language}>
             <Suspense fallback={<RouteFallback />}>
+              <RouteReady onReady={markRouteReady} />
               <Outlet />
             </Suspense>
           </ErrorBoundary>
         </main>
 
-        <Footer />
+        <Footer routeReady={routeReady} />
       </div>
     </LanguageProvider>
   );

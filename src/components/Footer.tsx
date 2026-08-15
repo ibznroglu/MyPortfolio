@@ -7,7 +7,7 @@ import { resume } from '../data/resume';
 const FOCUS_RING =
   'focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-soft';
 
-const Footer = () => {
+const Footer = ({ routeReady }: { routeReady: boolean }) => {
   const { t, language } = useLanguage();
   const countRef = useRef<HTMLParagraphElement>(null);
   // Browsers without IntersectionObserver simply load it straight away, decided
@@ -18,36 +18,25 @@ const Footer = () => {
   // The Firebase SDK is fetched only once the counter is actually on screen,
   // so no route pays for it during first paint.
   //
-  // Observation waits for load. Route chunks are lazy, and RouteFallback fills
-  // the same section-shell every page does, so while a chunk is in flight the
-  // document is exactly one viewport tall and this footer sits at the fold —
-  // visible, and enough to trigger an observer that mounted before the page it
-  // belongs to. By load the real content has laid out and the footer is where
-  // it actually ends up.
+  // Observation waits for the route to render. RouteFallback fills the same
+  // section-shell every page uses, so while a chunk is in flight the document
+  // is exactly one viewport tall and this footer — which lives outside
+  // Suspense — sits at the fold. An observer started then sees itself
+  // immediately.
+  //
+  // The load event is not enough. A lazily imported route is not part of the
+  // document's load, so load can fire with the fallback still on screen.
   useEffect(() => {
     const node = countRef.current;
-    if (!node || inView) return undefined;
+    if (!node || inView || !routeReady) return undefined;
 
-    let observer: IntersectionObserver | undefined;
+    const observer = new IntersectionObserver((entries) => {
+      if (entries.some((entry) => entry.isIntersecting)) setInView(true);
+    });
 
-    const observe = () => {
-      observer = new IntersectionObserver((entries) => {
-        if (entries.some((entry) => entry.isIntersecting)) setInView(true);
-      });
-      observer.observe(node);
-    };
-
-    if (document.readyState === 'complete') {
-      observe();
-      return () => observer?.disconnect();
-    }
-
-    window.addEventListener('load', observe, { once: true });
-    return () => {
-      window.removeEventListener('load', observe);
-      observer?.disconnect();
-    };
-  }, [inView]);
+    observer.observe(node);
+    return () => observer.disconnect();
+  }, [inView, routeReady]);
 
   // The height sits on the element rather than the inner row: --footer-h has to
   // account for the border too, or every section-shell page overflows by a pixel.

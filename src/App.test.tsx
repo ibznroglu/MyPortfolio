@@ -1,8 +1,10 @@
-import { render, screen, waitFor, within } from '@testing-library/react';
+import { render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 import App from './App';
 import { observedNodes } from './setupTests';
+import Footer from './components/Footer';
+import LanguageProvider from './context/LanguageProvider';
 
 // Pages are lazily loaded, so every assertion has to await the chunk.
 const renderAt = (route: string) =>
@@ -118,21 +120,29 @@ test('groups the skills page instead of listing everything flat', async () => {
   expect(within(main).queryByText('JIRA')).not.toBeInTheDocument();
 });
 
-test('waits for load before watching the visitor counter', async () => {
-  const readyState = vi.spyOn(document, 'readyState', 'get').mockReturnValue('loading');
+test('watches the visitor counter only once the route has rendered', () => {
+  // Footer in isolation: in the full app the lazy chunks are already in the
+  // module cache by this point, so Suspense never actually suspends and the
+  // ordering this guards cannot be reproduced through <App />.
+  const renderFooter = (routeReady: boolean) =>
+    render(
+      <MemoryRouter>
+        <LanguageProvider language="en">
+          <Footer routeReady={routeReady} />
+        </LanguageProvider>
+      </MemoryRouter>,
+    );
+
   observedNodes.length = 0;
-
-  renderAt('/');
-  await screen.findByRole('contentinfo');
-
-  // While a route chunk is in flight RouteFallback fills the viewport and the
-  // footer sits at the fold, so an observer started here would fire at once.
+  const pending = renderFooter(false);
+  // RouteFallback fills the same section-shell every page uses, so with a
+  // chunk still in flight this footer sits at the fold and an observer
+  // started here would fire immediately.
   expect(observedNodes).toHaveLength(0);
+  pending.unmount();
 
-  window.dispatchEvent(new Event('load'));
-  await waitFor(() => expect(observedNodes).toHaveLength(1));
-
-  readyState.mockRestore();
+  renderFooter(true);
+  expect(observedNodes).toHaveLength(1);
 });
 
 test('renders the 404 page for an unknown route', async () => {
