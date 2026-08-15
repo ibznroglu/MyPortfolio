@@ -24,6 +24,36 @@ test('serves the turkish home page under /tr', async () => {
   expect(within(mainNav).getByRole('link', { name: 'Hakkımda' })).toBeInTheDocument();
 });
 
+test('offers a way off the home page without opening the menu', async () => {
+  renderAt('/');
+  const main = await screen.findByRole('main');
+  expect(within(main).getByRole('link', { name: 'View Projects' })).toHaveAttribute(
+    'href',
+    '/projects',
+  );
+  expect(within(main).getAllByRole('link', { name: 'Download CV' })[0]).toHaveAttribute(
+    'href',
+    '/isa_bezeniroglu_resume.pdf',
+  );
+});
+
+test('previews every section on the home page', async () => {
+  renderAt('/');
+  const main = await screen.findByRole('main');
+  for (const heading of ['Technical Skills', 'Projects', 'About Me', 'Get In Touch']) {
+    expect(within(main).getByRole('heading', { level: 2, name: heading })).toBeInTheDocument();
+  }
+});
+
+test('links the turkish home page previews to turkish routes', async () => {
+  renderAt('/tr');
+  const main = await screen.findByRole('main');
+  expect(within(main).getByRole('link', { name: 'Projeleri İncele' })).toHaveAttribute(
+    'href',
+    '/tr/projects',
+  );
+});
+
 test('renders the 404 page for an unknown route', async () => {
   renderAt('/definitely-not-a-page');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();
