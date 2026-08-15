@@ -139,9 +139,9 @@ const Contact = () => {
     <div className="section-shell flex w-full items-center justify-center bg-gradient-to-b from-raised to-surface py-6">
       <div className="mx-auto w-full max-w-2xl px-6 sm:px-8">
         <div className="mb-5 text-center">
-          <h2 className="inline border-b-4 border-accent pb-2 text-3xl font-bold text-body sm:text-4xl">
+          <h1 className="inline border-b-4 border-accent pb-2 text-3xl font-bold text-body sm:text-4xl">
             {t.contact.title}
-          </h2>
+          </h1>
           <p className="mt-4 text-sm text-body">
             {t.contact.subtitle}{' '}
             <a

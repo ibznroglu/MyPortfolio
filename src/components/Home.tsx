@@ -125,7 +125,7 @@ const Home = () => {
 
           <ul className="grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
             {data.map((project) => (
-              <ProjectCard key={project.id} project={project} />
+              <ProjectCard key={project.id} project={project} headingLevel={3} />
             ))}
           </ul>
         </div>
