@@ -45,7 +45,7 @@ const Skills = () => {
                       loading="lazy"
                       decoding="async"
                     />
-                    <span className="text-[11px] font-semibold leading-tight">{skill.name}</span>
+                    <span className="text-xs font-semibold leading-tight">{skill.name}</span>
                   </li>
                 ))}
               </ul>
