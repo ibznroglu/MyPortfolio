@@ -1,7 +1,7 @@
 {
   "ci": {
     "collect": {
-      "startServerCommand": "npx vite preview -- --port 4173 --strictPort",
+      "startServerCommand": "npx vite preview --port 4173 --strictPort",
       "startServerReadyPattern": "localhost",
       "url": [
         "http://localhost:4173/",
