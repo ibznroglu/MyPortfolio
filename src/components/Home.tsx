@@ -107,7 +107,7 @@ const Home = () => {
                   height="40"
                   loading="lazy"
                   decoding="async"
-                  className="h-10 w-10"
+                  className={`h-10 w-10 ${skill.monochrome ? 'icon-monochrome' : ''}`}
                 />
                 <span className="text-xs font-semibold leading-tight text-muted">{skill.name}</span>
               </li>

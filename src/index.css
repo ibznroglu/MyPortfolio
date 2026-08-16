@@ -107,6 +107,14 @@
   animation: scroll-cue 2.4s ease-in-out infinite;
 }
 
+/* github.webp is a white-only mark — the single monochrome logo in a set of
+   full-colour ones — so on the light palette it is white on near-white.
+   Inverting takes it to near-black, which is how GitHub draws it on light
+   backgrounds anyway. */
+[data-theme='light'] .icon-monochrome {
+  filter: invert(1);
+}
+
 /* Opacity only. A transform would move layout during the very frames the
    browser is settling it, and these run on pages whose LCP and CLS are
    measured. */
