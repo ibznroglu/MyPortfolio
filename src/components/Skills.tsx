@@ -36,7 +36,7 @@ const Skills = () => {
                   >
                     {/* Decorative: the name follows as text directly beneath. */}
                     <img
-                      className="h-10 w-10 transition-transform group-hover:scale-110"
+                      className={`h-10 w-10 transition-transform group-hover:scale-110 ${skill.monochrome ? 'icon-monochrome' : ''}`}
                       src={skill.icon}
                       alt=""
                       aria-hidden="true"

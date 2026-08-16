@@ -24,6 +24,11 @@ export interface Skill {
   group: SkillGroup;
   /** Shown in the home page strip. The skills page shows everything. */
   featured?: boolean;
+  /**
+   * A single-colour mark rather than a full-colour logo, so it cannot sit on
+   * both palettes unchanged and has to follow the theme.
+   */
+  monochrome?: boolean;
 }
 
 export const SKILL_GROUPS: readonly SkillGroup[] = ['core', 'frameworks', 'tooling'];
@@ -47,7 +52,7 @@ export const skills: Skill[] = [
   { name: 'VITEST', icon: VitestImg, group: 'tooling' },
   { name: 'DOCKER', icon: DockerImg, group: 'tooling' },
   { name: 'WEBPACK', icon: WebPackImg, group: 'tooling' },
-  { name: 'GITHUB', icon: GitHub, group: 'tooling' },
+  { name: 'GITHUB', icon: GitHub, group: 'tooling', monochrome: true },
 ];
 
 export const featuredSkills = skills.filter((skill) => skill.featured);
