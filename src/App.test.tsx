@@ -158,6 +158,18 @@ test('keeps the scroll cue decorative and silent when there is no room', async (
   expect(cue).toHaveClass('opacity-0');
 });
 
+test('fades navigations in but not the first paint', async () => {
+  renderAt('/');
+  const main = await screen.findByRole('main');
+  // The landing route's LCP is measured; starting it at zero opacity would
+  // push it back by the length of the animation.
+  expect(main.querySelector('.animate-route-in')).toBeNull();
+
+  await userEvent.click(within(main).getByRole('link', { name: 'All projects' }));
+  await screen.findByRole('heading', { level: 1, name: 'Projects' });
+  expect(main.querySelector('.animate-route-in')).not.toBeNull();
+});
+
 test('renders the 404 page for an unknown route', async () => {
   renderAt('/definitely-not-a-page');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();
