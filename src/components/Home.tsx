@@ -154,18 +154,13 @@ const Home = () => {
           <p className="mx-auto mt-4 max-w-xl text-[15px] leading-relaxed text-body sm:text-base">
             {t.home.contactCta}
           </p>
-          <div className="mt-7 flex flex-wrap justify-center gap-3">
+          {/* One action. The CV already sits in the hero and in the footer
+              300px below this, and a closing block that asks for two things
+              asks for neither. */}
+          <div className="mt-7 flex justify-center">
             <Link to={to('contact')} className={PRIMARY_CTA}>
               {t.home.contactAction}
             </Link>
-            <a
-              href={resume.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={SECONDARY_CTA}
-            >
-              {t.home.downloadCv}
-            </a>
           </div>
         </div>
       </section>

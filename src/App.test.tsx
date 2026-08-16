@@ -34,7 +34,9 @@ test('offers a way off the home page without opening the menu', async () => {
     'href',
     '/projects',
   );
-  expect(within(main).getAllByRole('link', { name: 'Download CV' })[0]).toHaveAttribute(
+  // Exactly one inside the page. The footer carries the other, and a third in
+  // the closing block put two of them within 300px of each other.
+  expect(within(main).getByRole('link', { name: 'Download CV' })).toHaveAttribute(
     'href',
     '/isa_bezeniroglu_resume.pdf',
   );
