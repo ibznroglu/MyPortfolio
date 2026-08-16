@@ -17,7 +17,8 @@
     "seeAllProjects": "All projects",
     "readMore": "Read more",
     "contactCta": "Currently open to new opportunities. I work on complex, data-heavy products.",
-    "contactAction": "Contact Me"
+    "contactAction": "Contact Me",
+    "scrollCue": "Scroll"
   },
   "notFound": {
     "title": "Page not found",

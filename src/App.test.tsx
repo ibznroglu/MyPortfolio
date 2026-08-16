@@ -145,6 +145,19 @@ test('watches the visitor counter only once the route has rendered', () => {
   expect(observedNodes).toHaveLength(1);
 });
 
+test('keeps the scroll cue decorative and silent when there is no room', async () => {
+  renderAt('/');
+  const main = await screen.findByRole('main');
+
+  const cue = within(main).getByText('Scroll').closest('span[aria-hidden="true"]');
+  expect(cue).not.toBeNull();
+
+  // jsdom reports no scroll room, which is what a page with nothing below the
+  // fold looks like: the cue stays mounted for layout but never animates in.
+  expect(cue).not.toHaveClass('animate-scroll-cue');
+  expect(cue).toHaveClass('opacity-0');
+});
+
 test('renders the 404 page for an unknown route', async () => {
   renderAt('/definitely-not-a-page');
   expect(await screen.findByRole('heading', { name: /page not found/i })).toBeInTheDocument();

@@ -91,6 +91,22 @@
   }
 }
 
+/* A short drift rather than a bounce. The cue should read as an invitation,
+   not as something demanding attention in the corner of the eye. */
+@keyframes scroll-cue {
+  0%,
+  100% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, 8px);
+  }
+}
+
+.animate-scroll-cue {
+  animation: scroll-cue 2.4s ease-in-out infinite;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
