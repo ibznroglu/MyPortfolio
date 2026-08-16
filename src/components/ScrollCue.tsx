@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { FaChevronDown } from 'react-icons/fa';
 import { useLanguage } from '../hooks/useLanguage';
 
@@ -22,14 +22,25 @@ import { useLanguage } from '../hooks/useLanguage';
  */
 const ScrollCue = () => {
   const { t } = useLanguage();
+  const cueRef = useRef<HTMLSpanElement>(null);
   const [visible, setVisible] = useState(false);
 
   useEffect(() => {
     // Measured on the frame after mount: layout has not settled during it, and
     // a cue that flashes on an unscrollable page is worse than none.
     const frame = requestAnimationFrame(() => {
+      const node = cueRef.current;
+      if (!node || window.scrollY !== 0) return;
+
       const room = document.documentElement.scrollHeight - window.innerHeight;
-      if (room > 120 && window.scrollY === 0) setVisible(true);
+      if (room <= 120) return;
+
+      // The cue has to clear the fold itself. On a tall hero and a short
+      // phone it lands below it, and a scroll hint nobody can see without
+      // scrolling is worse than none at all.
+      if (node.getBoundingClientRect().bottom > window.innerHeight) return;
+
+      setVisible(true);
     });
 
     const hide = () => setVisible(false);
@@ -43,6 +54,7 @@ const ScrollCue = () => {
 
   return (
     <span
+      ref={cueRef}
       aria-hidden="true"
       className={`pointer-events-none absolute bottom-5 left-1/2 flex -translate-x-1/2 flex-col items-center gap-1.5 text-body transition-opacity duration-500 ${
         visible ? 'animate-scroll-cue opacity-100' : 'opacity-0'
