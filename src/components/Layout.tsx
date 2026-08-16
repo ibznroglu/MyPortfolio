@@ -15,11 +15,16 @@ import { getBundle } from '../lib/translations';
  * the active language, so the <html lang> attribute is derived from it.
  */
 const Layout = ({ language }: { language: Language }) => {
-  const { pathname } = useLocation();
+  const { pathname, key: locationKey } = useLocation();
   // Latched, not reset per navigation: once any route has rendered, the
   // footer sits wherever the content puts it and stays trustworthy.
   const [routeReady, setRouteReady] = useState(false);
   const markRouteReady = useCallback(() => setRouteReady(true), []);
+
+  // The first paint is not a transition. Fading it in would start the landing
+  // route at zero opacity, and that route's LCP is measured. React Router
+  // keys the entry location "default", which says so without a ref.
+  const isInitialLocation = locationKey === 'default';
   const slug = slugFromPathname(pathname);
   const t = getBundle(language);
   const caseSlug = slug.startsWith('projects/') ? slug.slice('projects/'.length) : undefined;
@@ -52,10 +57,12 @@ const Layout = ({ language }: { language: Language }) => {
 
         <main id="main-content" tabIndex={-1} className="pt-20 focus:outline-none">
           <ErrorBoundary key={pathname} language={language}>
-            <Suspense fallback={<RouteFallback />}>
-              <RouteReady onReady={markRouteReady} />
-              <Outlet />
-            </Suspense>
+            <div className={isInitialLocation ? undefined : 'animate-route-in'}>
+              <Suspense fallback={<RouteFallback />}>
+                <RouteReady onReady={markRouteReady} />
+                <Outlet />
+              </Suspense>
+            </div>
           </ErrorBoundary>
         </main>
 

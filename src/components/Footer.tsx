@@ -50,9 +50,19 @@ const Footer = ({ routeReady }: { routeReady: boolean }) => {
           {/* Rendered even while idle so the observer has something to watch;
               the figure itself appears only once it is real. */}
           <p ref={countRef} className="truncate text-xs text-muted">
-            {status === 'ready'
-              ? `${totalVisitors.toLocaleString(language)} ${t.visitor.footer}`
-              : '\u00A0'}
+            {status === 'ready' ? (
+              // The figure arrives about a second after the footer does, and
+              // appearing without warning reads as a glitch. The fade says
+              // "this was fetched" without asking to be watched — a skeleton
+              // would announce a wait nobody is having.
+              <span className="animate-fade-in">
+                {`${totalVisitors.toLocaleString(language)} ${t.visitor.footer}`}
+              </span>
+            ) : (
+              // Held open so the line reserves its height and the observer has
+              // something to watch.
+              '\u00A0'
+            )}
           </p>
         </div>
 
