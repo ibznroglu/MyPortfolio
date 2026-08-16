@@ -32,7 +32,7 @@ const Home = () => {
       {/* Sized by its content rather than the viewport. A forced full height
           left half the fold empty on a laptop and pushed the first preview out
           of sight, which is the opposite of what this page is for. */}
-      <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-24 lg:py-14 lg:pb-28">
+      <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-16 lg:py-14 lg:pb-20">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
             <div className="flex-shrink-0">
@@ -44,7 +44,7 @@ const Home = () => {
                   width="512"
                   height="836"
                   fetchPriority="high"
-                  className="relative h-48 w-48 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-56 sm:w-56"
+                  className="relative h-40 w-40 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-56 sm:w-56"
                   style={{ objectPosition: '50% calc(50% + 2rem)' }}
                 />
                 <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full border-4 border-surface bg-green-500 shadow-lg sm:-bottom-2 sm:-right-2 sm:h-8 sm:w-8"></div>
