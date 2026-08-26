@@ -19,7 +19,7 @@
     "start": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "postbuild": "node scripts/generate-sitemap.js",
+    "postbuild": "node scripts/generate-sitemap.js && node scripts/prerender.js",
     "test": "vitest run",
     "test:watch": "vitest",
     "optimize:images": "node scripts/optimize-images.js",

@@ -8,7 +8,6 @@ import RouteFallback from './RouteFallback';
 import RouteReady from './RouteReady';
 import type { Language } from '../lib/translations';
 import { useDocumentMeta, slugFromPathname } from '../hooks/useDocumentMeta';
-import { getBundle } from '../lib/translations';
 
 /**
  * Shared shell for one language. The URL is the single source of truth for
@@ -26,19 +25,7 @@ const Layout = ({ language }: { language: Language }) => {
   // keys the entry location "default", which says so without a ref.
   const isInitialLocation = locationKey === 'default';
   const slug = slugFromPathname(pathname);
-  const t = getBundle(language);
-  const caseSlug = slug.startsWith('projects/') ? slug.slice('projects/'.length) : undefined;
-  const caseStudy = caseSlug
-    ? (t.caseStudies as Record<string, { title: string } | undefined>)[caseSlug]
-    : undefined;
-
-  const pageTitle = caseStudy
-    ? `${caseStudy.title} | ${t.home.name}`
-    : slug
-      ? `${t.nav[slug as keyof typeof t.nav]} | ${t.home.name} — ${t.home.title}`
-      : `${t.home.name} | ${t.home.title}`;
-
-  useDocumentMeta(slug, language, pageTitle);
+  useDocumentMeta(slug, language);
   useEffect(() => {
     document.documentElement.lang = language;
   }, [language]);

@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
-import { NAV_ITEMS, SITE_URL, localizedPath } from '../lib/navigation';
+import { NAV_ITEMS } from '../lib/navigation';
+import { pageMeta } from '../lib/pageMeta';
 import type { Language } from '../lib/translations';
 import { isCaseStudySlug } from '../lib/caseStudies';
 
@@ -23,28 +24,28 @@ const setMeta = (selector: string, attribute: string, value: string) => {
  * route. Without this every route would inherit the canonical baked into
  * index.html and claim to be the home page.
  */
-export const useDocumentMeta = (slug: string, language: Language, title: string) => {
+export const useDocumentMeta = (slug: string, language: Language) => {
   useEffect(() => {
-    document.title = title;
+    const { title, description, canonical, alternates } = pageMeta(slug, language);
 
-    const canonical = `${SITE_URL}${localizedPath(slug, language)}`;
+    document.title = title;
     setMeta('link[rel="canonical"]', 'href', canonical);
+    setMeta('meta[name="description"]', 'content', description);
     setMeta('meta[property="og:url"]', 'content', canonical);
     setMeta('meta[property="og:title"]', 'content', title);
+    setMeta('meta[property="og:description"]', 'content', description);
     setMeta('meta[name="twitter:title"]', 'content', title);
+    setMeta('meta[name="twitter:description"]', 'content', description);
     setMeta('meta[property="og:locale"]', 'content', language === 'tr' ? 'tr_TR' : 'en_US');
 
     document.querySelectorAll(`[${MANAGED}]`).forEach((node) => node.remove());
 
-    const english = `${SITE_URL}${localizedPath(slug, 'en')}`;
-    setLink('alternate', english, 'en');
-    setLink('alternate', `${SITE_URL}${localizedPath(slug, 'tr')}`, 'tr');
-    setLink('alternate', english, 'x-default');
+    alternates.forEach((alt) => setLink('alternate', alt.href, alt.hreflang));
 
     return () => {
       document.querySelectorAll(`[${MANAGED}]`).forEach((node) => node.remove());
     };
-  }, [slug, language, title]);
+  }, [slug, language]);
 };
 
 /**
