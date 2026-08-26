@@ -1,16 +1,18 @@
 # Portfolio — İsa Bezeniroğlu
 
 Bilingual portfolio site. React 18 and TypeScript on Vite, deployed on Vercel,
-with a serverless contact endpoint and realtime visitor stats.
+with a serverless contact endpoint, prerendered per-route metadata and a visitor
+counter on Firebase.
 
 **Live:** [isabezeniroglu.com](https://isabezeniroglu.com/)
 
-|             |                                                                   |
-| ----------- | ----------------------------------------------------------------- |
-| Main bundle | ~85 kB gzip (the Contact route adds 18 kB for Zod and Turnstile)  |
-| Images      | 248 KB total, generated from 6.1 MB of sources                    |
-| Lighthouse  | 100 performance · 100 accessibility · 96 best practices · 100 SEO |
-| Tests       | 11, on routing, case studies and the theme                        |
+|               |                                                                          |
+| ------------- | ------------------------------------------------------------------------ |
+| Landing route | 88 kB gzip (Contact adds 19 kB for Zod and Turnstile)                    |
+| Deferred      | 65 kB of Firebase, fetched only when the visitor counter comes on screen |
+| Images        | 269 KB total, generated from 5.9 MB of sources                           |
+| PageSpeed     | Desktop 100 across the board · mobile 98 performance, 100 elsewhere      |
+| Tests         | 23, on routing, metadata, accessibility and the theme                    |
 
 ---
 
@@ -31,16 +33,36 @@ language, and `<html lang>` is derived from the route rather than hardcoded.
 Route slugs live in one JSON file that the router, the navbar and the sitemap
 generator all read, so the three cannot drift apart.
 
-**Canonical URLs are per route.** As a SPA the site originally carried a single
-canonical tag in `index.html`, which meant every route claimed to be the home
-page. `useDocumentMeta` now sets canonical, `og:url` and hreflang alternates per
-route; the sitemap emits all ten URLs with matching alternates.
+**Metadata is written into the HTML, not applied afterwards.** A catch-all
+rewrite serves the same `index.html` for every URL, so the title, description
+and canonical were only corrected once React had mounted. Search engines render
+JavaScript eventually; the crawlers behind link previews never do, and sharing a
+case study showed the home page's title instead of the article's.
+`scripts/prerender.js` now writes one HTML file per route after the build,
+sixteen in all, each with its own title, description, canonical, `og` tags,
+hreflang alternates and `html lang`. Vercel resolves the filesystem before
+rewrites, so `/about` serves `build/about/index.html` with no extra config.
+
+The formula lives in `src/lib/pageMeta.ts` because the runtime and the build
+step both need it, and a second copy would let the rendered page and the crawled
+page drift apart with nothing to catch it. The script loads that module through
+Vite's own SSR loader, so there is no duplicate resolution logic and no extra
+dependency. `localizedHref` reproduces `generate-sitemap.js` down to the
+trailing slash on the home page, so the canonical a crawler reads and the URL
+the sitemap advertises are the same string.
 
 **Images are generated, never committed by hand.** `assets-source/` holds
 full-resolution PNGs. A sharp pipeline crops project screenshots to a shared
 2:1 ratio, resizes everything to twice its on-screen size, and emits WebP into
-`src/assets/`. 6.1 MB of sources become 248 KB of output, and every project
+`src/assets/`. 5.9 MB of sources become 269 KB of output, and every project
 card gets an identical box without CSS letterboxing.
+
+Project cards ship two widths behind `srcset`. A 1100px source went into a card
+that is never wider than about 405px, so a 1x screen now takes 560w and a 2x
+screen 900w — 104 kB instead of 147, and 62 kB where the device does not need
+the density. The widths follow what the card measures rather than round numbers:
+an earlier pass at 400w and 800w looked soft on a 1x desktop, because 400w
+against 370px displayed leaves no downscale to hide compression behind.
 
 **Vite's asset inlining had to be turned off.** The default inlines anything
 under 4 kB as base64, which caught most of the WebP icons and pushed the bundle
@@ -54,19 +76,51 @@ Turnstile token before Resend sends the mail. The client uses the same schema fo
 instant feedback, but the server is the only gate. Verified with curl: a request
 carrying a forged `Origin` header still returns `403 humanCheckFailed`.
 
-**Visitor stats were reworked for correctness.** The counter used to read then
-write, losing an increment under concurrent visits; it is now a transaction.
-Deduplication moved from localStorage — which a visitor can clear — to a
-server-side claim guarded by rules that allow creation but never update.
-`lastSeen` is a `serverTimestamp()` that the security rules require, so a client
-cannot forge a permanent presence. Active users come from an indexed
-`orderByChild` query over a sliding window instead of downloading the whole node.
+**Visitor stats were reworked for correctness, then for weight.** The counter
+used to read then write, losing an increment under concurrent visits; it is now
+a transaction. Deduplication moved from localStorage — which a visitor can
+clear — to a server-side claim guarded by rules that allow creation but never
+update.
+
+The Firebase SDK also used to sit in the home route's chunk, so every landing
+visit downloaded 72 kB gzip before first paint to render a figure nobody had
+asked for. All Firebase usage now lives in `src/lib/visitorStats.ts`, imported
+dynamically once the footer is on screen. The named imports stay inside that
+module on purpose: `import('firebase/database')` at the call site defers the SDK
+but keeps the whole namespace alive, and measured 91 kB against 65.
+
+The live-user figure is gone with it. On a personal site it read zero most of
+the time, which says less than showing nothing, and removing it took the
+presence heartbeat, the sliding-window query and the server clock offset along
+with it.
+
+Deciding when the counter is "on screen" took three attempts. An
+`IntersectionObserver` started at mount fires immediately, because
+`RouteFallback` fills the same `section-shell` every page uses and leaves the
+footer at the fold while a lazy chunk is in flight. The `load` event is no
+better: a lazily imported route is not part of the document's load. `RouteReady`
+renders nothing inside the Suspense boundary, so it mounts only once the chunk
+has resolved, and the footer waits for that.
 
 **CI asserts on what is deterministic.** Lighthouse's performance score swung
 thirty points between runs on shared GitHub runners, so it warns rather than
 blocks. `total-byte-weight`, `modern-image-formats` and the minification audits
 block — they catch the regression that actually matters (a large unoptimised
 image sneaking back in) and cannot be moved by CPU contention.
+
+There are two configs now. The original ran with `preset: "desktop"`, which
+meant nothing in CI had ever measured the form factor PageSpeed defaults to.
+`lighthouserc.mobile.json` mirrors every assertion under a 412x823 viewport with
+4x CPU throttling, and it earned its place on the first run: `--muted` had never
+cleared AA on any background except the one pairing this file happened to
+measure, and the footer that renders it is hidden above `lg`. It found two more
+since — redundant alt text on the skill icons, and a scroll cue that landed
+below the fold on a 375px phone.
+
+Both configs also stopped silently ignoring their own port. `npx vite preview --
+--port 4174` never passed the flag through, because npx consumes everything
+after `--`; preview fell back to its default and the desktop config had been
+hiding the same mistake for months by happening to use that default.
 
 **Fonts are self-hosted.** Google Fonts cost two extra DNS and TLS handshakes
 before first paint and sent every visitor's IP address to Google. Raleway now
@@ -108,16 +162,17 @@ works without a Cloudflare account.
 
 ## Scripts
 
-| Command                   | Description                                                  |
-| ------------------------- | ------------------------------------------------------------ |
-| `npm start`               | Dev server with hot reload                                   |
-| `npm run build`           | Production build into `build/`, then regenerates the sitemap |
-| `npm run preview`         | Serves the production build locally                          |
-| `npm test`                | Vitest run                                                   |
-| `npm run typecheck`       | `tsc --noEmit`                                               |
-| `npm run lint`            | ESLint over `src/`, `api/` and the build scripts             |
-| `npm run lighthouse`      | Lighthouse CI against a local preview                        |
-| `npm run optimize:images` | Regenerates WebP assets from `assets-source/`                |
+| Command                     | Description                                                       |
+| --------------------------- | ----------------------------------------------------------------- |
+| `npm start`                 | Dev server with hot reload                                        |
+| `npm run build`             | Production build into `build/`, then sitemap and prerendered HTML |
+| `npm run preview`           | Serves the production build locally                               |
+| `npm test`                  | Vitest run                                                        |
+| `npm run typecheck`         | `tsc --noEmit`                                                    |
+| `npm run lint`              | ESLint over `src/`, `api/` and the build scripts                  |
+| `npm run lighthouse`        | Lighthouse CI against a local preview, desktop                    |
+| `npm run lighthouse:mobile` | The same assertions under mobile emulation                        |
+| `npm run optimize:images`   | Regenerates WebP assets from `assets-source/`                     |
 
 ## Project structure
 
@@ -128,26 +183,31 @@ works without a Cloudflare account.
 ├── assets-source/              # Full-resolution PNG originals, never bundled
 ├── public/                     # Copied verbatim: favicons, resume, robots.txt
 ├── scripts/
-│   ├── generate-sitemap.js     # Ten URLs with hreflang, lastmod from git
+│   ├── generate-sitemap.js     # Sixteen URLs with hreflang, lastmod from git
+│   ├── prerender.js            # One HTML file per route, with its own metadata
 │   └── optimize-images.js      # sharp pipeline: crop, resize, WebP
 ├── src/
 │   ├── assets/                 # Generated WebP output
 │   ├── components/
-│   ├── config/firebase.ts
 │   ├── context/                # Language context and provider, split apart
+│   ├── data/                   # Projects, skills, social links, resume
 │   ├── hooks/                  # useLanguage, useDocumentMeta, useVisitorTracking
 │   ├── lib/
+│   │   ├── caseStudies.ts      # Slugs: addressable pages, not nav items
 │   │   ├── contactSchema.ts    # Shared by the form and the API route
 │   │   ├── navigation.ts
+│   │   ├── pageMeta.ts         # Shared by the runtime and the prerender step
 │   │   ├── routes.json         # Single source of truth for slugs
-│   │   └── translations.ts     # Bundles with an English fallback
+│   │   ├── translations.ts     # Bundles with an English fallback
+│   │   └── visitorStats.ts     # The only Firebase import, loaded on demand
 │   ├── locales/                # en.json, tr.json
 │   ├── App.tsx
 │   └── main.tsx
 ├── .github/workflows/          # ci.yml, lighthouse.yml
 ├── index.html                  # Vite entry point, at the root rather than public/
 ├── vercel.json                 # Rewrites, CSP, HSTS, cache headers
-└── lighthouserc.json
+├── lighthouserc.json           # Desktop budget
+└── lighthouserc.mobile.json    # The same assertions on a phone
 ```
 
 ## Environment
@@ -186,27 +246,19 @@ never be verified, and preview URLs change with every branch.
         ".write": "auth != null && auth.uid === $uid && !data.exists()",
         ".validate": "newData.isBoolean()"
       }
-    },
-
-    "activeUsers": {
-      ".read": true,
-      ".indexOn": ["lastSeen"],
-      "$uid": {
-        ".write": "auth != null && auth.uid === $uid",
-        ".validate": "newData.hasChildren(['lastSeen'])",
-        "lastSeen": { ".validate": "newData.val() === now" },
-        "$other": { ".validate": false }
-      }
     }
   }
 }
 ```
 
-Three constraints carry the weight. `totalVisitors` accepts only an increment of
+Two constraints carry the weight. `totalVisitors` accepts only an increment of
 exactly one, so it cannot be reset or inflated. `countedVisitors/$uid` can be
 created but never updated or deleted, so nobody can re-claim a first visit.
-`lastSeen: newData.val() === now` forces `serverTimestamp()`, which makes a
-forged or future-dated presence entry impossible.
+
+An `activeUsers` node used to sit alongside them, with an index on `lastSeen`
+and a `newData.val() === now` rule that forced `serverTimestamp()` so a client
+could not forge a permanent presence. It was removed with the live-user figure
+it fed.
 
 ## Deployment
 
@@ -222,6 +274,14 @@ The CSP allows `challenges.cloudflare.com` for Turnstile and
 `*.firebaseio.com` in `script-src` — Firebase falls back to long polling when
 WebSocket is blocked, and that transport injects a script tag.
 
+It was not widened for Firebase Auth. `getAuth` installs the popup and redirect
+resolver whether or not an app signs in that way, which loads `apis.google.com`
+and opens a hidden iframe; anonymous sign-in uses neither, so both requests were
+blocked and logged on every visit. `initializeAuth` without a
+`popupRedirectResolver` removes the behaviour and lets that code tree-shake out.
+Silencing the errors by permitting the requests would have been the wrong half
+of the fix.
+
 ## Themes
 
 Colour lives in CSS variables as RGB channel triplets rather than finished
@@ -236,27 +296,36 @@ gets the design as intended. `public/theme-init.js` applies the stored or system
 preference before the first paint; it is a separate file rather than an inline
 block because the CSP allows `script-src 'self'` only.
 
-Measured contrast for the light palette:
+Measured contrast, both palettes, both surfaces:
 
-| Pair | Ratio |
-| --- | --- |
-| Heading on page | 12.90:1 |
-| Heading on card | 14.48:1 |
-| Body on page | 6.20:1 |
-| Body on card | 6.96:1 |
-| Muted on card | 4.76:1 |
-| Accent on card | 6.04:1 |
-| White on accent fill | 6.04:1 |
+|             | Light page | Light card | Dark page | Dark card |
+| ----------- | ---------- | ---------- | --------- | --------- |
+| Heading     | 12.90      | 14.48      | 12.17     | 10.94     |
+| Body        | 6.20       | 6.96       | 5.69      | 5.11      |
+| Muted       | 5.24       | 5.89       | 5.50      | 4.95      |
+| Accent-soft | 5.38       | 6.04       | 4.99      | 4.49      |
 
-The accent is pink-700 in light and pink-600 in dark. pink-600 on white measures
-4.56:1, which clears AA by 0.06 — too little room for a palette that will be
-edited again.
+White on the accent fill measures 6.04 in light and 4.60 in dark. The accent is
+pink-700 in light and pink-600 in dark; pink-600 on white measures 4.56, which
+clears AA by 0.06 — too little room for a palette that will be edited again.
+
+An earlier version of this table listed the light palette only, and only on
+cards. That was the single pairing `--muted` happened to pass: it measured 3.64
+and 3.27 on the dark palette and 4.24 on the light page, all below AA. Nothing
+caught it because the footer is the main place the token renders and the footer
+was hidden above `lg`, so the desktop budget never saw it. The mobile budget
+failed on it within one run of being added.
+
+Dark on card is the tight one at 4.95, and it cannot go higher without
+overtaking `--body` at 5.11: on a dark surface more contrast means a lighter
+colour, so "dimmer than body" caps it. Accent-soft at 4.49 is used for icons and
+a decorative chevron, where the requirement is 3.0 for a graphical object.
 
 **The CI budgets only cover the dark theme.** Lighthouse runs without
-`data-theme` set, so the figures above were calculated rather than asserted. The
-alternative was a query parameter that switches themes, which means shipping a
-test hook in production code to cover a palette that changes rarely. This is a
-known gap, recorded here rather than left to be discovered.
+`data-theme` set, so the light figures above are calculated rather than
+asserted. The alternative was a query parameter that switches themes, which
+means shipping a test hook in production code to cover a palette that changes
+rarely. This is a known gap, recorded here rather than left to be discovered.
 
 ## Dependency audit
 
@@ -271,7 +340,7 @@ machine. `npm audit fix --force` would resolve them by downgrading to
 `@lhci/cli@0.1.0`, released in 2020, which removes the performance budgets
 entirely. Keeping the tooling is the better trade.
 
-Reviewed 2026-08-09.
+Reviewed 2026-08-26.
 
 ## License
 
