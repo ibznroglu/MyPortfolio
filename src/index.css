@@ -118,13 +118,19 @@
    are Raleway's 94% and 23.4% divided by that scale factor. The swap then
    changes the shapes without moving anything.
 
+   Three names, one set of numbers: Liberation Sans and Arimo are metrically
+   compatible with Arial, so the same overrides hold. Arial alone covers Windows
+   and macOS but not Linux, which is where Lighthouse runs — the first version
+   of this rule resolved to nothing there and left CLS exactly where it was.
+   Android has none of the three and still falls through unadjusted.
+
    font-display: optional would also reach zero, by never showing Raleway to a
    first-time visitor on a slow connection. Matching the metrics costs nothing
-   visual. Where Arial is absent the source does not resolve, the stack falls
-   through to the next family, and the result is what it is today. */
+   visual. Where no source resolves, the stack falls through to the next family
+   and the result is what it is today. */
 @font-face {
   font-family: 'Raleway Fallback';
-  src: local('Arial');
+  src: local('Arial'), local('Liberation Sans'), local('Arimo');
   size-adjust: 113.98%;
   ascent-override: 82.47%;
   descent-override: 20.53%;
