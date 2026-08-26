@@ -107,6 +107,30 @@
   animation: scroll-cue 2.4s ease-in-out infinite;
 }
 
+/* Raleway ships with font-display: swap, so the first paint uses a system font
+   and every line reflows when the real one arrives. On the mobile budget that
+   reflow is the whole of CLS 0.078: the footer sits at the end of the document
+   and absorbs every pixel the content above it gains.
+
+   This fallback carries Raleway's own metrics, scaled so Arial occupies the
+   same space per character. size-adjust matches the average advance width
+   (Raleway 566/1000 against Arial 1017/2048); the ascent and descent overrides
+   are Raleway's 94% and 23.4% divided by that scale factor. The swap then
+   changes the shapes without moving anything.
+
+   font-display: optional would also reach zero, by never showing Raleway to a
+   first-time visitor on a slow connection. Matching the metrics costs nothing
+   visual. Where Arial is absent the source does not resolve, the stack falls
+   through to the next family, and the result is what it is today. */
+@font-face {
+  font-family: 'Raleway Fallback';
+  src: local('Arial');
+  size-adjust: 113.98%;
+  ascent-override: 82.47%;
+  descent-override: 20.53%;
+  line-gap-override: 0%;
+}
+
 /* github.webp is a white-only mark — the single monochrome logo in a set of
    full-colour ones — so on the light palette it is white on near-white.
    Inverting takes it to near-black, which is how GitHub draws it on light
