@@ -22,6 +22,7 @@ module.exports = {
         sans: [
           'Raleway Variable',
           'Raleway',
+          'Raleway Fallback',
           'ui-sans-serif',
           'system-ui',
           '-apple-system',
