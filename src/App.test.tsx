@@ -5,6 +5,7 @@ import App from './App';
 import { observedNodes } from './setupTests';
 import Footer from './components/Footer';
 import LanguageProvider from './context/LanguageProvider';
+import { ALL_SLUGS, pageMeta } from './lib/pageMeta';
 
 // Pages are lazily loaded, so every assertion has to await the chunk.
 const renderAt = (route: string) =>
@@ -170,6 +171,28 @@ test('fades navigations in but not the first paint', async () => {
   await userEvent.click(within(main).getByRole('link', { name: 'All projects' }));
   await screen.findByRole('heading', { level: 1, name: 'Projects' });
   expect(main.querySelector('.animate-route-in')).not.toBeNull();
+});
+
+test('gives every route its own title, canonical and alternates', () => {
+  // The prerender step writes these into the HTML from the same module, so a
+  // change here shows up in the files crawlers read without JavaScript.
+  const home = pageMeta('', 'en');
+  expect(home.canonical).toBe('https://isabezeniroglu.com/');
+
+  const study = pageMeta('projects/vargeloglu-insaat', 'tr');
+  expect(study.canonical).toBe('https://isabezeniroglu.com/tr/projects/vargeloglu-insaat');
+  expect(study.title).toContain('İSA BEZENİROĞLU');
+  // Its own summary, not the site description repeated on every page.
+  expect(study.description).not.toBe(home.description);
+
+  for (const slug of ALL_SLUGS) {
+    for (const language of ['en', 'tr'] as const) {
+      const meta = pageMeta(slug, language);
+      expect(meta.title.length).toBeGreaterThan(10);
+      expect(meta.description.length).toBeGreaterThan(30);
+      expect(meta.alternates.map((alt) => alt.hreflang)).toEqual(['en', 'tr', 'x-default']);
+    }
+  }
 });
 
 test('renders the 404 page for an unknown route', async () => {
