@@ -191,6 +191,12 @@ test('gives every route its own title, canonical and alternates', () => {
       expect(meta.title.length).toBeGreaterThan(10);
       expect(meta.description.length).toBeGreaterThan(30);
       expect(meta.alternates.map((alt) => alt.hreflang)).toEqual(['en', 'tr', 'x-default']);
+
+      // A case study previews the work; anything else falls back to the logo,
+      // which the prerender step leaves in place by finding no source here.
+      const isCaseStudy = slug.startsWith('projects/');
+      expect(Boolean(meta.imageSource)).toBe(isCaseStudy);
+      if (isCaseStudy) expect(meta.imageAlt).toBe(meta.title.split(' | ')[0]);
     }
   }
 });

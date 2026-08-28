@@ -27,7 +27,9 @@ const replaceTag = (html, pattern, replacement) => {
 const escape = (value) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-const buildHtml = (template, meta, language) => {
+const PROJECT_IMAGE = { width: '900', height: '450' };
+
+const buildHtml = (template, meta, language, manifest) => {
   const title = escape(meta.title);
   const description = escape(meta.description);
 
@@ -74,6 +76,39 @@ const buildHtml = (template, meta, language) => {
     `<meta name="twitter:description" content="${description}" />`,
   );
 
+  if (meta.imageSource) {
+    const entry = manifest[meta.imageSource];
+    if (!entry) throw new Error(`Prerender could not resolve ${meta.imageSource}`);
+    const url = `${new URL(meta.canonical).origin}/${entry.file}`;
+
+    html = replaceTag(
+      html,
+      /<meta property="og:image" content="[^"]*" \/>/,
+      `<meta property="og:image" content="${url}" />`,
+    );
+    html = replaceTag(
+      html,
+      /<meta property="og:image:width" content="[^"]*" \/>/,
+      `<meta property="og:image:width" content="${PROJECT_IMAGE.width}" />`,
+    );
+    html = replaceTag(
+      html,
+      /<meta property="og:image:height" content="[^"]*" \/>/,
+      `<meta property="og:image:height" content="${PROJECT_IMAGE.height}" />`,
+    );
+    html = replaceTag(
+      html,
+      /<meta property="og:image:alt" content="[^"]*" \/>/,
+      `<meta property="og:image:alt" content="${escape(meta.imageAlt ?? '')}" />`,
+    );
+    // A 900x450 screenshot deserves the wide card; the square logo does not.
+    html = replaceTag(
+      html,
+      /<meta name="twitter:card" content="[^"]*" \/>/,
+      '<meta name="twitter:card" content="summary_large_image" />',
+    );
+  }
+
   const alternates = meta.alternates
     .map((alt) => `    <link rel="alternate" hreflang="${alt.hreflang}" href="${alt.href}" />`)
     .join('\n');
@@ -97,6 +132,9 @@ const server = await createServer({
 try {
   const { ALL_SLUGS, pageMeta } = await server.ssrLoadModule('/src/lib/pageMeta.ts');
   const template = await readFile(path.join(BUILD_DIR, 'index.html'), 'utf8');
+  const manifest = JSON.parse(
+    await readFile(path.join(BUILD_DIR, '.vite', 'manifest.json'), 'utf8'),
+  );
   let written = 0;
 
   for (const slug of ALL_SLUGS) {
@@ -106,7 +144,7 @@ try {
 
       const file = outputPath(slug, language);
       await mkdir(path.dirname(file), { recursive: true });
-      await writeFile(file, buildHtml(template, pageMeta(slug, language), language));
+      await writeFile(file, buildHtml(template, pageMeta(slug, language), language, manifest));
       written += 1;
     }
   }
@@ -114,7 +152,7 @@ try {
   // The root still needs its hreflang tags, which the template does not carry.
   await writeFile(
     path.join(BUILD_DIR, 'index.html'),
-    buildHtml(template, pageMeta('', 'en'), 'en'),
+    buildHtml(template, pageMeta('', 'en'), 'en', manifest),
   );
 
   console.log(`prerendered ${written + 1} html files`);
