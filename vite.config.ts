@@ -17,5 +17,9 @@ export default defineConfig({
     // Keep images out of the JS bundle: base64 inlining inflates them ~33%
     // and gzips far worse than a separately cached binary file.
     assetsInlineLimit: 0,
+    // The prerender step needs the hashed filename of each project screenshot
+    // to write an absolute og:image, and guessing it from a glob would break
+    // the first time two assets share a prefix.
+    manifest: true,
   },
 });
