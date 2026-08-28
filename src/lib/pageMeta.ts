@@ -16,11 +16,11 @@ export interface PageMeta {
   canonical: string;
   alternates: { hreflang: string; href: string }[];
   /**
-   * Source path of the preview image, or undefined for the site default. The
-   * prerender step resolves it through the build manifest, since the built
-   * filename carries a content hash nothing else can predict.
+   * Absolute URL of the preview image, or undefined for the site default.
+   * These live in public/ as JPEG: LinkedIn, Slack and X do not accept WebP,
+   * and pointing og:image at one produced a card with no image at all.
    */
-  imageSource?: string;
+  image?: string;
   imageAlt?: string;
 }
 
@@ -52,13 +52,13 @@ export const pageMeta = (slug: string, language: Language): PageMeta => {
 
   // A case study shows the work. Everything else shows the logo, which is the
   // right default for pages that are not about one project.
-  const imageSource = caseSlug && caseStudy ? PROJECT_IMAGES[caseSlug] : undefined;
+  const image = caseSlug && caseStudy ? `${SITE_URL}/og/${caseSlug}.jpg` : undefined;
 
   return {
     title,
     description,
-    imageSource,
-    imageAlt: imageSource ? caseStudy?.title : undefined,
+    image,
+    imageAlt: image ? caseStudy?.title : undefined,
     canonical: localizedHref(slug, language),
     alternates: [
       { hreflang: 'en', href: localizedHref(slug, 'en') },
@@ -66,17 +66,6 @@ export const pageMeta = (slug: string, language: Language): PageMeta => {
       { hreflang: 'x-default', href: localizedHref(slug, 'en') },
     ],
   };
-};
-
-/**
- * Case study slug to the screenshot the projects page already renders for it.
- * Kept here rather than read from data.ts because the prerender step needs the
- * source path, and importing data.ts would resolve these to bundled URLs.
- */
-const PROJECT_IMAGES: Record<string, string> = {
-  portfolio: 'src/assets/projects/portfolio.webp',
-  'vargeloglu-insaat': 'src/assets/projects/vargelogluinsaat.webp',
-  'gaming-pro-market': 'src/assets/projects/gamingpromarket.webp',
 };
 
 /** Every indexable slug, '' for the home page. */

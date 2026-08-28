@@ -195,7 +195,10 @@ test('gives every route its own title, canonical and alternates', () => {
       // A case study previews the work; anything else falls back to the logo,
       // which the prerender step leaves in place by finding no source here.
       const isCaseStudy = slug.startsWith('projects/');
-      expect(Boolean(meta.imageSource)).toBe(isCaseStudy);
+      expect(Boolean(meta.image)).toBe(isCaseStudy);
+      // JPEG, not the hashed WebP the page itself renders: LinkedIn shows no
+      // image at all for a WebP og:image.
+      if (isCaseStudy) expect(meta.image).toMatch(/^https:\/\/\S+\/og\/\S+\.jpg$/);
       if (isCaseStudy) expect(meta.imageAlt).toBe(meta.title.split(' | ')[0]);
     }
   }

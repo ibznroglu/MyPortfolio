@@ -27,9 +27,10 @@ const replaceTag = (html, pattern, replacement) => {
 const escape = (value) =>
   value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
-const PROJECT_IMAGE = { width: '900', height: '450' };
+// Matches OG_WIDTH and OG_HEIGHT in scripts/optimize-images.js.
+const PROJECT_IMAGE = { width: '1200', height: '630' };
 
-const buildHtml = (template, meta, language, manifest) => {
+const buildHtml = (template, meta, language) => {
   const title = escape(meta.title);
   const description = escape(meta.description);
 
@@ -76,15 +77,11 @@ const buildHtml = (template, meta, language, manifest) => {
     `<meta name="twitter:description" content="${description}" />`,
   );
 
-  if (meta.imageSource) {
-    const entry = manifest[meta.imageSource];
-    if (!entry) throw new Error(`Prerender could not resolve ${meta.imageSource}`);
-    const url = `${new URL(meta.canonical).origin}/${entry.file}`;
-
+  if (meta.image) {
     html = replaceTag(
       html,
       /<meta property="og:image" content="[^"]*" \/>/,
-      `<meta property="og:image" content="${url}" />`,
+      `<meta property="og:image" content="${meta.image}" />`,
     );
     html = replaceTag(
       html,
@@ -132,9 +129,6 @@ const server = await createServer({
 try {
   const { ALL_SLUGS, pageMeta } = await server.ssrLoadModule('/src/lib/pageMeta.ts');
   const template = await readFile(path.join(BUILD_DIR, 'index.html'), 'utf8');
-  const manifest = JSON.parse(
-    await readFile(path.join(BUILD_DIR, '.vite', 'manifest.json'), 'utf8'),
-  );
   let written = 0;
 
   for (const slug of ALL_SLUGS) {
@@ -144,7 +138,7 @@ try {
 
       const file = outputPath(slug, language);
       await mkdir(path.dirname(file), { recursive: true });
-      await writeFile(file, buildHtml(template, pageMeta(slug, language), language, manifest));
+      await writeFile(file, buildHtml(template, pageMeta(slug, language), language));
       written += 1;
     }
   }
@@ -152,7 +146,7 @@ try {
   // The root still needs its hreflang tags, which the template does not carry.
   await writeFile(
     path.join(BUILD_DIR, 'index.html'),
-    buildHtml(template, pageMeta('', 'en'), 'en', manifest),
+    buildHtml(template, pageMeta('', 'en'), 'en'),
   );
 
   console.log(`prerendered ${written + 1} html files`);

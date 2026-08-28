@@ -35,11 +35,49 @@ const TARGETS = [
   { file: 'isa.png', width: 512, quality: 82 },
 ];
 
+/**
+ * Social preview images, written to public/ as JPEG.
+ *
+ * LinkedIn, Slack and X accept JPEG, PNG and GIF. They do not accept WebP —
+ * pointing og:image at one produced a card with no image at all, not even a
+ * fallback. These also skip the hashed asset pipeline: og:image has to be an
+ * absolute URL, and a stable path in public/ is one less thing for the
+ * prerender step to resolve.
+ *
+ * 1200x630 is the size every one of them documents. gamingpromarket's source
+ * is 865px wide and gets upscaled to reach it; a slightly soft preview beats a
+ * small card.
+ */
+const OG_DIR = path.join(__dirname, '..', 'public', 'og');
+const OG_WIDTH = 1200;
+const OG_HEIGHT = 630;
+const OG_QUALITY = 85;
+
+const OG_TARGETS = [
+  { file: 'projects/portfolio.png', name: 'portfolio.jpg', position: 'top' },
+  { file: 'projects/vargelogluinsaat.png', name: 'vargeloglu-insaat.jpg', position: 'left top' },
+  { file: 'projects/gamingpromarket.png', name: 'gaming-pro-market.jpg', position: 'top' },
+];
+
 // Skill icons render at w-11 (44px), so 96px is more than enough.
 const ICON_WIDTH = 96;
 const ICON_QUALITY = 88;
 
 const kb = (bytes) => (bytes / 1024).toFixed(0);
+
+async function convertOg({ file, name, position }) {
+  const src = path.join(SRC_DIR, file);
+  const out = path.join(OG_DIR, name);
+
+  fs.mkdirSync(OG_DIR, { recursive: true });
+
+  await sharp(src)
+    .resize({ width: OG_WIDTH, height: OG_HEIGHT, fit: 'cover', position })
+    .jpeg({ quality: OG_QUALITY, mozjpeg: true })
+    .toFile(out);
+
+  console.log(`og/${name.padEnd(24)} ${OG_WIDTH}x${OG_HEIGHT}  ${kb(fs.statSync(out).size)} KB`);
+}
 
 async function convert(relPath, { width, height, position, quality, extract }) {
   const src = path.join(SRC_DIR, relPath);
@@ -107,6 +145,11 @@ async function main() {
     const { before, after } = await convert(icon, { width: ICON_WIDTH, quality: ICON_QUALITY });
     totalBefore += before;
     totalAfter += after;
+  }
+
+  console.log('');
+  for (const target of OG_TARGETS) {
+    await convertOg(target);
   }
 
   const saved = (1 - totalAfter / totalBefore) * 100;
