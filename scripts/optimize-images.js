@@ -48,10 +48,24 @@ const TARGETS = [
  * is 865px wide and gets upscaled to reach it; a slightly soft preview beats a
  * small card.
  */
-const OG_DIR = path.join(__dirname, '..', 'public', 'og');
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const OG_DIR = path.join(PUBLIC_DIR, 'og');
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
 const OG_QUALITY = 85;
+
+/**
+ * The portrait behind Person.image in the structured data.
+ *
+ * It used to point at logo512.png, which tells Google a mark rather than a
+ * face and leaves the entity ambiguous — a person or an organisation. On a
+ * name query that ambiguity is the whole game. 1200px on the longest side is
+ * what Google asks for in images used by Search features.
+ *
+ * Squared here rather than shipped square, so the crop stays in the pipeline
+ * with every other framing decision.
+ */
+const PORTRAIT = { file: 'portrait.jpg', name: 'portrait.jpg', size: 1200, quality: 86 };
 
 const OG_TARGETS = [
   { file: 'projects/portfolio.png', name: 'portfolio.jpg', position: 'top' },
@@ -64,6 +78,25 @@ const ICON_WIDTH = 96;
 const ICON_QUALITY = 88;
 
 const kb = (bytes) => (bytes / 1024).toFixed(0);
+
+async function convertPortrait() {
+  const src = path.join(SRC_DIR, PORTRAIT.file);
+  if (!fs.existsSync(src)) {
+    console.warn(`\nSkipping portrait: ${PORTRAIT.file} not found in assets-source/`);
+    return;
+  }
+
+  const out = path.join(PUBLIC_DIR, PORTRAIT.name);
+
+  await sharp(src)
+    .resize({ width: PORTRAIT.size, height: PORTRAIT.size, fit: 'cover', position: 'top' })
+    .jpeg({ quality: PORTRAIT.quality, mozjpeg: true })
+    .toFile(out);
+
+  console.log(
+    `${PORTRAIT.name.padEnd(27)} ${PORTRAIT.size}x${PORTRAIT.size}  ${kb(fs.statSync(out).size)} KB`,
+  );
+}
 
 async function convertOg({ file, name, position }) {
   const src = path.join(SRC_DIR, file);
@@ -151,6 +184,7 @@ async function main() {
   for (const target of OG_TARGETS) {
     await convertOg(target);
   }
+  await convertPortrait();
 
   const saved = (1 - totalAfter / totalBefore) * 100;
   console.log(

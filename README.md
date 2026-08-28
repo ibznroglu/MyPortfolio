@@ -11,7 +11,7 @@ counter on Firebase.
 | Landing route | 88 kB gzip (Contact adds 19 kB for Zod and Turnstile)                    |
 | Deferred      | 65 kB of Firebase, fetched only when the visitor counter comes on screen |
 | Images        | 269 KB total, generated from 5.9 MB of sources                           |
-| PageSpeed     | Desktop 100 across the board · mobile 98 performance, 100 elsewhere      |
+| PageSpeed     | Desktop 100 across the board · mobile 96-98 performance, 100 elsewhere   |
 | Tests         | 23, on routing, metadata, accessibility and the theme                    |
 
 ---
