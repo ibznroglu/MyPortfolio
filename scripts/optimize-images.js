@@ -18,19 +18,50 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const SRC_DIR = path.join(__dirname, '..', 'assets-source');
 const OUT_DIR = path.join(__dirname, '..', 'src', 'assets');
 
-// Project cards render at ~530px wide, so ~1100px covers retina.
+// Project cards are never wider than about 405px, in the two-column range, so
+// 900px covers a 2x screen and the 560px variant covers a 1x one. ProjectCard
+// names both in srcset; generating them here rather than by hand is what keeps
+// the descriptors honest, since anything made outside this file gets
+// overwritten the next time it runs.
 // Screenshots share a 2:1 ratio so every card gets an identical box.
 // `extract` picks the crop window manually when the automatic one frames badly.
 const TARGETS = [
-  { file: 'projects/portfolio.png', width: 1100, height: 550, position: 'top', quality: 82 },
+  { file: 'projects/portfolio.png', width: 900, height: 450, position: 'top', quality: 82 },
   {
     file: 'projects/vargelogluinsaat.png',
-    width: 1100,
-    height: 550,
+    width: 900,
+    height: 450,
     position: 'left top',
     quality: 82,
   },
-  { file: 'projects/gamingpromarket.png', width: 1100, height: 550, position: 'top', quality: 82 },
+  { file: 'projects/gamingpromarket.png', width: 900, height: 450, position: 'top', quality: 82 },
+
+  // The 1x variant. Higher quality because at close to 1:1 there is no
+  // downscale left to hide compression behind.
+  {
+    file: 'projects/portfolio.png',
+    suffix: '-560',
+    width: 560,
+    height: 280,
+    position: 'top',
+    quality: 88,
+  },
+  {
+    file: 'projects/vargelogluinsaat.png',
+    suffix: '-560',
+    width: 560,
+    height: 280,
+    position: 'left top',
+    quality: 88,
+  },
+  {
+    file: 'projects/gamingpromarket.png',
+    suffix: '-560',
+    width: 560,
+    height: 280,
+    position: 'top',
+    quality: 88,
+  },
 
   { file: 'isa.png', width: 512, quality: 82 },
 ];
@@ -48,10 +79,24 @@ const TARGETS = [
  * is 865px wide and gets upscaled to reach it; a slightly soft preview beats a
  * small card.
  */
-const OG_DIR = path.join(__dirname, '..', 'public', 'og');
+const PUBLIC_DIR = path.join(__dirname, '..', 'public');
+const OG_DIR = path.join(PUBLIC_DIR, 'og');
 const OG_WIDTH = 1200;
 const OG_HEIGHT = 630;
 const OG_QUALITY = 85;
+
+/**
+ * The portrait behind Person.image in the structured data.
+ *
+ * It used to point at logo512.png, which tells Google a mark rather than a
+ * face and leaves the entity ambiguous — a person or an organisation. On a
+ * name query that ambiguity is the whole game. 1200px on the longest side is
+ * what Google asks for in images used by Search features.
+ *
+ * Squared here rather than shipped square, so the crop stays in the pipeline
+ * with every other framing decision.
+ */
+const PORTRAIT = { file: 'portrait.jpg', name: 'portrait.jpg', size: 1200, quality: 86 };
 
 const OG_TARGETS = [
   { file: 'projects/portfolio.png', name: 'portfolio.jpg', position: 'top' },
@@ -64,6 +109,25 @@ const ICON_WIDTH = 96;
 const ICON_QUALITY = 88;
 
 const kb = (bytes) => (bytes / 1024).toFixed(0);
+
+async function convertPortrait() {
+  const src = path.join(SRC_DIR, PORTRAIT.file);
+  if (!fs.existsSync(src)) {
+    console.warn(`\nSkipping portrait: ${PORTRAIT.file} not found in assets-source/`);
+    return;
+  }
+
+  const out = path.join(PUBLIC_DIR, PORTRAIT.name);
+
+  await sharp(src)
+    .resize({ width: PORTRAIT.size, height: PORTRAIT.size, fit: 'cover', position: 'top' })
+    .jpeg({ quality: PORTRAIT.quality, mozjpeg: true })
+    .toFile(out);
+
+  console.log(
+    `${PORTRAIT.name.padEnd(27)} ${PORTRAIT.size}x${PORTRAIT.size}  ${kb(fs.statSync(out).size)} KB`,
+  );
+}
 
 async function convertOg({ file, name, position }) {
   const src = path.join(SRC_DIR, file);
@@ -79,9 +143,9 @@ async function convertOg({ file, name, position }) {
   console.log(`og/${name.padEnd(24)} ${OG_WIDTH}x${OG_HEIGHT}  ${kb(fs.statSync(out).size)} KB`);
 }
 
-async function convert(relPath, { width, height, position, quality, extract }) {
+async function convert(relPath, { width, height, position, quality, extract, suffix = '' }) {
   const src = path.join(SRC_DIR, relPath);
-  const out = path.join(OUT_DIR, relPath).replace(/\.png$/i, '.webp');
+  const out = path.join(OUT_DIR, relPath).replace(/\.png$/i, `${suffix}.webp`);
   const meta = await sharp(src).metadata();
 
   const pipeline = sharp(src);
@@ -151,6 +215,7 @@ async function main() {
   for (const target of OG_TARGETS) {
     await convertOg(target);
   }
+  await convertPortrait();
 
   const saved = (1 - totalAfter / totalBefore) * 100;
   console.log(
