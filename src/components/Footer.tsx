@@ -89,7 +89,7 @@ const Footer = ({ routeReady }: { routeReady: boolean }) => {
               recruiter can take and it used to sit unnamed among the social
               links, behind a generic person glyph. */}
           <a
-            href={resume.href}
+            href={resume[language].href}
             target="_blank"
             rel="noopener noreferrer"
             className={`whitespace-nowrap rounded-lg border border-accent/40 px-3 py-2 text-xs font-semibold text-accent-soft transition-colors hover:border-accent hover:bg-accent/10 ${FOCUS_RING}`}

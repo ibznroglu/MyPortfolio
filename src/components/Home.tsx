@@ -70,7 +70,7 @@ const Home = () => {
                   {t.home.viewProjects}
                 </Link>
                 <a
-                  href={resume.href}
+                  href={resume[language].href}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={SECONDARY_CTA}

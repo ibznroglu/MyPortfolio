@@ -1,7 +1,7 @@
-/**
- * The CV is a conversion action, not a social profile. It used to sit in
- * socialLinks behind a generic person icon, where nothing said what it was.
- */
-export const resume = {
-  href: '/isa_bezeniroglu_resume.pdf',
-} as const;
+import type { Language } from '../lib/translations';
+
+/** Keep the English URL stable for existing bookmarks; select the CV by site language. */
+export const resume: Record<Language, { href: string }> = {
+  en: { href: '/isa_bezeniroglu_resume.pdf' },
+  tr: { href: '/isa_bezeniroglu_F-TR.pdf' },
+};

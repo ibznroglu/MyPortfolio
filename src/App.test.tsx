@@ -274,3 +274,18 @@ describe('theme', () => {
     expect(await screen.findByRole('button', { name: /dark theme/i })).toBeInTheDocument();
   });
 });
+
+test('uses the Turkish CV in both the hero and footer on Turkish pages', async () => {
+  renderAt('/tr');
+  const main = await screen.findByRole('main');
+  const footer = await screen.findByRole('contentinfo');
+  expect(within(main).getByRole('link', { name: 'CV İndir' })).toHaveAttribute(
+    'href',
+    '/isa_bezeniroglu_F-TR.pdf',
+  );
+  expect(within(footer).getByRole('link', { name: 'CV' })).toHaveAttribute(
+    'href',
+    '/isa_bezeniroglu_F-TR.pdf',
+  );
+});
+
