@@ -19,7 +19,8 @@
     "contactCta": "Open to frontend and frontend-focused full-stack opportunities, with production frontend experience and hands-on .NET project work.",
     "contactAction": "Contact Me",
     "scrollCue": "Scroll",
-    "metaDescription": "İsa Bezeniroğlu — frontend-focused full-stack developer. React, Vue.js, Next.js and React Native; backend development with C#, ASP.NET Core and SQL Server in Envanex."
+    "metaDescription": "İsa Bezeniroğlu — frontend-focused full-stack developer. React, Vue.js, Next.js and React Native; backend development with C#, ASP.NET Core and SQL Server in Envanex.",
+    "aboutPreview": "My experience spans enterprise projects and work for real clients. I consider interfaces alongside the APIs and data flows behind them, combining web and mobile development with hands-on .NET backend work. I value readable code, automated tests and technical decisions with clear reasoning. Small, focused pull requests and code reviews are central to how I work."
   },
   "notFound": {
     "title": "Page not found",

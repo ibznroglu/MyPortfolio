@@ -133,9 +133,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* beyondText rather than experienceText: the latter restates the hero
-          almost word for word, which only becomes visible once the two share
-          a single scroll. */}
+      {/* A dedicated introduction keeps the home preview distinct from the detailed biography. */}
       <section className="border-t border-hairline/5 bg-raised py-14">
         <div className="mx-auto w-full max-w-3xl px-6 sm:px-8">
           <div className="mb-6 flex flex-wrap items-baseline justify-between gap-3">
@@ -144,7 +142,7 @@ const Home = () => {
               {t.home.readMore} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
-          <p className="text-[15px] leading-relaxed text-body sm:text-base">{t.about.beyondText}</p>
+          <p className="text-[15px] leading-relaxed text-body sm:text-base">{t.home.aboutPreview}</p>
         </div>
       </section>
 
