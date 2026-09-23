@@ -116,7 +116,12 @@ test('gives every page a single h1', async () => {
 test('groups the skills page instead of listing everything flat', async () => {
   renderAt('/skills');
   const main = await screen.findByRole('main');
-  for (const group of ['Core', 'Frameworks & UI', 'Platform & Tooling']) {
+  for (const group of [
+    'Frontend & Mobile',
+    'Frameworks & UI',
+    'Backend & Data — Project Experience',
+    'Platform & Tooling',
+  ]) {
     expect(within(main).getByRole('heading', { level: 2, name: group })).toBeInTheDocument();
   }
   expect(within(main).queryByText('HTML')).not.toBeInTheDocument();

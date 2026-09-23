@@ -8,17 +8,18 @@
     "menu": "Menu"
   },
   "home": {
-    "title": "Front-End Developer",
+    "title": "Full-Stack Developer (Frontend-Focused)",
     "name": "İSA BEZENİROĞLU",
-    "description": "I build enterprise-scale web applications with React and TypeScript — most recently real estate valuation platforms used by major banks in Türkiye. I also take Vue and React Native products end to end, from first commit to production.",
+    "description": "I build web and mobile applications with React, Vue.js, Next.js and React Native. My professional background is in enterprise frontend development for banking and real estate valuation platforms. I now bring that experience to C# and ASP.NET Core through Envanex, my independent inventory ERP project.",
     "viewProjects": "View Projects",
     "downloadCv": "Download CV",
     "seeAllSkills": "All skills",
     "seeAllProjects": "All projects",
     "readMore": "Read more",
-    "contactCta": "Currently open to new opportunities. I work on complex, data-heavy products.",
+    "contactCta": "Open to frontend and frontend-focused full-stack opportunities, with production frontend experience and hands-on .NET project work.",
     "contactAction": "Contact Me",
-    "scrollCue": "Scroll"
+    "scrollCue": "Scroll",
+    "metaDescription": "Frontend-focused full-stack developer with React, Vue.js, Next.js and React Native experience, plus C# / ASP.NET Core project work. Explore projects and CV."
   },
   "notFound": {
     "title": "Page not found",
@@ -33,20 +34,21 @@
   "about": {
     "title": "About Me",
     "experience": "Experience",
-    "experienceText": "I build web applications with React and TypeScript. I have worked on data-heavy platforms — real estate valuation systems used by Turkish banks, and Land Registry projects. My own products in Vue and React Native I take end to end.",
-    "beyond": "Beyond the Interface",
-    "beyondText": "I do not stop at the client. I write the API endpoints, validation and security rules my own features need. The contact form on this site is a small example: a shared Zod schema, rate limiting and Turnstile.",
+    "experienceText": "At KEY Yazılım (November 2023–January 2026), I worked on the frontend of Invex, Hypotex and Propex: real estate valuation platforms serving Halkbank, other major Turkish banks and public-sector clients, including the Land Registry Directorate. I built React and TypeScript interfaces, integrated REST APIs and worked with backend, QA, product and DevOps teams. My client and independent projects also span Vue.js, Next.js and React Native.",
+    "beyond": "Backend & .NET",
+    "beyondText": "Envanex is where I apply C#, ASP.NET Core, Entity Framework Core and SQL Server to an inventory ERP. The current implementation includes product APIs, validation, concurrency handling, JWT authentication and refresh-token rotation, supported by xUnit and SQL Server integration tests. This is independent project experience; the public demo is the next milestone. This portfolio also includes a serverless contact endpoint with shared validation and spam protection.",
     "howIWork": "How I Work",
-    "howIWorkText": "I build code quality into the process rather than leaving it to intent. Small, focused pull requests, a commit history that explains itself, and a CI pipeline that lets nothing broken through. This site was built that way.",
-    "goals": "What I'm After",
-    "goalsText": "Rather than switching technologies I go deeper into the ones I use. Lately that means TypeScript's type system, performance work, and moving quickly through a codebase somebody else wrote."
+    "howIWorkText": "I work in focused pull requests with code review, tests and CI checks. In Envanex, I use Claude Code to support research, planning and implementation. I review the implementation journals, work through the technical questions and write the Architecture Decision Records myself. AI helps with delivery; understanding the code and deciding what to accept remain my responsibility.",
+    "goals": "What I Bring",
+    "goalsText": "I bring production frontend experience across data-heavy applications, alongside web and mobile work with React, Vue.js, Next.js and React Native. I am looking for frontend or frontend-focused full-stack roles where I can contribute that experience while extending my backend work in .NET. I am based in Türkiye and open to on-site, hybrid or remote work and relocation within the country."
   },
   "skills": {
     "title": "Technical Skills",
     "groups": {
-      "core": "Core",
+      "core": "Frontend & Mobile",
       "frameworks": "Frameworks & UI",
-      "tooling": "Platform & Tooling"
+      "tooling": "Platform & Tooling",
+      "backend": "Backend & Data — Project Experience"
     }
   },
   "projects": {

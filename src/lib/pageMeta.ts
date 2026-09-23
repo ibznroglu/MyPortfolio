@@ -48,7 +48,7 @@ export const pageMeta = (slug: string, language: Language): PageMeta => {
   // Only the home page and the case studies carry copy written to stand alone.
   // The rest fall back to the site description rather than to a sentence
   // stitched together from headings, which reads worse than saying less.
-  const description = caseStudy ? caseStudy.summary : t.home.description;
+  const description = caseStudy ? caseStudy.summary : t.home.metaDescription;
 
   // A case study shows the work. Everything else shows the logo, which is the
   // right default for pages that are not about one project.
