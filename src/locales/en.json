@@ -413,6 +413,78 @@
           ]
         }
       ]
+    },
+    "envanex": {
+      "title": "Envanex: building an inventory ERP with .NET",
+      "summary": "An independent C# / ASP.NET Core project focused on inventory data, API correctness and explicit architecture decisions. Product APIs and authentication are implemented; the public Blazor demo is the next milestone.",
+      "roleLabel": "Role",
+      "role": "Independent developer — AI-assisted implementation, review and architectural decisions",
+      "stackLabel": "Stack",
+      "stack": "C# · .NET 10 · ASP.NET Core · EF Core · SQL Server · xUnit · Testcontainers",
+      "timelineLabel": "Timeline",
+      "timeline": "September 2026–present · in development",
+      "liveLabel": "Explore the repository",
+      "liveUrl": "https://github.com/ibznroglu/envanex",
+      "backLabel": "Back to projects",
+      "metricsHeading": "Project at a glance",
+      "metrics": [
+        {
+          "label": "Runtime",
+          "value": ".NET 10"
+        },
+        {
+          "label": "Data",
+          "value": "SQL Server"
+        },
+        {
+          "label": "API",
+          "value": "REST"
+        },
+        {
+          "label": "Status",
+          "value": "In progress"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Why this project",
+          "body": [
+            "My professional background is in enterprise frontend development. Envanex gives me a concrete backend project to work through: data modelling, API behaviour, authentication, persistence and automated testing.",
+            "The active scope is an inventory ERP core: master data, a stock ledger and inventory costing. Purchasing, sales, invoicing, SOAP integration and background jobs are outside the current scope."
+          ]
+        },
+        {
+          "heading": "What is implemented",
+          "items": [
+            {
+              "term": "Product and unit-of-measure APIs.",
+              "text": "Layered domain, application and infrastructure code, input validation, EF Core persistence and SQL Server migrations. Product updates include optimistic concurrency handling."
+            },
+            {
+              "term": "Authentication.",
+              "text": "ASP.NET Core Identity, JWT access tokens and rotated refresh tokens with reuse detection. Endpoint authorization is the next stage before public deployment."
+            },
+            {
+              "term": "Tests and CI.",
+              "text": "xUnit unit tests and integration tests against SQL Server through Testcontainers. GitHub Actions runs formatting checks, builds and tests."
+            }
+          ]
+        },
+        {
+          "heading": "How I work with AI",
+          "body": [
+            "Each pull request moves through research, planning, implementation and review. I use AI-generated journals as study material, work through the questions and write the Architecture Decision Records myself.",
+            "The repository records decisions, trade-offs and known gaps. It shows both the implementation and the reasoning I am developing alongside it."
+          ]
+        },
+        {
+          "heading": "Next milestone: the public demo",
+          "body": [
+            "Roadmap PR 6b adds authorization policies and a read-only demo account. PR 7 adds the Blazor product grid and the first public deployment. Until then, the repository is the place to inspect the work.",
+            "Stock movements, costing and stock screens follow in PRs 8–10. This page describes the current implementation, not a completed commercial ERP."
+          ]
+        }
+      ]
     }
   },
   "theme": {

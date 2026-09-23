@@ -294,3 +294,18 @@ test('uses the Turkish CV in both the hero and footer on Turkish pages', async (
   );
 });
 
+test.each([
+  ['/projects/envanex', 'Envanex: building an inventory ERP with .NET', 'Explore the repository'],
+  ['/tr/projects/envanex', 'Envanex: .NET ile stok ERP’si geliştirmek', 'Repoyu incele'],
+])(
+  'renders the Envanex case study at %s with the real repository link',
+  async (route, title, linkName) => {
+    renderAt(route);
+    expect(await screen.findByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: linkName })).toHaveAttribute(
+      'href',
+      'https://github.com/ibznroglu/envanex',
+    );
+    expect(document.title).toBe(`${title} | İSA BEZENİROĞLU`);
+  },
+);

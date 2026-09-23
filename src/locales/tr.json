@@ -413,6 +413,78 @@
           ]
         }
       ]
+    },
+    "envanex": {
+      "title": "Envanex: .NET ile stok ERP’si geliştirmek",
+      "summary": "Stok verileri, API davranışları ve belgelenmiş mimari kararlar üzerine kurulu bağımsız bir C# / ASP.NET Core projesi. Ürün API’leri ve kimlik doğrulama mevcut; sıradaki kilometre taşı herkese açık Blazor demosu.",
+      "roleLabel": "Rol",
+      "role": "Bağımsız geliştirici — yapay zekâ destekli geliştirme, inceleme ve mimari kararlar",
+      "stackLabel": "Teknoloji",
+      "stack": "C# · .NET 10 · ASP.NET Core · EF Core · SQL Server · xUnit · Testcontainers",
+      "timelineLabel": "Süreç",
+      "timeline": "Eylül 2026–devam ediyor · geliştirme aşamasında",
+      "liveLabel": "Repoyu incele",
+      "liveUrl": "https://github.com/ibznroglu/envanex",
+      "backLabel": "Projelere dön",
+      "metricsHeading": "Projeye kısa bakış",
+      "metrics": [
+        {
+          "label": "Platform",
+          "value": ".NET 10"
+        },
+        {
+          "label": "Veri",
+          "value": "SQL Server"
+        },
+        {
+          "label": "API",
+          "value": "REST"
+        },
+        {
+          "label": "Durum",
+          "value": "Geliştiriliyor"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Neden bu proje?",
+          "body": [
+            "Profesyonel geçmişim kurumsal frontend geliştirmesine dayanıyor. Envanex; veri modelleme, API davranışları, kimlik doğrulama, veri erişimi ve otomatik testler üzerinde çalıştığım somut bir backend projesi.",
+            "Aktif kapsam; temel veriler, stok hareketleri ve stok maliyet hesaplamasından oluşan bir stok ERP çekirdeği. Satın alma, satış, faturalama, SOAP entegrasyonu ve arka plan görevleri mevcut kapsamın dışında."
+          ]
+        },
+        {
+          "heading": "Mevcut uygulama",
+          "items": [
+            {
+              "term": "Ürün ve ölçü birimi API’leri.",
+              "text": "Domain, uygulama ve altyapı katmanları; veri doğrulama, EF Core ile veri erişimi ve SQL Server migration’ları. Ürün güncellemelerinde iyimser eşzamanlılık kontrolü uygulanıyor."
+            },
+            {
+              "term": "Kimlik doğrulama.",
+              "text": "ASP.NET Core Identity, JWT erişim token’ları ve tekrar kullanımı tespit edilen yenileme token’larının rotasyonu. Uç nokta yetkilendirmesi, canlıya çıkmadan önceki sıradaki aşama."
+            },
+            {
+              "term": "Testler ve CI.",
+              "text": "xUnit birim testleri ve Testcontainers üzerinden SQL Server ile entegrasyon testleri. GitHub Actions ile biçim, derleme ve test kontrolleri."
+            }
+          ]
+        },
+        {
+          "heading": "Yapay zekâyla nasıl çalışıyorum?",
+          "body": [
+            "Her pull request araştırma, planlama, uygulama ve inceleme aşamalarından geçiyor. Yapay zekânın hazırladığı günlükleri çalışma materyali olarak kullanıyor, sorular üzerinde çalışıyor ve Mimari Karar Kayıtlarını (ADR) kendim yazıyorum.",
+            "Repo; kararları, tercihlerin gerekçelerini ve bilinen eksikleri belgeliyor. Böylece uygulamanın yanında geliştirdiğim teknik muhakeme de incelenebiliyor."
+          ]
+        },
+        {
+          "heading": "Sıradaki kilometre taşı: herkese açık demo",
+          "body": [
+            "Yol haritasındaki PR 6b, yetkilendirme politikalarını ve salt okunur demo hesabını ekliyor. PR 7’de Blazor ürün tablosu ve ilk canlı dağıtım yer alıyor. O zamana kadar çalışmayı repo üzerinden incelemek mümkün.",
+            "PR 8–10’da stok hareketleri, maliyet hesaplama ve stok ekranları geliyor. Bu sayfa tamamlanmış ticari bir ERP’yi değil, mevcut uygulamayı anlatıyor."
+          ]
+        }
+      ]
     }
   },
   "theme": {

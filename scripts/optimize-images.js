@@ -26,6 +26,8 @@ const OUT_DIR = path.join(__dirname, '..', 'src', 'assets');
 // Screenshots share a 2:1 ratio so every card gets an identical box.
 // `extract` picks the crop window manually when the automatic one frames badly.
 const TARGETS = [
+  { file: 'projects/envanex.svg', width: 900, height: 450, quality: 88 },
+  { file: 'projects/envanex.svg', suffix: '-560', width: 560, height: 280, quality: 88 },
   { file: 'projects/portfolio.png', width: 900, height: 450, position: 'top', quality: 82 },
   {
     file: 'projects/vargelogluinsaat.png',
@@ -99,6 +101,7 @@ const OG_QUALITY = 85;
 const PORTRAIT = { file: 'portrait.jpg', name: 'portrait.jpg', size: 1200, quality: 86 };
 
 const OG_TARGETS = [
+  { file: 'projects/envanex.svg', name: 'envanex.jpg', position: 'centre' },
   { file: 'projects/portfolio.png', name: 'portfolio.jpg', position: 'top' },
   { file: 'projects/vargelogluinsaat.png', name: 'vargeloglu-insaat.jpg', position: 'left top' },
   { file: 'projects/gamingpromarket.png', name: 'gaming-pro-market.jpg', position: 'top' },
@@ -145,7 +148,7 @@ async function convertOg({ file, name, position }) {
 
 async function convert(relPath, { width, height, position, quality, extract, suffix = '' }) {
   const src = path.join(SRC_DIR, relPath);
-  const out = path.join(OUT_DIR, relPath).replace(/\.png$/i, `${suffix}.webp`);
+  const out = path.join(OUT_DIR, relPath).replace(/\.(png|svg)$/i, `${suffix}.webp`);
   const meta = await sharp(src).metadata();
 
   const pipeline = sharp(src);
