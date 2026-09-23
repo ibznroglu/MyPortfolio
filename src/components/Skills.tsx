@@ -5,34 +5,27 @@ const Skills = () => {
   const { t } = useLanguage();
 
   return (
-    <div className="w-full section-shell bg-gradient-to-b from-raised to-surface py-8 text-body">
-      <div className="mx-auto max-w-5xl px-6 sm:px-8">
-        <div className="mb-8 text-center">
+    <div className="w-full section-shell bg-gradient-to-b from-raised to-surface py-8 text-body lg:py-6">
+      <div className="mx-auto max-w-6xl px-6 sm:px-8">
+        <div className="mb-8 text-center lg:mb-6">
           <div className="inline-block border-b-4 border-accent pb-2">
             <h1 className="text-3xl font-bold sm:text-4xl">{t.skills.title}</h1>
           </div>
         </div>
 
-        {/* Grouped rather than one flat grid. Seventeen icons at equal weight
-            said everything mattered equally; three bands put the stack first
-            and let the rest support it.
-
-            No card chrome either. A border, a fill and a glow around every
-            entry drew more attention to the container than to the logo inside
-            it, and the same list already reads fine on the home page as plain
-            icons. The hover tint is the only surface, and it appears on the
-            item you are actually pointing at. */}
-        <div className="space-y-8">
+        {/* Pair the four groups on desktop, keeping every skill visible without
+            stacking four full-width bands. Smaller screens retain a single column. */}
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-2 lg:gap-x-10 lg:gap-y-6">
           {SKILL_GROUPS.map((group) => (
             <section key={group}>
-              <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-muted">
+              <h2 className="mb-4 text-xs lg:mb-3 font-semibold uppercase tracking-widest text-muted">
                 {t.skills.groups[group]}
               </h2>
-              <ul className="grid list-none grid-cols-4 gap-2 p-0 sm:grid-cols-6 lg:grid-cols-8">
+              <ul className="grid list-none grid-cols-4 gap-2 p-0 sm:grid-cols-6 lg:grid-cols-4">
                 {skillsByGroup(group).map((skill) => (
                   <li
                     key={skill.name}
-                    className="group flex flex-col items-center gap-2 rounded-lg p-3 text-center transition-colors hover:bg-raised"
+                    className="group flex flex-col items-center gap-2 rounded-lg p-3 text-center lg:p-2 transition-colors hover:bg-raised"
                   >
                     {/* Decorative: the name follows as text directly beneath. */}
                     <img
