@@ -10,7 +10,7 @@
   "home": {
     "title": "Full-Stack Developer (Frontend-Focused)",
     "name": "İSA BEZENİROĞLU",
-    "description": "I build web and mobile applications with React, Vue.js, Next.js and React Native. My professional background is in enterprise frontend development for banking and real estate valuation platforms. I now bring that experience to C# and ASP.NET Core through Envanex, my independent inventory ERP project.",
+    "description": "I build web and mobile applications with React, Vue.js, Next.js and React Native. Most recently, I worked on the frontend of enterprise real estate valuation platforms used by major banks in Türkiye. I am bringing that experience to C# and ASP.NET Core through Envanex, my independent inventory ERP project.",
     "viewProjects": "View Projects",
     "downloadCv": "Download CV",
     "seeAllSkills": "All skills",
@@ -34,13 +34,13 @@
   "about": {
     "title": "About Me",
     "experience": "Experience",
-    "experienceText": "At KEY Yazılım (November 2023–January 2026), I worked on the frontend of Invex, Hypotex and Propex: real estate valuation platforms serving Halkbank, other major Turkish banks and public-sector clients, including the Land Registry Directorate. I built React and TypeScript interfaces, integrated REST APIs and worked with backend, QA, product and DevOps teams. My client and independent projects also span Vue.js, Next.js and React Native.",
-    "beyond": "Backend & .NET",
-    "beyondText": "Envanex is where I apply C#, ASP.NET Core, Entity Framework Core and SQL Server to an inventory ERP. The current implementation includes product APIs, validation, concurrency handling, JWT authentication and refresh-token rotation, supported by xUnit and SQL Server integration tests. This is independent project experience; the public demo is the next milestone. This portfolio also includes a serverless contact endpoint with shared validation and spam protection.",
+    "experienceText": "I have worked on data-heavy enterprise web applications with React and TypeScript. At KEY Yazılım, I developed the frontend of Invex, Hypotex and Propex, serving Halkbank, other major Turkish banks and public-sector clients including the Land Registry Directorate. I worked with backend, product, QA and DevOps teams on interfaces and REST API integration. My client and independent projects also use Vue.js, Next.js and React Native.",
+    "beyond": "Beyond the Interface",
+    "beyondText": "I care about the data flow and services behind the interfaces I build. In my own projects, I work on API endpoints, validation and security rules. This site’s contact form is one example: a shared Zod schema, rate limiting and Turnstile verification. In Envanex, I am extending that work to an inventory ERP backend with C#, ASP.NET Core, EF Core and SQL Server.",
     "howIWork": "How I Work",
-    "howIWorkText": "I work in focused pull requests with code review, tests and CI checks. In Envanex, I use Claude Code to support research, planning and implementation. I review the implementation journals, work through the technical questions and write the Architecture Decision Records myself. AI helps with delivery; understanding the code and deciding what to accept remain my responsibility.",
-    "goals": "What I Bring",
-    "goalsText": "I bring production frontend experience across data-heavy applications, alongside web and mobile work with React, Vue.js, Next.js and React Native. I am looking for frontend or frontend-focused full-stack roles where I can contribute that experience while extending my backend work in .NET. I am based in Türkiye and open to on-site, hybrid or remote work and relocation within the country."
+    "howIWorkText": "I work in small, focused pull requests, with commits that explain the change, code reviews and automated tests. CI checks are part of that process. In Envanex, I use Claude Code for research, planning and development, read the implementation journals, work through the technical questions and write the Architecture Decision Records myself. This helps me understand both the solutions I use and the reasoning behind them.",
+    "goals": "What I’m Focusing On",
+    "goalsText": "I focus on going deeper into the technologies I use: TypeScript’s type system, frontend performance and understanding an existing codebase well enough to improve it. Envanex adds data modelling, API design and testing in .NET to that work. I am looking for roles where I can contribute my professional frontend experience, draw on my web and mobile work, and develop my backend responsibilities."
   },
   "skills": {
     "title": "Technical Skills",

@@ -10,7 +10,7 @@
   "home": {
     "title": "Full-Stack Yazılım Geliştirici (Frontend Odaklı)",
     "name": "İSA BEZENİROĞLU",
-    "description": "React, Vue.js, Next.js ve React Native ile web ve mobil uygulamalar geliştiriyorum. Profesyonel deneyimim bankacılık ve gayrimenkul değerleme platformlarının frontend geliştirmesine dayanıyor. Bu birikimi, bağımsız stok ERP projem Envanex üzerinden C# ve ASP.NET Core tarafına taşıyorum.",
+    "description": "React, Vue.js, Next.js ve React Native ile web ve mobil uygulamalar geliştiriyorum. Son profesyonel deneyimimde, Türkiye’nin önde gelen bankalarının kullandığı kurumsal gayrimenkul değerleme platformlarının frontend geliştirmesinde çalıştım. Bu birikimi, bağımsız stok ERP projem Envanex üzerinden C# ve ASP.NET Core tarafına taşıyorum.",
     "viewProjects": "Projeleri İncele",
     "downloadCv": "CV İndir",
     "seeAllSkills": "Tüm yetenekler",
@@ -34,13 +34,13 @@
   "about": {
     "title": "Hakkımda",
     "experience": "Deneyim",
-    "experienceText": "KEY Yazılım’da (Kasım 2023–Ocak 2026), Halkbank başta olmak üzere büyük bankalar ve Tapu ve Kadastro Genel Müdürlüğü dâhil kamu kurumlarına hizmet veren Invex, Hypotex ve Propex gayrimenkul değerleme platformlarının frontend geliştirmesinde çalıştım. React ve TypeScript ile arayüzler geliştirdim, REST API entegrasyonları yaptım; backend, kalite güvence, ürün ve DevOps ekipleriyle birlikte çalıştım. Müşteri işlerimde ve bağımsız projelerimde Vue.js, Next.js ve React Native de kullanıyorum.",
-    "beyond": "Backend ve .NET",
-    "beyondText": "Envanex’te C#, ASP.NET Core, Entity Framework Core ve SQL Server ile bir stok ERP’si geliştiriyorum. Mevcut uygulama; ürün API’leri, veri doğrulama, eşzamanlılık yönetimi, JWT ile kimlik doğrulama ve yenileme token’larının rotasyonunu içeriyor. xUnit ve SQL Server entegrasyon testleri bu yapıyı destekliyor. Bu çalışma bağımsız proje deneyimim; sıradaki kilometre taşı herkese açık demo. Bu portföyde de ortak doğrulama şeması ve spam koruması kullanan bir serverless iletişim servisi bulunuyor.",
+    "experienceText": "React ve TypeScript ile yoğun veri içeren kurumsal web uygulamalarında çalıştım. KEY Yazılım’da Halkbank başta olmak üzere büyük bankalar ve Tapu ve Kadastro Genel Müdürlüğü dâhil kamu kurumlarına hizmet veren Invex, Hypotex ve Propex platformlarının frontend geliştirmesinde görev aldım. Arayüz geliştirme ve REST API entegrasyonlarını backend, ürün, kalite güvence ve DevOps ekipleriyle birlikte yürüttüm. Müşteri işlerimde ve bağımsız projelerimde Vue.js, Next.js ve React Native de kullanıyorum.",
+    "beyond": "Arayüzün Ötesi",
+    "beyondText": "Geliştirdiğim arayüzlerin arkasındaki veri akışını ve servisleri de önemsiyorum. Kendi projelerimde API uçları, veri doğrulama ve güvenlik kuralları üzerinde çalışıyorum. Bu sitedeki iletişim formu bunun bir örneği: ortak Zod şeması, istek sınırlandırma ve Turnstile doğrulaması. Envanex’te ise bu çalışmaları C#, ASP.NET Core, EF Core ve SQL Server ile bir stok ERP’sinin backend’ine taşıyorum.",
     "howIWork": "Nasıl Çalışıyorum",
-    "howIWorkText": "Odaklı pull request’ler, kod incelemeleri, testler ve CI kontrolleriyle çalışıyorum. Envanex’te araştırma, planlama ve uygulama aşamalarında Claude Code’dan yararlanıyorum. Geliştirme günlüklerini inceliyor, teknik sorular üzerinde çalışıyor ve Mimari Karar Kayıtlarını (ADR) kendim yazıyorum. Yapay zekâ geliştirmeyi destekliyor; kodu anlama ve hangi değişiklikleri kabul edeceğime karar verme sorumluluğu bende.",
-    "goals": "Nasıl Katkı Sağlarım",
-    "goalsText": "Veri ağırlıklı uygulamalardaki profesyonel frontend deneyimimi; React, Vue.js, Next.js ve React Native ile web ve mobil proje çalışmalarımı bir araya getiriyorum. Bu deneyimle katkı sağlayabileceğim ve .NET tarafındaki çalışmalarımı ilerletebileceğim frontend veya frontend ağırlıklı full-stack roller arıyorum. Türkiye’de ofisten, hibrit veya uzaktan çalışmaya ve şehir değiştirmeye açığım."
+    "howIWorkText": "Küçük ve odaklı pull request’ler, değişikliğin nedenini anlatan commit’ler, kod incelemeleri ve otomatik testlerle çalışıyorum. CI kontrolleri bu sürecin bir parçası. Envanex’te araştırma, planlama ve geliştirme için Claude Code’dan yararlanıyor; hazırlanan günlükleri okuyup teknik sorular üzerinde çalışıyor ve Mimari Karar Kayıtlarını (ADR) kendim yazıyorum. Böylece kullandığım çözümleri ve tercihlerin gerekçelerini anlayarak ilerliyorum.",
+    "goals": "Neye Odaklanıyorum",
+    "goalsText": "Kullandığım teknolojilerde derinleşmeye odaklanıyorum: TypeScript’in tip sistemi, frontend performansı ve mevcut bir kod tabanını anlayarak geliştirmek. Envanex ile buna .NET tarafında veri modelleme, API tasarımı ve test çalışmalarını ekliyorum. Profesyonel frontend deneyimimle katkı sağlayabileceğim, web ve mobil birikimimi kullanabileceğim ve backend sorumluluğumu geliştirebileceğim roller arıyorum."
   },
   "skills": {
     "title": "Teknik Yetenekler",
