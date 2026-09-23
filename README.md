@@ -1,8 +1,11 @@
 # Portfolio — İsa Bezeniroğlu
 
-**Full-Stack Developer (Frontend-Focused)** — professional enterprise frontend
-experience, web and mobile work with React, Vue.js, Next.js and React Native,
-and independent C# / ASP.NET Core project experience through [Envanex](https://github.com/ibznroglu/envanex).
+**Full-Stack Developer (Frontend-Focused)** — web and mobile development with
+React, Vue.js, Next.js and React Native, and backend development with C#,
+ASP.NET Core, EF Core and SQL Server in [Envanex](https://github.com/ibznroglu/envanex).
+My professional experience is in enterprise frontend development; Envanex is my
+independent inventory ERP project, covering APIs, data modelling, authentication
+and automated testing.
 
 ## Current work
 
