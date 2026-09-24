@@ -32,7 +32,7 @@ const Home = () => {
       {/* Sized by its content rather than the viewport. A forced full height
           left half the fold empty on a laptop and pushed the first preview out
           of sight, which is the opposite of what this page is for. */}
-      <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-16 lg:py-14 lg:pb-20">
+      <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-16 lg:py-6 lg:pb-20">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
           <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
             <div className="flex-shrink-0">
@@ -51,7 +51,7 @@ const Home = () => {
               </div>
             </div>
 
-            <div className="flex-1 space-y-5 text-center lg:text-left">
+            <div className="flex-1 space-y-5 text-center lg:space-y-4 lg:text-left">
               <div>
                 <p className="mb-2 text-base font-semibold text-accent-soft sm:text-lg">
                   {t.home.title}
@@ -61,7 +61,7 @@ const Home = () => {
                 </h1>
               </div>
 
-              <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-body sm:text-lg lg:mx-0">
+              <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-body sm:text-lg lg:mx-0 lg:max-w-none">
                 {t.home.description}
               </p>
 
@@ -85,9 +85,9 @@ const Home = () => {
         <ScrollCue />
       </section>
 
-      <section className="border-t border-hairline/5 bg-raised py-14">
+      <section className="border-t border-hairline/5 bg-raised py-14 lg:py-6">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
-          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3">
+          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3 lg:mb-6">
             <h2 className="text-2xl font-bold text-heading sm:text-3xl">{t.skills.title}</h2>
             <Link to={to('skills')} className={SECTION_LINK}>
               {t.home.seeAllSkills} <span aria-hidden="true">&rarr;</span>
