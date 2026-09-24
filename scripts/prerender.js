@@ -43,17 +43,17 @@ const buildHtml = (template, meta, language) => {
   );
   html = replaceTag(
     html,
-    /<link rel="canonical" href="[^"]*" \/>/,
+    /<link\s+rel="canonical"\s+href="[^"]*"\s*\/>/,
     `<link rel="canonical" href="${meta.canonical}" />`,
   );
   html = replaceTag(
     html,
-    /<meta property="og:url" content="[^"]*" \/>/,
+    /<meta\s+property="og:url"\s+content="[^"]*"\s*\/>/,
     `<meta property="og:url" content="${meta.canonical}" />`,
   );
   html = replaceTag(
     html,
-    /<meta property="og:title" content="[^"]*" \/>/,
+    /<meta\s+property="og:title"\s+content="[^"]*"\s*\/>/,
     `<meta property="og:title" content="${title}" />`,
   );
   html = replaceTag(
@@ -63,12 +63,12 @@ const buildHtml = (template, meta, language) => {
   );
   html = replaceTag(
     html,
-    /<meta property="og:locale" content="[^"]*" \/>/,
+    /<meta\s+property="og:locale"\s+content="[^"]*"\s*\/>/,
     `<meta property="og:locale" content="${language === 'tr' ? 'tr_TR' : 'en_US'}" />`,
   );
   html = replaceTag(
     html,
-    /<meta name="twitter:title" content="[^"]*" \/>/,
+    /<meta\s+name="twitter:title"\s+content="[^"]*"\s*\/>/,
     `<meta name="twitter:title" content="${title}" />`,
   );
   html = replaceTag(
@@ -80,28 +80,28 @@ const buildHtml = (template, meta, language) => {
   if (meta.image) {
     html = replaceTag(
       html,
-      /<meta property="og:image" content="[^"]*" \/>/,
+      /<meta\s+property="og:image"\s+content="[^"]*"\s*\/>/,
       `<meta property="og:image" content="${meta.image}" />`,
     );
     html = replaceTag(
       html,
-      /<meta property="og:image:width" content="[^"]*" \/>/,
+      /<meta\s+property="og:image:width"\s+content="[^"]*"\s*\/>/,
       `<meta property="og:image:width" content="${PROJECT_IMAGE.width}" />`,
     );
     html = replaceTag(
       html,
-      /<meta property="og:image:height" content="[^"]*" \/>/,
+      /<meta\s+property="og:image:height"\s+content="[^"]*"\s*\/>/,
       `<meta property="og:image:height" content="${PROJECT_IMAGE.height}" />`,
     );
     html = replaceTag(
       html,
-      /<meta property="og:image:alt" content="[^"]*" \/>/,
+      /<meta\s+property="og:image:alt"\s+content="[^"]*"\s*\/>/,
       `<meta property="og:image:alt" content="${escape(meta.imageAlt ?? '')}" />`,
     );
     // A 900x450 screenshot deserves the wide card; the square logo does not.
     html = replaceTag(
       html,
-      /<meta name="twitter:card" content="[^"]*" \/>/,
+      /<meta\s+name="twitter:card"\s+content="[^"]*"\s*\/>/,
       '<meta name="twitter:card" content="summary_large_image" />',
     );
   }

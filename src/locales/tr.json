@@ -8,17 +8,19 @@
     "menu": "Menü"
   },
   "home": {
-    "title": "Front-End Developer",
+    "title": "Full-Stack Yazılım Geliştirici (Frontend Odaklı)",
     "name": "İSA BEZENİROĞLU",
-    "description": "React ve TypeScript ile kurumsal ölçekte web uygulamaları geliştiriyorum — son olarak Türkiye'nin önde gelen bankalarının kullandığı gayrimenkul değerleme platformlarında çalıştım. Vue ve React Native tarafında ürünleri ilk commit'ten canlıya kadar uçtan uca geliştiriyorum.",
+    "description": "React, Vue.js, Next.js ve React Native ile web ve mobil uygulamalar; C# ve ASP.NET Core ile backend geliştiriyorum. Bağımsız stok ERP projem Envanex’te API tasarımı, veri modelleme, kimlik doğrulama ve otomatik testler üzerinde çalışıyorum. Son profesyonel deneyimimde, Türkiye’nin önde gelen bankalarının kullandığı kurumsal gayrimenkul değerleme platformlarının frontend geliştirmesinde görev aldım.",
     "viewProjects": "Projeleri İncele",
     "downloadCv": "CV İndir",
     "seeAllSkills": "Tüm yetenekler",
     "seeAllProjects": "Tüm projeler",
     "readMore": "Daha fazla",
-    "contactCta": "Yeni fırsatlara açığım. Karmaşık, veri ağırlıklı ürünler üzerinde çalışıyorum.",
+    "contactCta": "Üretim ortamındaki frontend deneyimim ve .NET proje çalışmalarımla frontend ve frontend ağırlıklı full-stack pozisyonlara açığım.",
     "contactAction": "İletişime Geç",
-    "scrollCue": "Kaydır"
+    "scrollCue": "Kaydır",
+    "metaDescription": "İsa Bezeniroğlu — frontend odaklı full-stack geliştirici. React, Vue.js, Next.js ve React Native; Envanex’te C#, ASP.NET Core ve SQL Server ile backend geliştirme.",
+    "aboutPreview": "Kurumsal projelerde ve gerçek müşteri işlerinde edindiğim deneyimle, kullanıcı arayüzünü API ve veri akışıyla birlikte ele alıyorum. Web ve mobil geliştirme birikimimi .NET backend çalışmalarıyla birleştiriyor; okunabilir kod, otomatik testler ve gerekçesi açık teknik kararlarla ilerliyorum. Küçük, odaklı pull request’ler ve kod incelemeleri çalışma sürecimin temelini oluşturuyor."
   },
   "notFound": {
     "title": "Sayfa bulunamadı",
@@ -33,20 +35,21 @@
   "about": {
     "title": "Hakkımda",
     "experience": "Deneyim",
-    "experienceText": "React ve TypeScript ile web uygulamaları geliştiriyorum. Bankaların kullandığı gayrimenkul değerleme sistemleri ve Tapu Kadastro projeleri gibi yoğun veri trafiği olan platformlarda çalıştım. Kendi projelerimi de Vue ve React Native ile uçtan uca çıkarıyorum.",
+    "experienceText": "React ve TypeScript ile yoğun veri içeren kurumsal web uygulamalarında çalıştım. KEY Yazılım’da Halkbank başta olmak üzere büyük bankalar ve Tapu ve Kadastro Genel Müdürlüğü dâhil kamu kurumlarına hizmet veren Invex, Hypotex ve Propex platformlarının frontend geliştirmesinde görev aldım. Arayüz geliştirme ve REST API entegrasyonlarını backend, ürün, kalite güvence ve DevOps ekipleriyle birlikte yürüttüm. Müşteri işlerimde ve bağımsız projelerimde Vue.js, Next.js ve React Native de kullanıyorum.",
     "beyond": "Arayüzün Ötesi",
-    "beyondText": "İstemci tarafında kalmıyorum. Kendi özelliklerimin ihtiyaç duyduğu API uçlarını, doğrulama mimarisini ve güvenlik kurallarını kendim yazıyorum. Bu sitedeki iletişim formu bunun küçük bir örneği: paylaşılan bir Zod şeması, rate limit ve Turnstile.",
+    "beyondText": "Envanex’te C#, ASP.NET Core, EF Core ve SQL Server ile stok ERP’sinin backend’ini geliştiriyorum. Ürün ve ölçü birimi API’leri, veri doğrulama, kimlik doğrulama ve veritabanı entegrasyon testleri bu çalışmanın parçaları. Bu portföyün iletişim formunda da ortak Zod şeması, istek sınırlandırma ve Turnstile doğrulamasıyla arayüzden sunucuya uzanan veri akışını ele alıyorum.",
     "howIWork": "Nasıl Çalışıyorum",
-    "howIWorkText": "Kod kalitesini süreçlere gömüyorum, niyete bırakmıyorum. Küçük ve odaklı pull request'ler, ne yaptığını anlatan bir commit geçmişi ve hatalı hiçbir şeyi geçirmeyen bir CI hattı. Bu sitenin kendisi böyle geliştirildi.",
-    "goals": "Neyin Peşindeyim",
-    "goalsText": "Teknoloji değiştirmek yerine kullandığım araçların içine inmeyi tercih ediyorum. Şu sıralar TypeScript'in tip sistemi, performans optimizasyonu ve başkasının yazdığı kod tabanında hızlı yol alabilmek üzerine çalışıyorum."
+    "howIWorkText": "Küçük ve odaklı pull request’ler, değişikliğin nedenini anlatan commit’ler, kod incelemeleri ve otomatik testlerle çalışıyorum. CI kontrolleri bu sürecin bir parçası. Envanex’te araştırma, planlama ve geliştirme için Claude Code’dan yararlanıyor; hazırlanan günlükleri okuyup teknik sorular üzerinde çalışıyor ve Mimari Karar Kayıtlarını (ADR) kendim yazıyorum. Böylece kullandığım çözümleri ve tercihlerin gerekçelerini anlayarak ilerliyorum.",
+    "goals": "Neye Odaklanıyorum",
+    "goalsText": "Frontend ve backend kararlarını birlikte ele alan uygulamalar geliştirmeye odaklanıyorum. TypeScript, arayüz performansı ve mevcut kod tabanlarıyla çalışma deneyimimi; Envanex’teki .NET, veri modelleme, API tasarımı ve test çalışmalarıyla birleştiriyorum. Kurumsal frontend deneyimimle katkı sunarken API ve veri katmanında da sorumluluk alabileceğim full-stack rollere açığım."
   },
   "skills": {
     "title": "Teknik Yetenekler",
     "groups": {
-      "core": "Ana Teknolojiler",
+      "core": "Frontend ve Mobil",
       "frameworks": "Framework ve Arayüz",
-      "tooling": "Platform ve Araçlar"
+      "tooling": "Platform ve Araçlar",
+      "backend": "Backend ve Veri — Proje Deneyimi"
     }
   },
   "projects": {
@@ -408,6 +411,78 @@
           "body": [
             "Parçaların, bütünü kimsenin tek başına tutmadığı bir ekipte birbirine oturmak zorunda olduğu ilk deneyimimdi. Merge çakışmaları, iki taraf da yokken bir API yanıtının şekli üzerinde anlaşmak, bir hatanın kimin modülüne ait olduğunu çözmek — bunların hiçbiri kodda görünmüyor ve asıl mesele hepsiydi.",
             "Oradan kalan alışkanlıklarım çoğunlukla arayüzlerle ilgili: veri şekli üzerinde erken anlaş, kaynak başına tek modül tut, senin alanınla başkasınınki arasındaki sınırı açık bırak. Sonradan edindiklerim ise bu projede olmayanlar — tipler, testler ve hayır diyebilen bir pipeline."
+          ]
+        }
+      ]
+    },
+    "envanex": {
+      "title": "Envanex: .NET ile stok ERP’si geliştirmek",
+      "summary": "Stok verileri, API davranışları ve belgelenmiş mimari kararlar üzerine kurulu bağımsız bir C# / ASP.NET Core projesi. Ürün API’leri ve kimlik doğrulama mevcut; sıradaki kilometre taşı herkese açık Blazor demosu.",
+      "roleLabel": "Rol",
+      "role": "Bağımsız geliştirici — yapay zekâ destekli geliştirme, inceleme ve mimari kararlar",
+      "stackLabel": "Teknoloji",
+      "stack": "C# · .NET 10 · ASP.NET Core · EF Core · SQL Server · xUnit · Testcontainers",
+      "timelineLabel": "Süreç",
+      "timeline": "Eylül 2026–devam ediyor · geliştirme aşamasında",
+      "liveLabel": "Repoyu incele",
+      "liveUrl": "https://github.com/ibznroglu/envanex",
+      "backLabel": "Projelere dön",
+      "metricsHeading": "Projeye kısa bakış",
+      "metrics": [
+        {
+          "label": "Platform",
+          "value": ".NET 10"
+        },
+        {
+          "label": "Veri",
+          "value": "SQL Server"
+        },
+        {
+          "label": "API",
+          "value": "REST"
+        },
+        {
+          "label": "Durum",
+          "value": "Geliştiriliyor"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Neden bu proje?",
+          "body": [
+            "Profesyonel geçmişim kurumsal frontend geliştirmesine dayanıyor. Envanex; veri modelleme, API davranışları, kimlik doğrulama, veri erişimi ve otomatik testler üzerinde çalıştığım somut bir backend projesi.",
+            "Aktif kapsam; temel veriler, stok hareketleri ve stok maliyet hesaplamasından oluşan bir stok ERP çekirdeği. Satın alma, satış, faturalama, SOAP entegrasyonu ve arka plan görevleri mevcut kapsamın dışında."
+          ]
+        },
+        {
+          "heading": "Mevcut uygulama",
+          "items": [
+            {
+              "term": "Ürün ve ölçü birimi API’leri.",
+              "text": "Domain, uygulama ve altyapı katmanları; veri doğrulama, EF Core ile veri erişimi ve SQL Server migration’ları. Ürün güncellemelerinde iyimser eşzamanlılık kontrolü uygulanıyor."
+            },
+            {
+              "term": "Kimlik doğrulama.",
+              "text": "ASP.NET Core Identity, JWT erişim token’ları ve tekrar kullanımı tespit edilen yenileme token’larının rotasyonu. Uç nokta yetkilendirmesi, canlıya çıkmadan önceki sıradaki aşama."
+            },
+            {
+              "term": "Testler ve CI.",
+              "text": "xUnit birim testleri ve Testcontainers üzerinden SQL Server ile entegrasyon testleri. GitHub Actions ile biçim, derleme ve test kontrolleri."
+            }
+          ]
+        },
+        {
+          "heading": "Yapay zekâyla nasıl çalışıyorum?",
+          "body": [
+            "Her pull request araştırma, planlama, uygulama ve inceleme aşamalarından geçiyor. Yapay zekânın hazırladığı günlükleri çalışma materyali olarak kullanıyor, sorular üzerinde çalışıyor ve Mimari Karar Kayıtlarını (ADR) kendim yazıyorum.",
+            "Repo; kararları, tercihlerin gerekçelerini ve bilinen eksikleri belgeliyor. Böylece uygulamanın yanında geliştirdiğim teknik muhakeme de incelenebiliyor."
+          ]
+        },
+        {
+          "heading": "Sıradaki kilometre taşı: herkese açık demo",
+          "body": [
+            "Yol haritasındaki PR 6b, yetkilendirme politikalarını ve salt okunur demo hesabını ekliyor. PR 7’de Blazor ürün tablosu ve ilk canlı dağıtım yer alıyor. O zamana kadar çalışmayı repo üzerinden incelemek mümkün.",
+            "PR 8–10’da stok hareketleri, maliyet hesaplama ve stok ekranları geliyor. Bu sayfa tamamlanmış ticari bir ERP’yi değil, mevcut uygulamayı anlatıyor."
           ]
         }
       ]

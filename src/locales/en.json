@@ -8,17 +8,19 @@
     "menu": "Menu"
   },
   "home": {
-    "title": "Front-End Developer",
+    "title": "Full-Stack Developer (Frontend-Focused)",
     "name": "İSA BEZENİROĞLU",
-    "description": "I build enterprise-scale web applications with React and TypeScript — most recently real estate valuation platforms used by major banks in Türkiye. I also take Vue and React Native products end to end, from first commit to production.",
+    "description": "I build web and mobile applications with React, Vue.js, Next.js and React Native, and backends with C# and ASP.NET Core. In Envanex, my independent inventory ERP project, I work on API design, data modelling, authentication and automated tests. My most recent professional role involved frontend development for enterprise real estate valuation platforms used by major banks in Türkiye.",
     "viewProjects": "View Projects",
     "downloadCv": "Download CV",
     "seeAllSkills": "All skills",
     "seeAllProjects": "All projects",
     "readMore": "Read more",
-    "contactCta": "Currently open to new opportunities. I work on complex, data-heavy products.",
+    "contactCta": "Open to frontend and frontend-focused full-stack opportunities, with production frontend experience and hands-on .NET project work.",
     "contactAction": "Contact Me",
-    "scrollCue": "Scroll"
+    "scrollCue": "Scroll",
+    "metaDescription": "İsa Bezeniroğlu — frontend-focused full-stack developer. React, Vue.js, Next.js and React Native; backend development with C#, ASP.NET Core and SQL Server in Envanex.",
+    "aboutPreview": "My experience spans enterprise projects and work for real clients. I consider interfaces alongside the APIs and data flows behind them, combining web and mobile development with hands-on .NET backend work. I value readable code, automated tests and technical decisions with clear reasoning. Small, focused pull requests and code reviews are central to how I work."
   },
   "notFound": {
     "title": "Page not found",
@@ -33,20 +35,21 @@
   "about": {
     "title": "About Me",
     "experience": "Experience",
-    "experienceText": "I build web applications with React and TypeScript. I have worked on data-heavy platforms — real estate valuation systems used by Turkish banks, and Land Registry projects. My own products in Vue and React Native I take end to end.",
+    "experienceText": "I have worked on data-heavy enterprise web applications with React and TypeScript. At KEY Yazılım, I developed the frontend of Invex, Hypotex and Propex, serving Halkbank, other major Turkish banks and public-sector clients including the Land Registry Directorate. I worked with backend, product, QA and DevOps teams on interfaces and REST API integration. My client and independent projects also use Vue.js, Next.js and React Native.",
     "beyond": "Beyond the Interface",
-    "beyondText": "I do not stop at the client. I write the API endpoints, validation and security rules my own features need. The contact form on this site is a small example: a shared Zod schema, rate limiting and Turnstile.",
+    "beyondText": "I am developing the backend of Envanex, an inventory ERP, with C#, ASP.NET Core, EF Core and SQL Server. The work includes product and unit-of-measure APIs, validation, authentication and database integration tests. This portfolio’s contact form also connects interface and server concerns through a shared Zod schema, rate limiting and Turnstile verification.",
     "howIWork": "How I Work",
-    "howIWorkText": "I build code quality into the process rather than leaving it to intent. Small, focused pull requests, a commit history that explains itself, and a CI pipeline that lets nothing broken through. This site was built that way.",
-    "goals": "What I'm After",
-    "goalsText": "Rather than switching technologies I go deeper into the ones I use. Lately that means TypeScript's type system, performance work, and moving quickly through a codebase somebody else wrote."
+    "howIWorkText": "I work in small, focused pull requests, with commits that explain the change, code reviews and automated tests. CI checks are part of that process. In Envanex, I use Claude Code for research, planning and development, read the implementation journals, work through the technical questions and write the Architecture Decision Records myself. This helps me understand both the solutions I use and the reasoning behind them.",
+    "goals": "What I’m Focusing On",
+    "goalsText": "I focus on building applications with frontend and backend decisions considered together. I combine my experience with TypeScript, interface performance and existing codebases with .NET, data modelling, API design and testing in Envanex. I am open to full-stack roles where I can contribute my enterprise frontend experience and take on API and data-layer responsibilities."
   },
   "skills": {
     "title": "Technical Skills",
     "groups": {
-      "core": "Core",
+      "core": "Frontend & Mobile",
       "frameworks": "Frameworks & UI",
-      "tooling": "Platform & Tooling"
+      "tooling": "Platform & Tooling",
+      "backend": "Backend & Data — Project Experience"
     }
   },
   "projects": {
@@ -408,6 +411,78 @@
           "body": [
             "This was the first time I worked in a team where the pieces had to fit together without anyone holding the whole picture. Merge conflicts, agreeing on the shape of an API response before either side existed, working out whose module a bug belonged to — none of that is visible in the code, and all of it was the point.",
             "The habits I keep from it are mostly about interfaces: agree on the data shape early, keep one module per resource, and make the boundary between your area and someone else's explicit. The habits I have added since are the ones this project did not have — types, tests, and a pipeline that says no."
+          ]
+        }
+      ]
+    },
+    "envanex": {
+      "title": "Envanex: building an inventory ERP with .NET",
+      "summary": "An independent C# / ASP.NET Core project focused on inventory data, API correctness and explicit architecture decisions. Product APIs and authentication are implemented; the public Blazor demo is the next milestone.",
+      "roleLabel": "Role",
+      "role": "Independent developer — AI-assisted implementation, review and architectural decisions",
+      "stackLabel": "Stack",
+      "stack": "C# · .NET 10 · ASP.NET Core · EF Core · SQL Server · xUnit · Testcontainers",
+      "timelineLabel": "Timeline",
+      "timeline": "September 2026–present · in development",
+      "liveLabel": "Explore the repository",
+      "liveUrl": "https://github.com/ibznroglu/envanex",
+      "backLabel": "Back to projects",
+      "metricsHeading": "Project at a glance",
+      "metrics": [
+        {
+          "label": "Runtime",
+          "value": ".NET 10"
+        },
+        {
+          "label": "Data",
+          "value": "SQL Server"
+        },
+        {
+          "label": "API",
+          "value": "REST"
+        },
+        {
+          "label": "Status",
+          "value": "In progress"
+        }
+      ],
+      "sections": [
+        {
+          "heading": "Why this project",
+          "body": [
+            "My professional background is in enterprise frontend development. Envanex gives me a concrete backend project to work through: data modelling, API behaviour, authentication, persistence and automated testing.",
+            "The active scope is an inventory ERP core: master data, a stock ledger and inventory costing. Purchasing, sales, invoicing, SOAP integration and background jobs are outside the current scope."
+          ]
+        },
+        {
+          "heading": "What is implemented",
+          "items": [
+            {
+              "term": "Product and unit-of-measure APIs.",
+              "text": "Layered domain, application and infrastructure code, input validation, EF Core persistence and SQL Server migrations. Product updates include optimistic concurrency handling."
+            },
+            {
+              "term": "Authentication.",
+              "text": "ASP.NET Core Identity, JWT access tokens and rotated refresh tokens with reuse detection. Endpoint authorization is the next stage before public deployment."
+            },
+            {
+              "term": "Tests and CI.",
+              "text": "xUnit unit tests and integration tests against SQL Server through Testcontainers. GitHub Actions runs formatting checks, builds and tests."
+            }
+          ]
+        },
+        {
+          "heading": "How I work with AI",
+          "body": [
+            "Each pull request moves through research, planning, implementation and review. I use AI-generated journals as study material, work through the questions and write the Architecture Decision Records myself.",
+            "The repository records decisions, trade-offs and known gaps. It shows both the implementation and the reasoning I am developing alongside it."
+          ]
+        },
+        {
+          "heading": "Next milestone: the public demo",
+          "body": [
+            "Roadmap PR 6b adds authorization policies and a read-only demo account. PR 7 adds the Blazor product grid and the first public deployment. Until then, the repository is the place to inspect the work.",
+            "Stock movements, costing and stock screens follow in PRs 8–10. This page describes the current implementation, not a completed commercial ERP."
           ]
         }
       ]

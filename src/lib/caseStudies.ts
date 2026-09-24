@@ -1,7 +1,12 @@
 // Case studies are addressable pages but not navigation items: they belong in
 // the sitemap, not in the navbar. Keeping them out of routes.json is what makes
 // that distinction explicit.
-export const CASE_STUDY_SLUGS = ['portfolio', 'vargeloglu-insaat', 'gaming-pro-market'] as const;
+export const CASE_STUDY_SLUGS = [
+  'envanex',
+  'portfolio',
+  'vargeloglu-insaat',
+  'gaming-pro-market',
+] as const;
 export type CaseStudySlug = (typeof CASE_STUDY_SLUGS)[number];
 
 export const isCaseStudySlug = (value: string): value is CaseStudySlug =>

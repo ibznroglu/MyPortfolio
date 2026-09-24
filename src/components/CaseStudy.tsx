@@ -70,11 +70,11 @@ const CaseStudy = () => {
 
         <section aria-label={study.metricsHeading} className="mt-10">
           <h2 className="text-sm uppercase tracking-wide text-muted">{study.metricsHeading}</h2>
-          <dl className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-4">
+          <dl className="mt-4 grid grid-cols-2 gap-4 md:grid-cols-4">
             {study.metrics.map((metric) => (
               <div key={metric.label} className="rounded-lg border border-hairline/5 bg-raised p-4">
                 <dt className="text-xs text-muted">{metric.label}</dt>
-                <dd className="mt-1 text-2xl font-bold tabular-nums text-heading">
+                <dd className="mt-1 break-words text-base font-bold tabular-nums sm:text-xl text-heading">
                   {metric.value}
                 </dd>
               </div>

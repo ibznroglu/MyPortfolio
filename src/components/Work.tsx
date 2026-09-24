@@ -6,15 +6,15 @@ const Work = () => {
   const { t } = useLanguage();
 
   return (
-    <section className="section-shell flex w-full items-center bg-surface py-10 text-body">
-      <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
+    <section className="section-shell flex w-full items-center bg-surface py-10 text-body lg:py-6">
+      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16 2xl:px-8">
         <header className="mb-6 text-center">
           <h1 className="inline-block border-b-4 border-accent pb-2 text-3xl font-bold sm:text-4xl">
             {t.projects.title}
           </h1>
         </header>
 
-        <ul className="grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-3">
+        <ul className="grid list-none grid-cols-1 gap-5 p-0 sm:grid-cols-2 lg:grid-cols-4">
           {data.map((project) => (
             <ProjectCard key={project.id} project={project} />
           ))}

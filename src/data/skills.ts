@@ -1,3 +1,6 @@
+import CSharpImg from '../assets/csharp.webp';
+import DotnetImg from '../assets/dotnet.webp';
+import SqlServerImg from '../assets/sqlserver.webp';
 import JavaScript from '../assets/javascript.webp';
 import ReactImg from '../assets/react.webp';
 import GitHub from '../assets/github.webp';
@@ -16,7 +19,7 @@ import ViteImg from '../assets/vite.webp';
 import FirebaseImg from '../assets/firebase.webp';
 import VitestImg from '../assets/vitest.webp';
 
-export type SkillGroup = 'core' | 'frameworks' | 'tooling';
+export type SkillGroup = 'core' | 'frameworks' | 'backend' | 'tooling';
 
 export interface Skill {
   name: string;
@@ -31,21 +34,25 @@ export interface Skill {
   monochrome?: boolean;
 }
 
-export const SKILL_GROUPS: readonly SkillGroup[] = ['core', 'frameworks', 'tooling'];
+export const SKILL_GROUPS: readonly SkillGroup[] = ['core', 'frameworks', 'backend', 'tooling'];
 
 export const skills: Skill[] = [
   { name: 'REACT', icon: ReactImg, group: 'core', featured: true },
   { name: 'REACT NATIVE', icon: ReactNativeImg, group: 'core', featured: true },
   { name: 'TYPESCRIPT', icon: TypeScriptImg, group: 'core', featured: true },
-  { name: 'JAVASCRIPT', icon: JavaScript, group: 'core', featured: true },
+  { name: 'JAVASCRIPT', icon: JavaScript, group: 'core' },
 
   { name: 'NEXT.JS', icon: NextJsImg, group: 'frameworks', featured: true },
   { name: 'VUE.JS', icon: VueImg, group: 'frameworks', featured: true },
-  { name: 'REDUX', icon: ReactReduxImg, group: 'frameworks', featured: true },
-  { name: 'TAILWIND', icon: Tailwind, group: 'frameworks', featured: true },
+  { name: 'REDUX', icon: ReactReduxImg, group: 'frameworks' },
+  { name: 'TAILWIND', icon: Tailwind, group: 'frameworks' },
   { name: 'SCSS', icon: SassImg, group: 'frameworks' },
   { name: 'MATERIAL UI', icon: MaterialUIImg, group: 'frameworks' },
   { name: 'ANT DESIGN', icon: AntDesignImg, group: 'frameworks' },
+
+  { name: 'C#', icon: CSharpImg, group: 'backend', featured: true },
+  { name: '.NET', icon: DotnetImg, group: 'backend', featured: true },
+  { name: 'SQL SERVER', icon: SqlServerImg, group: 'backend', featured: true },
 
   { name: 'VITE', icon: ViteImg, group: 'tooling' },
   { name: 'FIREBASE', icon: FirebaseImg, group: 'tooling' },

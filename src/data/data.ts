@@ -1,3 +1,5 @@
+import EnvanexImg from '../assets/projects/envanex.webp';
+import EnvanexImgSmall from '../assets/projects/envanex-560.webp';
 import PortfolioImg from '../assets/projects/portfolio.webp';
 import PortfolioImgSmall from '../assets/projects/portfolio-560.webp';
 import VargelogluInsaatImg from '../assets/projects/vargelogluinsaat.webp';
@@ -19,6 +21,15 @@ export interface Project {
 }
 
 export const data: Project[] = [
+  {
+    id: 4,
+    name: 'Envanex · .NET',
+    image: EnvanexImg,
+    imageSmall: EnvanexImgSmall,
+    github: 'https://github.com/ibznroglu/envanex',
+    live: '',
+    caseStudy: 'envanex',
+  },
   {
     id: 1,
     name: 'isabezeniroglu.com',

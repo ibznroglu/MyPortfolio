@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
+  <rect width="1200" height="630" fill="#0a0f1c"/>
+  <rect x="80" y="145" width="6" height="335" rx="3" fill="#db2777"/>
+  <g font-family="Arial, sans-serif">
+    <text x="120" y="208" font-size="25" letter-spacing="4" fill="#f9a8d4">C# / ASP.NET CORE</text>
+    <text x="113" y="330" font-size="108" font-weight="700" letter-spacing="3" fill="#f8fafc">ENVANEX</text>
+    <text x="120" y="396" font-size="32" fill="#cbd5e1">Inventory ERP</text>
+    <text x="120" y="463" font-size="22" fill="#94a3b8">.NET 10  /  EF Core  /  SQL Server</text>
+  </g>
+</svg>

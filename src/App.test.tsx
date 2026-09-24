@@ -116,7 +116,12 @@ test('gives every page a single h1', async () => {
 test('groups the skills page instead of listing everything flat', async () => {
   renderAt('/skills');
   const main = await screen.findByRole('main');
-  for (const group of ['Core', 'Frameworks & UI', 'Platform & Tooling']) {
+  for (const group of [
+    'Frontend & Mobile',
+    'Frameworks & UI',
+    'Backend & Data — Project Experience',
+    'Platform & Tooling',
+  ]) {
     expect(within(main).getByRole('heading', { level: 2, name: group })).toBeInTheDocument();
   }
   expect(within(main).queryByText('HTML')).not.toBeInTheDocument();
@@ -274,3 +279,33 @@ describe('theme', () => {
     expect(await screen.findByRole('button', { name: /dark theme/i })).toBeInTheDocument();
   });
 });
+
+test('uses the Turkish CV in both the hero and footer on Turkish pages', async () => {
+  renderAt('/tr');
+  const main = await screen.findByRole('main');
+  const footer = await screen.findByRole('contentinfo');
+  expect(within(main).getByRole('link', { name: 'CV İndir' })).toHaveAttribute(
+    'href',
+    '/isa_bezeniroglu_F-TR.pdf',
+  );
+  expect(within(footer).getByRole('link', { name: 'CV' })).toHaveAttribute(
+    'href',
+    '/isa_bezeniroglu_F-TR.pdf',
+  );
+});
+
+test.each([
+  ['/projects/envanex', 'Envanex: building an inventory ERP with .NET', 'Explore the repository'],
+  ['/tr/projects/envanex', 'Envanex: .NET ile stok ERP’si geliştirmek', 'Repoyu incele'],
+])(
+  'renders the Envanex case study at %s with the real repository link',
+  async (route, title, linkName) => {
+    renderAt(route);
+    expect(await screen.findByRole('heading', { level: 1, name: title })).toBeInTheDocument();
+    expect(screen.getByRole('link', { name: linkName })).toHaveAttribute(
+      'href',
+      'https://github.com/ibznroglu/envanex',
+    );
+    expect(document.title).toBe(`${title} | İSA BEZENİROĞLU`);
+  },
+);

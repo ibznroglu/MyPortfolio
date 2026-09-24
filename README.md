@@ -1,10 +1,34 @@
 # Portfolio — İsa Bezeniroğlu
 
+**Full-Stack Developer (Frontend-Focused)** — web and mobile development with
+React, Vue.js, Next.js and React Native, and backend development with C#,
+ASP.NET Core, EF Core and SQL Server in [Envanex](https://github.com/ibznroglu/envanex).
+My professional experience is in enterprise frontend development; Envanex is my
+independent inventory ERP project, covering APIs, data modelling, authentication
+and automated testing.
+
+## Current work
+
+My main focus is [Envanex](https://github.com/ibznroglu/envanex), an independent
+inventory ERP built with C#, ASP.NET Core, EF Core and SQL Server. The API and
+authentication foundations are implemented; the public Blazor demo is the next milestone.
+
+I also continue working on:
+
+- [Kafadan](https://github.com/ibznroglu/kafadan): a mobile quiz application with React Native and Expo.
+- [This portfolio](https://github.com/ibznroglu/MyPortfolio): React, TypeScript, bilingual content and a serverless contact endpoint.
+- [Vargeloğlu İnşaat](https://github.com/ibznroglu/vargeloglu-insaat-Vue): a Vue 3 corporate website for a real client.
+
+## This repository
+
 Bilingual portfolio site. React 18 and TypeScript on Vite, deployed on Vercel,
 with a serverless contact endpoint, prerendered per-route metadata and a visitor
 counter on Firebase.
 
 **Live:** [isabezeniroglu.com](https://isabezeniroglu.com/)
+
+The following measurements are from the previous release; they are not new
+measurements of the full-stack content update.
 
 |               |                                                                          |
 | ------------- | ------------------------------------------------------------------------ |
@@ -16,6 +40,27 @@ counter on Firebase.
 
 ---
 
+## Updating profile content
+
+- `src/locales/en.json` and `tr.json`: hero, about, role labels and case studies.
+- `src/data/skills.ts`: technology groups. Backend/data skills are labelled as project experience.
+- `src/data/data.ts` and `src/lib/caseStudies.ts`: project cards and case-study routes.
+- `src/data/resume.ts`: language-specific PDFs, used by the hero and footer.
+  Replace `public/isa_bezeniroglu_resume.pdf` with the approved English CV and
+  `public/isa_bezeniroglu_F-TR.pdf` with the approved Turkish CV. Keep the English
+  path stable for existing links. Both files contain public contact details.
+- `index.html` and `public/manifest.json`: fallback metadata, structured data and app name.
+  Runtime and prerendered metadata are derived from the locale bundles via `pageMeta.ts`.
+- Backend icon sources are exported from the installed `react-icons/si` package
+  (C#, .NET and Microsoft SQL Server), keeping the existing image-based skill UI.
+- Envanex's source cover is `assets-source/projects/envanex.svg`: a labelled project
+  cover, not a screenshot of an implemented UI. `npm run optimize:images` generates
+  the card and social-preview variants from it.
+
+When the Envanex demo ships, verify the deployed URL and implemented scope before
+updating both case studies and adding its `live` link. Keep the other case studies
+as historical accounts; their metrics are not fresh measurements of this release.
+
 ## Notable decisions
 
 Most of what is interesting here is not the feature list but why things are
@@ -25,7 +70,7 @@ built the way they are.
 `/projects/<slug>` and its Turkish twin under `/tr`, lazily loaded at about 1 kB
 gzip each. The slugs sit in their own module rather than in `routes.json`: they
 are addressable pages but not navigation items, so they belong in the sitemap
-and not in the navbar. That brings the sitemap to 16 URLs.
+and not in the navbar. That brings the sitemap to 18 URLs.
 
 **Language lives in the URL, not in state.** English is served from the root and
 Turkish under `/tr`, so both are separately indexable, a shared link keeps its
@@ -39,7 +84,7 @@ and canonical were only corrected once React had mounted. Search engines render
 JavaScript eventually; the crawlers behind link previews never do, and sharing a
 case study showed the home page's title instead of the article's.
 `scripts/prerender.js` now writes one HTML file per route after the build,
-sixteen in all, each with its own title, description, canonical, `og` tags,
+eighteen in all, each with its own title, description, canonical, `og` tags,
 hreflang alternates and `html lang`. Vercel resolves the filesystem before
 rewrites, so `/about` serves `build/about/index.html` with no extra config.
 
@@ -52,10 +97,10 @@ trailing slash on the home page, so the canonical a crawler reads and the URL
 the sitemap advertises are the same string.
 
 **Images are generated, never committed by hand.** `assets-source/` holds
-full-resolution PNGs. A sharp pipeline crops project screenshots to a shared
+full-resolution PNGs and the Envanex SVG cover. A sharp pipeline crops project screenshots to a shared
 2:1 ratio, resizes everything to twice its on-screen size, and emits WebP into
-`src/assets/`. 5.9 MB of sources become 269 KB of output, and every project
-card gets an identical box without CSS letterboxing.
+`src/assets/`. Every project card gets an identical box without CSS letterboxing. The earlier
+image-size measurements above predate the added Envanex cover and backend icons.
 
 Project cards ship two widths behind `srcset`. A 1100px source went into a card
 that is never wider than about 405px, so a 1x screen now takes 560w and a 2x
@@ -180,10 +225,10 @@ works without a Cloudflare account.
 .
 ├── api/
 │   └── contact.ts              # Serverless contact endpoint
-├── assets-source/              # Full-resolution PNG originals, never bundled
+├── assets-source/              # Source images and SVG cover, never bundled
 ├── public/                     # Copied verbatim: favicons, resume, robots.txt
 ├── scripts/
-│   ├── generate-sitemap.js     # Sixteen URLs with hreflang, lastmod from git
+│   ├── generate-sitemap.js     # Eighteen URLs with hreflang, lastmod from git
 │   ├── prerender.js            # One HTML file per route, with its own metadata
 │   └── optimize-images.js      # sharp pipeline: crop, resize, WebP
 ├── src/
@@ -259,6 +304,22 @@ An `activeUsers` node used to sit alongside them, with an index on `lastSeen`
 and a `newData.val() === now` rule that forced `serverTimestamp()` so a client
 could not forge a permanent presence. It was removed with the live-user figure
 it fed.
+
+## Contribution workflow
+
+Work on a feature branch, keep commits focused, and open a pull request against
+`master`. Run typecheck, lint, tests and build before review. After CI and preview
+review, use a squash merge; do not commit directly to `master`.
+
+The full-stack content update passes typecheck, lint, 26 tests and the production
+build, including metadata output for all 18 routes. Responsive layout checks in
+Chromium cover both languages across 320×568, 390×844, 568×320, 768×1024,
+1024×768, 1280×720, 1536×730 and 1920×1080 viewports (144 route/viewport
+combinations). The checks cover horizontal overflow, header overlap and desktop
+skills-page height; skills screenshots were also reviewed. Mobile menus remain
+scrollable on short landscape screens. These checks do not replace testing on
+physical devices or in Safari and Firefox. Lighthouse has not been rerun; the
+earlier scores above remain historical measurements.
 
 ## Deployment
 
@@ -348,7 +409,7 @@ MIT — see [LICENSE](LICENSE).
 
 ## Author
 
-**İsa Bezeniroğlu** — Frontend Developer
+**İsa Bezeniroğlu** — Full-Stack Developer (Frontend-Focused)
 
 - Email: <ibznroglu@gmail.com>
 - LinkedIn: [isabezeniroglu](https://www.linkedin.com/in/isabezeniroglu/)
