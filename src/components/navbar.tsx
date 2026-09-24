@@ -178,7 +178,7 @@ const Navbar = () => {
         ref={panelRef}
         tabIndex={-1}
         aria-label="Mobile"
-        className={`fixed right-3 top-[88px] z-40 w-[min(15rem,72vw)] origin-top-right rounded-2xl border border-hairline/10 bg-raised p-2 shadow-2xl outline-none transition-all duration-200 md:hidden ${
+        className={`fixed right-3 top-[88px] z-40 max-h-[calc(100dvh-100px)] w-[min(15rem,72vw)] overflow-y-auto origin-top-right rounded-2xl border border-hairline/10 bg-raised p-2 shadow-2xl outline-none transition-all duration-200 md:hidden ${
           isMenuOpen ? 'scale-100 opacity-100' : 'pointer-events-none scale-95 opacity-0'
         }`}
       >

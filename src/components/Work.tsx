@@ -7,7 +7,7 @@ const Work = () => {
 
   return (
     <section className="section-shell flex w-full items-center bg-surface py-10 text-body lg:py-6">
-      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
+      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16 2xl:px-8">
         <header className="mb-6 text-center">
           <h1 className="inline-block border-b-4 border-accent pb-2 text-3xl font-bold sm:text-4xl">
             {t.projects.title}

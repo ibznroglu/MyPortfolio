@@ -26,8 +26,8 @@ const About = () => {
   ];
 
   return (
-    <div className="section-shell flex w-full items-center bg-surface py-10 lg:py-5 text-body">
-      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8">
+    <div className="section-shell flex w-full items-center bg-surface py-10 lg:py-3 text-body">
+      <div className="mx-auto w-full max-w-7xl px-6 sm:px-8 lg:px-16 2xl:px-8">
         <div className="mb-6 text-center lg:mb-5">
           <h1 className="inline border-b-4 border-accent pb-2 text-3xl font-bold sm:text-4xl">
             {t.about.title}

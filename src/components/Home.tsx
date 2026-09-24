@@ -94,7 +94,7 @@ const Home = () => {
             </Link>
           </div>
 
-          <ul className="grid list-none grid-cols-4 gap-4 p-0 sm:grid-cols-6 lg:grid-cols-8">
+          <ul className="grid list-none grid-cols-3 gap-4 p-0 min-[400px]:grid-cols-4 sm:grid-cols-6 lg:grid-cols-8">
             {featuredSkills.map((skill) => (
               <li key={skill.name} className="flex flex-col items-center gap-2 text-center">
                 {/* Decorative: the name is already rendered as text beside it,

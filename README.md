@@ -312,9 +312,14 @@ Work on a feature branch, keep commits focused, and open a pull request against
 review, use a squash merge; do not commit directly to `master`.
 
 The full-stack content update passes typecheck, lint, 26 tests and the production
-build, including metadata output for all 18 routes. Lighthouse and browser visual
-checks have not been rerun for this update; the earlier scores above remain
-historical measurements.
+build, including metadata output for all 18 routes. Responsive layout checks in
+Chromium cover both languages across 320×568, 390×844, 568×320, 768×1024,
+1024×768, 1280×720, 1536×730 and 1920×1080 viewports (144 route/viewport
+combinations). The checks cover horizontal overflow, header overlap and desktop
+skills-page height; skills screenshots were also reviewed. Mobile menus remain
+scrollable on short landscape screens. These checks do not replace testing on
+physical devices or in Safari and Firefox. Lighthouse has not been rerun; the
+earlier scores above remain historical measurements.
 
 ## Deployment
 
