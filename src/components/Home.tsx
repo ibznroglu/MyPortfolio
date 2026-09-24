@@ -29,92 +29,95 @@ const Home = () => {
 
   return (
     <div className="w-full bg-surface">
-      {/* Sized by its content rather than the viewport. A forced full height
-          left half the fold empty on a laptop and pushed the first preview out
-          of sight, which is the opposite of what this page is for. */}
-      <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-16 lg:py-14 lg:pb-20">
-        <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
-          <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
-            <div className="flex-shrink-0">
-              <div className="relative">
-                <div className="absolute inset-0 rounded-full bg-accent opacity-20 blur-2xl"></div>
-                <img
-                  src={IsaImg}
-                  alt="İsa Bezeniroğlu"
-                  width="512"
-                  height="836"
-                  fetchPriority="high"
-                  className="relative h-40 w-40 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-56 sm:w-56"
-                  style={{ objectPosition: '50% calc(50% + 2rem)' }}
-                />
-                <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full border-4 border-surface bg-green-500 shadow-lg sm:-bottom-2 sm:-right-2 sm:h-8 sm:w-8"></div>
+      {/* On desktop, the introduction and skills share the first viewport.
+          A minimum height preserves natural scrolling on shorter screens. */}
+      <div className="lg:flex lg:min-h-[calc(100dvh-var(--header-h))] lg:flex-col">
+        <section className="relative flex w-full items-center justify-center bg-gradient-to-br from-surface via-raised to-surface py-12 pb-16 lg:flex-1 lg:py-6 lg:pb-20">
+          <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
+            <div className="flex flex-col items-center gap-8 lg:flex-row lg:gap-10">
+              <div className="flex-shrink-0">
+                <div className="relative">
+                  <div className="absolute inset-0 rounded-full bg-accent opacity-20 blur-2xl"></div>
+                  <img
+                    src={IsaImg}
+                    alt="İsa Bezeniroğlu"
+                    width="512"
+                    height="836"
+                    fetchPriority="high"
+                    className="relative h-40 w-40 rounded-full border-4 border-accent object-cover shadow-2xl shadow-accent/50 sm:h-56 sm:w-56"
+                    style={{ objectPosition: '50% calc(50% + 2rem)' }}
+                  />
+                  <div className="absolute -bottom-1 -right-1 h-6 w-6 rounded-full border-4 border-surface bg-green-500 shadow-lg sm:-bottom-2 sm:-right-2 sm:h-8 sm:w-8"></div>
+                </div>
               </div>
-            </div>
 
-            <div className="flex-1 space-y-5 text-center lg:text-left">
-              <div>
-                <p className="mb-2 text-base font-semibold text-accent-soft sm:text-lg">
-                  {t.home.title}
+              <div className="flex-1 space-y-5 text-center lg:space-y-4 lg:text-left">
+                <div>
+                  <p className="mb-2 text-base font-semibold text-accent-soft sm:text-lg">
+                    {t.home.title}
+                  </p>
+                  <h1 className="break-words text-4xl font-bold leading-tight text-heading sm:text-5xl md:text-6xl lg:text-6xl">
+                    {t.home.name}
+                  </h1>
+                </div>
+
+                <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-body sm:text-lg lg:mx-0 lg:max-w-none">
+                  {t.home.description}
                 </p>
-                <h1 className="break-words text-4xl font-bold leading-tight text-heading sm:text-5xl md:text-6xl lg:text-6xl">
-                  {t.home.name}
-                </h1>
-              </div>
 
-              <p className="mx-auto max-w-2xl text-[15px] leading-relaxed text-body sm:text-lg lg:mx-0">
-                {t.home.description}
-              </p>
-
-              <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
-                <Link to={to('projects')} className={PRIMARY_CTA}>
-                  {t.home.viewProjects}
-                </Link>
-                <a
-                  href={resume[language].href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={SECONDARY_CTA}
-                >
-                  {t.home.downloadCv}
-                </a>
+                <div className="flex flex-wrap justify-center gap-3 lg:justify-start">
+                  <Link to={to('projects')} className={PRIMARY_CTA}>
+                    {t.home.viewProjects}
+                  </Link>
+                  <a
+                    href={resume[language].href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={SECONDARY_CTA}
+                  >
+                    {t.home.downloadCv}
+                  </a>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <ScrollCue />
-      </section>
+          <ScrollCue />
+        </section>
 
-      <section className="border-t border-hairline/5 bg-raised py-14">
-        <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
-          <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3">
-            <h2 className="text-2xl font-bold text-heading sm:text-3xl">{t.skills.title}</h2>
-            <Link to={to('skills')} className={SECTION_LINK}>
-              {t.home.seeAllSkills} <span aria-hidden="true">&rarr;</span>
-            </Link>
-          </div>
+        <section className="border-t border-hairline/5 bg-raised py-14 lg:py-6">
+          <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
+            <div className="mb-8 flex flex-wrap items-baseline justify-between gap-3 lg:mb-6">
+              <h2 className="text-2xl font-bold text-heading sm:text-3xl">{t.skills.title}</h2>
+              <Link to={to('skills')} className={SECTION_LINK}>
+                {t.home.seeAllSkills} <span aria-hidden="true">&rarr;</span>
+              </Link>
+            </div>
 
-          <ul className="grid list-none grid-cols-3 gap-4 p-0 min-[400px]:grid-cols-4 sm:grid-cols-6 lg:grid-cols-8">
-            {featuredSkills.map((skill) => (
-              <li key={skill.name} className="flex flex-col items-center gap-2 text-center">
-                {/* Decorative: the name is already rendered as text beside it,
+            <ul className="grid list-none grid-cols-3 gap-4 p-0 min-[400px]:grid-cols-4 sm:grid-cols-6 lg:grid-cols-8">
+              {featuredSkills.map((skill) => (
+                <li key={skill.name} className="flex flex-col items-center gap-2 text-center">
+                  {/* Decorative: the name is already rendered as text beside it,
                     so alt text would only repeat what a screen reader just read. */}
-                <img
-                  src={skill.icon}
-                  alt=""
-                  aria-hidden="true"
-                  width="40"
-                  height="40"
-                  loading="lazy"
-                  decoding="async"
-                  className={`h-10 w-10 ${skill.monochrome ? 'icon-monochrome' : ''}`}
-                />
-                <span className="text-xs font-semibold leading-tight text-muted">{skill.name}</span>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+                  <img
+                    src={skill.icon}
+                    alt=""
+                    aria-hidden="true"
+                    width="40"
+                    height="40"
+                    loading="lazy"
+                    decoding="async"
+                    className={`h-10 w-10 ${skill.monochrome ? 'icon-monochrome' : ''}`}
+                  />
+                  <span className="text-xs font-semibold leading-tight text-muted">
+                    {skill.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </section>
+      </div>
 
       <section className="border-t border-hairline/5 bg-surface py-14">
         <div className="mx-auto w-full max-w-6xl px-6 sm:px-8">
@@ -142,7 +145,9 @@ const Home = () => {
               {t.home.readMore} <span aria-hidden="true">&rarr;</span>
             </Link>
           </div>
-          <p className="text-[15px] leading-relaxed text-body sm:text-base">{t.home.aboutPreview}</p>
+          <p className="text-[15px] leading-relaxed text-body sm:text-base">
+            {t.home.aboutPreview}
+          </p>
         </div>
       </section>
 
